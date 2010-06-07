@@ -52,6 +52,8 @@ namespace BOCO.TimerTask.TaskEngine
                     //关键地方，Recieve方法会阻塞线程
                     recieveSocket.Receive(recieveByte);
                     string recieveContent = Encoding.Default.GetString(recieveByte);
+                    recieveSocket.Close();
+                    
                     //解析取到的消息
                     List<TaskEntity> addedList;
                     List<Int64> deledList;
