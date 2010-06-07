@@ -15,7 +15,7 @@ namespace BOCO.TimerTask.BLL.Mapper
             TaskAssembly entity = new TaskAssembly();
             entity.AppFile = paraNode.GetAttribute("dll");
             FileInfo fi = new FileInfo(entity.AppFile);
-            if (fi.Extension.ToLower() == "exe")
+            if (fi.Extension.ToLower() == ".exe")
             {
                 entity.AssemblyType = AssemblyType.Exe;
             }

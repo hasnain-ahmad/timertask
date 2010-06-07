@@ -30,7 +30,10 @@ namespace TimerTaskService
                 //    TaskManagerProcess = Process.Start(HttpContext.Current.Server.MapPath("Bin") + "\\BOCO.TimerTask.TaskManager.exe");
                 //}
                 IBLLService ts = new TaskService();
-                ts.StartTaskManager();
+                if (!ts.IsTaskManagerAlive())
+                {
+                    ts.StartTaskManager();
+                }
             }
             catch(Exception ex)
             {

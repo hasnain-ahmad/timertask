@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using BOCO.TimerTask.Model;
+using BOCO.TimerTask.DAL;
 
 namespace BOCO.TimerTask.BLL
 {
@@ -10,6 +11,8 @@ namespace BOCO.TimerTask.BLL
     /// </summary>
     public interface IBLLLogic : IBLLService
     {
+        //IDataAccess DataAccess { get; }
+
         /// <summary>
         /// 查询（可用的）富计划对象
         /// [外部接口不用使用，内部处理计划用]
@@ -43,5 +46,11 @@ namespace BOCO.TimerTask.BLL
         /// <param name="paraContent"></param>
         /// <param name="paraLogType"></param>
         void WriteLog(Int64 paraTaskid, string paraTaskName, string paraContent, Model.Enums.LogType paraLogType);
+
+        void AddTask2DB(TaskEntity paraTask);
+
+        void UpdateTask2DB(TaskEntity paraTask);
+
+        void DeleteTask2DB(Int64 paraTaskID);
     }
 }

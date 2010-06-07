@@ -14,6 +14,7 @@ using System.Text;
 using BOCO.TimerTask.Model;
 using BOCO.TimerTask.Model.Enums;
 using BOCO.TimerTask.Utility;
+using BOCO.TimerTask.DAL;
 
 namespace BOCO.TimerTask.BLL
 {
@@ -23,6 +24,10 @@ namespace BOCO.TimerTask.BLL
     internal class BLLService : IBLLLogic
     {
         private DAL.IDataAccess _DataAccess = DAL.DALFactory.GetDataAccess();
+        //public IDataAccess DataAccess
+        //{
+        //    get { return _DataAccess; }
+        //}
 
         #region private function
         private List<TaskAssembly> GetRegestedApps()
@@ -355,6 +360,27 @@ namespace BOCO.TimerTask.BLL
         public void WriteLog(long paraTaskid, string paraTaskName, string paraContent, LogType paraLogType)
         {
             _DataAccess.WriteLog(paraTaskid, paraTaskName, paraContent, paraLogType);
+        }
+
+        #endregion
+
+        #region IBLLLogic 成员
+
+
+        public void AddTask2DB(TaskEntity paraTask)
+        {
+            Int64 id = _DataAccess.AddTask(paraTask);
+            paraTask.SetKeyID(id);
+        }
+
+        public void UpdateTask2DB(TaskEntity paraTask)
+        {
+            _DataAccess.ModifyTask(paraTask.ID, paraTask);
+        }
+
+        public void DeleteTask2DB(long paraTaskID)
+        {
+            _DataAccess.RemoveTask(paraTaskID);
         }
 
         #endregion

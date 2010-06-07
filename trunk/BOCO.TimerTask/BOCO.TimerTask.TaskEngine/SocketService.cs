@@ -65,15 +65,15 @@ namespace BOCO.TimerTask.TaskEngine
                     //----
                     foreach (TaskEntity entity in addedList)
                     {
-                        _IBLLLogic.AddTask(entity);
+                        _IBLLLogic.AddTask2DB(entity);
                     }
                     foreach (TaskEntity entity in updateList)
                     {
-                        _IBLLLogic.UpdateTask(entity);
+                        _IBLLLogic.UpdateTask2DB(entity);
                     }
                     foreach (Int64 entitu in deledList)
                     {
-                        _IBLLLogic.DelTask(entitu);
+                        _IBLLLogic.DeleteTask2DB(entitu);
                     }
 
                     #endregion
