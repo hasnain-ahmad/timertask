@@ -73,6 +73,7 @@ namespace BOCO.TimerTask.TaskEngine
                     _Process = Process.Start(
                         Utility.AssemblyHelper.GetAssemblyPath() +
                         _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
+                    _Process.EnableRaisingEvents = true;
                     _Process.Exited += new EventHandler(Process_Exited);
                 }
 
