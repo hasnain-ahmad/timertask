@@ -111,7 +111,7 @@ namespace BOCO.TimerTask.BLL
             }
             rootNode.AppendChild(stpNode);
 
-            return doc.ToString();
+            return doc.OuterXml;
             
         }
 
@@ -132,7 +132,7 @@ namespace BOCO.TimerTask.BLL
             paraStopTask = new List<long>();
 
             XmlDocument doc = new XmlDocument();
-            MemoryStream ms = new MemoryStream(Encoding.Default.GetBytes(paraMessage));
+            MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(paraMessage));
             doc.Load(ms);
             XmlNode iNode = doc.SelectSingleNode("Root");
 
