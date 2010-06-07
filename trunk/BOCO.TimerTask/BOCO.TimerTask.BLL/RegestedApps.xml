@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<RegestedApps>
+  <App name="任务名称" dll="目标任务DLL位置" namespace="命名空间" class="目标任务中实现插件接口的类"/>
+</RegestedApps>
