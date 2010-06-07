@@ -48,7 +48,7 @@ namespace BOCO.TimerTask.TaskEngine
                     {
                         //处理到期的任务
                         TimeSpan ts = DateTime.Now - task.LastRunTime;
-                        if (task.Task.TaskEntity.Enable && task.RunState != TaskRuningState.OutTime && ts.TotalSeconds <= task.Task.TaskEntity.RunSpaceTime)
+                        if (task.Task.TaskEntity.Enable && task.RunState != TaskRuningState.OutTime && ts.TotalSeconds >= task.Task.TaskEntity.RunSpaceTime)
                         {
                             task.Worker.DoWork( RunTaskType.TaskListInTime);
                         }
@@ -111,6 +111,8 @@ namespace BOCO.TimerTask.TaskEngine
         {
             if (_SocketService == null)
             {
+                Console.WriteLine("工作者引擎启动");
+
                 //开始Socket监听
                 _SocketService = new SocketService(this, _IBLLLogic);
                 _SocketService.StartListen(SocketHelper.GetIpEndPoint());
@@ -118,12 +120,18 @@ namespace BOCO.TimerTask.TaskEngine
                 //构建TaskList
                 _TaskList = GetWorkingTask();
 
+                
+
+                Console.WriteLine("加载任务队列" + _TaskList.Count + "条");
+
+
                 //启动线程
                 _EngineThread = new Thread(new ThreadStart(ThreadFuncEngine));
                 _EngineThread.IsBackground = true;
                 _EngineThread.Start();
 
                 _IsRuning = true;
+
                 return true;
             }
             else
