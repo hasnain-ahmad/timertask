@@ -63,7 +63,7 @@ namespace BOCO.TimerTask.TaskEngine
                 #region 更新下一步工作
                 if (paraRunType != RunTaskType.ImmediateNoDisturb)
                 {
-                    _Task.WorkStarted();
+                    _Task.Notify_WorkStarted();
                 }
                 #endregion
 
@@ -111,7 +111,7 @@ namespace BOCO.TimerTask.TaskEngine
             #endregion
 
             #region 更新下一步工作
-            _Task.WorkComplete();
+            _Task.Notify_WorkComplete();
             #endregion
         }
 

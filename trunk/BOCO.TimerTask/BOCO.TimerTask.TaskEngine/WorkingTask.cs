@@ -66,13 +66,13 @@ namespace BOCO.TimerTask.TaskEngine
         /// <summary>
         /// 工作已经开始
         /// </summary>
-        public void WorkStarted()
+        public void Notify_WorkStarted()
         {
             _RunState = TaskRuningState.Runing;
             _LastRunTime = DateTime.Now;
         }
 
-        public void WorkComplete()
+        public void Notify_WorkComplete()
         {
             if (_Task.TaskEntity.DateEnd < DateTime.Now)
             {
