@@ -53,7 +53,12 @@ namespace BOCO.TimerTask.Model.Enums
         /// <summary>
         /// 手动停止一个正在工作的任务
         /// </summary>
-        EnforceKillWork = 108
+        EnforceKillWork = 108,
+
+        /// <summary>
+        /// 任务配置文件找不到
+        /// </summary>
+        TaskConfigAssemblyFileNotFind = 109
 
     }
 }

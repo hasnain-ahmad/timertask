@@ -4,6 +4,7 @@ using System.Threading;
 using BOCO.TimerTask.ITimerComponent;
 using BOCO.TimerTask.Model;
 using BOCO.TimerTask.Model.Enums;
+using System.IO;
 
 namespace BOCO.TimerTask.TaskEngine
 {
@@ -68,49 +69,59 @@ namespace BOCO.TimerTask.TaskEngine
                 #endregion
 
                 #region 开始工作
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
+                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _Task.Task.TaskAssembly.AppFile;
+                if (File.Exists(destFile))
                 {
-                    _Process = Process.Start(
-                        Utility.AssemblyHelper.GetAssemblyPath() +
-                        _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
-                    _Process.EnableRaisingEvents = true;
-                    _Process.Exited += new EventHandler(Process_Exited);
-                }
+                    FileInfo fi = new FileInfo(destFile);
+                    if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
+                    {
+                        _Process = Process.Start(
+                            fi.FullName, _Task.Task.TaskEntity.ExeCommandParaMeter);
+                        _Process.EnableRaisingEvents = true;
+                        _Process.Exited += new EventHandler(Process_Exited);
+                    }
 
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                {
-                    object obj = System.Reflection.Assembly.Load(
-                        Utility.AssemblyHelper.GetAssemblyPath() +
-                        _Task.Task.TaskAssembly.AppFile).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-                    _WorkInterface = (ITimeWorkTask)obj;
-
-                    _WorkInterface.ThreadCompleteFunc = Process_Exited;
-
-                    _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
-                    _Thread.IsBackground = true;
-                    _Thread.Start();
-                }
-                #endregion
-
-                #region 监控超时
-                if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-                {
                     if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
                     {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Thread);
+                        object obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
+                        _WorkInterface = (ITimeWorkTask)obj;
+
+                        _WorkInterface.ThreadCompleteFunc = Process_Exited;
+
+                        _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
+                        _Thread.IsBackground = true;
+                        _Thread.Start();
                     }
-                    else
+
+                    #region 监控超时
+                    if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
                     {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Process);
+                        if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
+                        {
+                            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
+                            Thread th = new Thread(threadStart);
+                            th.IsBackground = true;
+                            th.Start(_Thread);
+                        }
+                        else
+                        {
+                            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
+                            Thread th = new Thread(threadStart);
+                            th.IsBackground = true;
+                            th.Start(_Process);
+                        }
                     }
+                    #endregion
+                }
+                else
+                {
+                    string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile); ;
+                    Console.WriteLine(s);
+                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
                 }
                 #endregion
+
+
             }
             catch (Exception ex)
             {
