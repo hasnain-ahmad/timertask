@@ -35,14 +35,6 @@ namespace BOCO.TimerTask.TaskEngine
             set { _LastRunTime = value; }
         }
 
-        //private DateTime _NextRunTime;
-
-        //public DateTime NextRunTime
-        //{
-        //    get { return _NextRunTime; }
-        //    set { _NextRunTime = value; }
-        //}
-
         private IWorker _Worker;
         /// <summary>
         /// 任务对应的执行者
@@ -57,7 +49,7 @@ namespace BOCO.TimerTask.TaskEngine
         /// </summary>
         /// <param name="task"></param>
         /// <param name="parabll"></param>
-        public WorkingTask(Task task,BLL.IBLLLogic parabll)
+        public WorkingTask(Task task, BLL.IBLLLogic parabll)
         {
             _Task = task;
             _Worker = new Worker(this, parabll);
