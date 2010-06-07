@@ -101,7 +101,7 @@ namespace BOCO.TimerTask.TaskEngine
                             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
                             Thread th = new Thread(threadStart);
                             th.IsBackground = true;
-                            th.Start(_Thread);
+                            th.Start(_WorkInterface);
                         }
                         else
                         {
@@ -146,8 +146,8 @@ namespace BOCO.TimerTask.TaskEngine
                 }
                 else
                 {
-                    Thread th = (Thread)paraMonitorDest;
-                    if (th != null) th.Abort();
+                    ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
+                    if (th != null) th.StopRuning();
                 }
             }
         }

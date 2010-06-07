@@ -12,8 +12,9 @@ namespace TestAssembly
         public override void TaskExecuteFunc()
         {
             Thread.Sleep(10000);
-            System.Windows.Forms.MessageBox.Show("Hello I has Complete");
-            
+            //System.Windows.Forms.MessageBox.Show("Hello I has Complete");
+
+            Console.WriteLine("Closed");
             base.TaskExecuteFunc();
         }
 
@@ -21,7 +22,7 @@ namespace TestAssembly
         {
             
             Thread.Sleep(10000);
-            System.Windows.Forms.MessageBox.Show("Hello I has Stoped");
+            //System.Windows.Forms.MessageBox.Show("Hello I has Stoped");
             
         }
     }

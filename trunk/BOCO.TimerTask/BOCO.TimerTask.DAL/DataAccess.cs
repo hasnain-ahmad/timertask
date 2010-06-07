@@ -54,6 +54,18 @@ namespace BOCO.TimerTask.DAL
             }
         }
 
+        /// <summary>
+        /// 加载计划数据到内存中
+        /// </summary>
+        private void LoadTaskDataFromDB()
+        {
+            _DataSet.PL_TimerTask.Clear();
+            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask.TableName;
+            DataSet ds = SqliteHelper.ExecuteDataset(sql);
+            ds.Tables[0].TableName = _DataSet.PL_TimerTask.TableName;
+            _DataSet.PL_TimerTask.Merge(ds.Tables[0]);
+        }
+
         #region IDataAccess 成员
 
         public List<TaskEntity> GetTasks(bool paraEnable)
@@ -75,10 +87,7 @@ namespace BOCO.TimerTask.DAL
         public List<TaskEntity> GetTasks()
         {
             List<TaskEntity> list = new List<TaskEntity>();
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask.TableName;
-            DataSet ds = SqliteHelper.ExecuteDataset(sql);
-            ds.Tables[0].TableName = _DataSet.PL_TimerTask.TableName;
-            _DataSet.PL_TimerTask.Merge(ds.Tables[0]);
+            this.LoadTaskDataFromDB();
             foreach (TaskDataSet.PL_TimerTaskRow taskRow in _DataSet.PL_TimerTask.Rows)
             {
                 list.Add(Mapper.DataMapper.MappingTaskEntity(taskRow));
@@ -97,6 +106,7 @@ namespace BOCO.TimerTask.DAL
 
         public void ModifyTask(Int64 paraTaskId, TaskEntity paraTask)
         {
+            this.LoadTaskDataFromDB();
             TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
             if (taskRow == null)
             {
@@ -111,6 +121,7 @@ namespace BOCO.TimerTask.DAL
 
         public bool RemoveTask(Int64 paraTaskId)
         {
+            this.LoadTaskDataFromDB();
             TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
             if (taskRow == null)
             {

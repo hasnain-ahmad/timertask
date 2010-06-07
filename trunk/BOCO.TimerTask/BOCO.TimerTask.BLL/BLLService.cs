@@ -166,6 +166,8 @@ namespace BOCO.TimerTask.BLL
                 entity.RunSpaceTime = paraRunSpaceTimeSecs;
                 entity.RunSpaceType = paraRunSpaceType;
                 entity.RunTimeOutSecs = paraRunTimeOutSecs;
+                entity.SetKeyID(paraTaskID);
+                entity.RegestesAppName = paraAppName;
                 _DataAccess.ModifyTask(paraTaskID, entity);
 
 
