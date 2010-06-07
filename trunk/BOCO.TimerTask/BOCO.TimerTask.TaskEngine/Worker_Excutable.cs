@@ -47,8 +47,7 @@ namespace BOCO.TimerTask.TaskEngine
                 {
                     FileInfo fi = new FileInfo(destFile);
 
-                    _Process = Process.Start(
-                        fi.FullName, _Task.Task.TaskEntity.ExeCommandParaMeter);
+                    _Process = Process.Start(fi.FullName, _Task.Task.TaskEntity.ExeCommandParaMeter);
                     _Process.EnableRaisingEvents = true;
                     _Process.Exited += new EventHandler(Process_Exited);
 

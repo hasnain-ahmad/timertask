@@ -51,7 +51,7 @@ namespace BOCO.TimerTask.TaskEngine
                     _WorkInterface = (ITimeWorkTask)obj;
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
-
+                    _WorkInterface.ExtraParaStr = _Task.Task.TaskEntity.ExtraParaStr;
                     _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
                     _Thread.IsBackground = true;
                     _Thread.Start();
