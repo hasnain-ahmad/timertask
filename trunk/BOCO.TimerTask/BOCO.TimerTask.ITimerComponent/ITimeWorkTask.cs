@@ -34,7 +34,7 @@ namespace BOCO.TimerTask.ITimerComponent
         /// <summary>
         /// 执行任务的附加参数
         /// </summary>
-        public abstract string ExtraParaStr { get; set; }
+        protected string ExtraParaStr { get; set; }
         /// <summary>
         /// 具体执行任务的方法
         /// <remarks>重写该方法后，请在方法后面调用base.TaskExecuteFunc()；否则线程任务执行结束事件无法通知管理引擎</remarks>

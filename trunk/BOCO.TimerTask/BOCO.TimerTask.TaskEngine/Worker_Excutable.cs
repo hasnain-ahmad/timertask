@@ -7,24 +7,18 @@ using BOCO.TimerTask.Model.Enums;
 
 namespace BOCO.TimerTask.TaskEngine
 {
-    /// <summary>
-    /// 工作者模式： 工作执行者
-    /// </summary>
-    internal class Worker : IWorker
+    class Worker_Excutable : IWorker
     {
         private BLL.IBLLLogic _BLL;
         private WorkingTask _Task;
 
         private Process _Process;
 
-        private Thread _Thread;
-        private ITimeWorkTask _WorkInterface;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="paraAssType">程序类型:dll或者exe</param>
-        public Worker(WorkingTask paraTask, BLL.IBLLLogic paraBll)
+        public Worker_Excutable(WorkingTask paraTask, BLL.IBLLLogic paraBll)
         {
             _Task = paraTask;
             _BLL = paraBll;
@@ -68,47 +62,21 @@ namespace BOCO.TimerTask.TaskEngine
                 #endregion
 
                 #region 开始工作
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    _Process = Process.Start(
-                        Utility.AssemblyHelper.GetAssemblyPath() +
-                        _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
-                    _Process.EnableRaisingEvents = true;
-                    _Process.Exited += new EventHandler(Process_Exited);
-                }
+                _Process = Process.Start(
+                    Utility.AssemblyHelper.GetAssemblyPath() +
+                    _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
+                _Process.EnableRaisingEvents = true;
+                _Process.Exited += new EventHandler(Process_Exited);
 
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                {
-                    object obj = System.Reflection.Assembly.Load(
-                        Utility.AssemblyHelper.GetAssemblyPath() +
-                        _Task.Task.TaskAssembly.AppFile).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-                    _WorkInterface = (ITimeWorkTask)obj;
-
-                    _WorkInterface.ThreadCompleteFunc = Process_Exited;
-
-                    _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
-                    _Thread.IsBackground = true;
-                    _Thread.Start();
-                }
                 #endregion
 
                 #region 监控超时
                 if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
                 {
-                    if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                    {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Thread);
-                    }
-                    else
-                    {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Process);
-                    }
+                    ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
+                    Thread th = new Thread(threadStart);
+                    th.IsBackground = true;
+                    th.Start(_Process);
                 }
                 #endregion
             }
@@ -128,16 +96,8 @@ namespace BOCO.TimerTask.TaskEngine
             if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
             {
                 Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    Process p = (Process)paraMonitorDest;
-                    if (p != null) p.Kill();
-                }
-                else
-                {
-                    Thread th = (Thread)paraMonitorDest;
-                    if (th != null) th.Abort();
-                }
+                Thread th = (Thread)paraMonitorDest;
+                if (th != null) th.Abort();
             }
         }
 
@@ -162,24 +122,10 @@ namespace BOCO.TimerTask.TaskEngine
         {
             try
             {
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
+                if (_Process != null && !_Process.HasExited)
                 {
-                    if (_Process != null && !_Process.HasExited)
-                    {
-                        _Process.Kill();
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-                    }
-                }
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                {
-                    if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
-                    {
-                        if (_WorkInterface != null)
-                        {
-                            _WorkInterface.StopRuning();
-                            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-                        }
-                    }
+                    _Process.Kill();
+                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
                 }
             }
             catch (Exception ex)

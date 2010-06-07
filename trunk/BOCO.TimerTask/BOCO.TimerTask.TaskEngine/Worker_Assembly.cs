@@ -7,36 +7,55 @@ using BOCO.TimerTask.Model.Enums;
 
 namespace BOCO.TimerTask.TaskEngine
 {
-    /// <summary>
-    /// 工作者模式： 工作执行者
-    /// </summary>
-    internal class Worker : IWorker
+    class Worker_Assembly:IWorker
     {
         private BLL.IBLLLogic _BLL;
         private WorkingTask _Task;
-
-        private Process _Process;
-
         private Thread _Thread;
         private ITimeWorkTask _WorkInterface;
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="paraAssType">程序类型:dll或者exe</param>
-        public Worker(WorkingTask paraTask, BLL.IBLLLogic paraBll)
+
+        public Worker_Assembly(WorkingTask paraTask, BLL.IBLLLogic paraBll)
         {
             _Task = paraTask;
             _BLL = paraBll;
         }
 
-        #region IWorker 成员
+
+        private void ThreadMonitor(object paraMonitorDest)
+        {
+            Thread thread = (Thread)paraMonitorDest;
+            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+            {
+                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
+                if (thread != null) thread.Abort();
+                else
+                {
+                    //记录异常
+                }
+            }
+        }
 
         /// <summary>
-        /// 开始工作
+        /// 进程结束
         /// </summary>
-        /// <param name="paraRunType">被调度方式</param>
-        void IWorker.DoWork(RunTaskType paraRunType)
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Process_Exited(object sender, EventArgs e)
+        {
+            #region 记录到日志中
+            string log = _Task.Task.TaskEntity.Name + " Work Complete.";
+            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
+            #endregion
+
+            #region 更新下一步工作
+            _Task.Notify_WorkComplete();
+            #endregion
+        }
+
+        #region IWorker 成员
+
+        public void DoWork(RunTaskType paraRunType)
         {
             try
             {
@@ -68,14 +87,6 @@ namespace BOCO.TimerTask.TaskEngine
                 #endregion
 
                 #region 开始工作
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    _Process = Process.Start(
-                        Utility.AssemblyHelper.GetAssemblyPath() +
-                        _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
-                    _Process.EnableRaisingEvents = true;
-                    _Process.Exited += new EventHandler(Process_Exited);
-                }
 
                 if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
                 {
@@ -95,20 +106,10 @@ namespace BOCO.TimerTask.TaskEngine
                 #region 监控超时
                 if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
                 {
-                    if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                    {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Thread);
-                    }
-                    else
-                    {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Process);
-                    }
+                    ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
+                    Thread th = new Thread(threadStart);
+                    th.IsBackground = true;
+                    th.Start(_Thread);
                 }
                 #endregion
             }
@@ -123,53 +124,10 @@ namespace BOCO.TimerTask.TaskEngine
             }
         }
 
-        private void ThreadMonitor(object paraMonitorDest)
-        {
-            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-            {
-                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    Process p = (Process)paraMonitorDest;
-                    if (p != null) p.Kill();
-                }
-                else
-                {
-                    Thread th = (Thread)paraMonitorDest;
-                    if (th != null) th.Abort();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 进程结束
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Process_Exited(object sender, EventArgs e)
-        {
-            #region 记录到日志中
-            string log = _Task.Task.TaskEntity.Name + " Work Complete.";
-            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
-            #endregion
-
-            #region 更新下一步工作
-            _Task.Notify_WorkComplete();
-            #endregion
-        }
-
-        void IWorker.EnforceKillWork()
+        public void EnforceKillWork()
         {
             try
             {
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    if (_Process != null && !_Process.HasExited)
-                    {
-                        _Process.Kill();
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-                    }
-                }
                 if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
                 {
                     if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)

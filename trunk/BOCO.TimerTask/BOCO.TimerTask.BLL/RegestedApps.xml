@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="gb2312" ?>
 <RegestedApps>
   <App name="记事本" dll="TaskTest\notepad.exe" namespace="" class=""/>
+  <App name="testclass" dll="TaskTest\TestAssembly.DLL" namespace="TestAssembly" class="Class1"/>
 </RegestedApps>
