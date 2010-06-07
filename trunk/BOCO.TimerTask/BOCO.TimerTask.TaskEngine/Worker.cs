@@ -70,13 +70,17 @@ namespace BOCO.TimerTask.TaskEngine
                 #region 开始工作
                 if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
                 {
-                    _Process = Process.Start(_Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
+                    _Process = Process.Start(
+                        Utility.AssemblyHelper.GetAssemblyPath() +
+                        _Task.Task.TaskAssembly.AppFile, _Task.Task.TaskEntity.ExeCommandParaMeter);
                     _Process.Exited += new EventHandler(Process_Exited);
                 }
 
                 if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
                 {
-                    object obj = System.Reflection.Assembly.Load(_Task.Task.TaskAssembly.AppFile).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
+                    object obj = System.Reflection.Assembly.Load(
+                        Utility.AssemblyHelper.GetAssemblyPath() +
+                        _Task.Task.TaskAssembly.AppFile).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
                     _WorkInterface = (ITimeWorkTask)obj;
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
