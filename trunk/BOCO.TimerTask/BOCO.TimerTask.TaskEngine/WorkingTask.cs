@@ -52,7 +52,16 @@ namespace BOCO.TimerTask.TaskEngine
         public WorkingTask(Task task, BLL.IBLLLogic parabll)
         {
             _Task = task;
-            _Worker = new Worker(this, parabll);
+            if (_Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
+            {
+                _Worker = new Worker_Excutable(this, parabll);
+            }
+            else if (_Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
+            {
+                _Worker = new Worker_Assembly(this, parabll);
+            }
+            else
+                throw new Exception("尚未定义的工作类型,AssemblyType:" + _Task.TaskAssembly.AssemblyType.ToString());
         }
 
         /// <summary>

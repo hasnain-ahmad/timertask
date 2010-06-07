@@ -1,156 +1,120 @@
-﻿//using System;
-//using System.Diagnostics;
-//using System.Threading;
-//using BOCO.TimerTask.ITimerComponent;
-//using BOCO.TimerTask.Model;
-//using BOCO.TimerTask.Model.Enums;
+﻿using System;
+using System.Diagnostics;
+using System.Threading;
+using BOCO.TimerTask.ITimerComponent;
+using BOCO.TimerTask.Model;
+using BOCO.TimerTask.Model.Enums;
+using System.IO;
 
-//namespace BOCO.TimerTask.TaskEngine
-//{
-//    class Worker_Assembly : IWorker
-//    {
-//        private BLL.IBLLLogic _BLL;
-//        private WorkingTask _Task;
-//        private Thread _Thread;
-//        private ITimeWorkTask _WorkInterface;
+namespace BOCO.TimerTask.TaskEngine
+{
+    class Worker_Assembly : Worker
+    {
+        private Thread _Thread;
+        private ITimeWorkTask _WorkInterface;
+
+        public Worker_Assembly(WorkingTask paraTask, BLL.IBLLLogic paraBll)
+            : base(paraTask, paraBll)
+        {
+        }
+
+        private void WorkMonitor(object paraMonitorDest)
+        {
+            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+            {
+                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
+
+                ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
+                if (th != null) th.StopRuning();
+
+            }
+        }
 
 
-//        public Worker_Assembly(WorkingTask paraTask, BLL.IBLLLogic paraBll)
-//        {
-//            _Task = paraTask;
-//            _BLL = paraBll;
-//        }
+        #region IWorker 成员
 
+        /// <summary>
+        /// 开始工作
+        /// </summary>
+        /// <param name="paraRunType">被调度方式</param>
+        public override void DoWork(RunTaskType paraRunType)
+        {
+            try
+            {
+                #region 开始工作
+                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _Task.Task.TaskAssembly.AppFile;
+                if (File.Exists(destFile))
+                {
+                    FileInfo fi = new FileInfo(destFile);
 
-//        private void ThreadMonitor(object paraMonitorDest)
-//        {
-//            Thread thread = (Thread)paraMonitorDest;
-//            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-//            {
-//                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
-//                if (thread != null) thread.Abort();
-//                else
-//                {
-//                    //记录异常
-//                }
-//            }
-//        }
+                    object obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
+                    _WorkInterface = (ITimeWorkTask)obj;
 
-//        /// <summary>
-//        /// 进程结束
-//        /// </summary>
-//        /// <param name="sender"></param>
-//        /// <param name="e"></param>
-//        private void Process_Exited(object sender, EventArgs e)
-//        {
-//            #region 记录到日志中
-//            string log = _Task.Task.TaskEntity.Name + " Work Complete.";
-//            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
-//            #endregion
+                    _WorkInterface.ThreadCompleteFunc = Process_Exited;
 
-//            #region 更新下一步工作
-//            _Task.Notify_WorkComplete();
-//            #endregion
-//        }
+                    _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
+                    _Thread.IsBackground = true;
+                    _Thread.Start();
 
-//        #region IWorker 成员
+                    #region 监控超时
+                    if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+                    {
+                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WorkMonitor);
+                        Thread th = new Thread(threadStart);
+                        th.IsBackground = true;
+                        th.Start(_WorkInterface);
 
-//        public void DoWork(RunTaskType paraRunType)
-//        {
-//            try
-//            {
-//                #region 记录到日志中
-//                string log = _Task.Task.TaskEntity.Name + " Start Working.";
+                    }
+                    #endregion
+                }
+                else
+                {
+                    string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile); ;
+                    Console.WriteLine(s);
+                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
+                    return;
+                }
+                #endregion
 
-//                LogType logtype = LogType.TaskRunStart;
-//                switch (paraRunType)
-//                {
-//                    case RunTaskType.TaskListInTime:
-//                        logtype = LogType.TaskRunStart;
-//                        break;
-//                    case RunTaskType.ImmediateNoDisturb:
-//                        logtype = LogType.TaskRunStart_Immediate;
-//                        break;
-//                    case RunTaskType.ImmediateDisturb:
-//                        logtype = LogType.TaskRunStart_Immediate_Interupt;
-//                        break;
-//                }
+                base.DoWork(paraRunType);
+            }
+            catch (Exception ex)
+            {
+                LogEntity log = new LogEntity();
+                log.LogContent = ex.Message;
+                log.LogType = LogType.EnforceKillWorkError;
+                log.TaskID = _Task.Task.TaskEntity.ID;
+                log.TaskName = _Task.Task.TaskEntity.Name;
+                _BLL.WriteLog(log);
+            }
+        }
 
-//                _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, logtype);
-//                #endregion
+        public override void EnforceKillWork()
+        {
+            try
+            {
+                base.EnforceKillWork();
 
-//                #region 更新下一步工作
-//                if (paraRunType != RunTaskType.ImmediateNoDisturb)
-//                {
-//                    _Task.Notify_WorkStarted();
-//                }
-//                #endregion
+                if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
+                {
+                    if (_WorkInterface != null)
+                    {
+                        _WorkInterface.StopRuning();
+                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogEntity log = new LogEntity();
+                log.LogContent = ex.Message;
+                log.LogType = LogType.EnforceKillWorkError;
+                log.TaskID = _Task.Task.TaskEntity.ID;
+                log.TaskName = _Task.Task.TaskEntity.Name;
+                _BLL.WriteLog(log);
+            }
+        }
 
-//                #region 开始工作
-
-//                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-//                {
-//                    object obj = System.Reflection.Assembly.Load(
-//                        Utility.AssemblyHelper.GetAssemblyPath() +
-//                        _Task.Task.TaskAssembly.AppFile).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-//                    _WorkInterface = (ITimeWorkTask)obj;
-
-//                    _WorkInterface.ThreadCompleteFunc = Process_Exited;
-
-//                    _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
-//                    _Thread.IsBackground = true;
-//                    _Thread.Start();
-//                }
-//                #endregion
-
-//                #region 监控超时
-//                if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-//                {
-//                    ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-//                    Thread th = new Thread(threadStart);
-//                    th.IsBackground = true;
-//                    th.Start(_Thread);
-//                }
-//                #endregion
-//            }
-//            catch (Exception ex)
-//            {
-//                LogEntity log = new LogEntity();
-//                log.LogContent = ex.Message;
-//                log.LogType = LogType.EnforceKillWorkError;
-//                log.TaskID = _Task.Task.TaskEntity.ID;
-//                log.TaskName = _Task.Task.TaskEntity.Name;
-//                _BLL.WriteLog(log);
-//            }
-//        }
-
-//        public void EnforceKillWork()
-//        {
-//            try
-//            {
-//                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-//                {
-//                    if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
-//                    {
-//                        if (_WorkInterface != null)
-//                        {
-//                            _WorkInterface.StopRuning();
-//                            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-//                        }
-//                    }
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                LogEntity log = new LogEntity();
-//                log.LogContent = ex.Message;
-//                log.LogType = LogType.EnforceKillWorkError;
-//                log.TaskID = _Task.Task.TaskEntity.ID;
-//                log.TaskName = _Task.Task.TaskEntity.Name;
-//                _BLL.WriteLog(log);
-//            }
-//        }
-
-//        #endregion
-//    }
-//}
+        #endregion
+    }
+}

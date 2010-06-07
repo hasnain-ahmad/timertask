@@ -17,5 +17,10 @@ namespace BOCO.TimerTask.TaskEngine
         void DoWork(RunTaskType paraRunType);
 
         void EnforceKillWork();
+
+        ///// <summary>
+        ///// 工作监控器
+        ///// </summary>
+        //void WorkMonitor(object paraMonitorDest);
     }
 }

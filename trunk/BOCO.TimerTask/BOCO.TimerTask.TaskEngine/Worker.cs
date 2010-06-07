@@ -13,151 +13,28 @@ namespace BOCO.TimerTask.TaskEngine
     /// </summary>
     internal class Worker : IWorker
     {
-        private BLL.IBLLLogic _BLL;
-        private WorkingTask _Task;
-
-        private Process _Process;
-
-        private Thread _Thread;
-        private ITimeWorkTask _WorkInterface;
+        protected BLL.IBLLLogic _BLL;
+        protected WorkingTask _Task;
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="paraAssType">程序类型:dll或者exe</param>
+        /// <param name="paraTask"></param>
+        /// <param name="paraBll"></param>
         public Worker(WorkingTask paraTask, BLL.IBLLLogic paraBll)
         {
             _Task = paraTask;
             _BLL = paraBll;
         }
 
-        #region IWorker 成员
-
-        /// <summary>
-        /// 开始工作
-        /// </summary>
-        /// <param name="paraRunType">被调度方式</param>
-        void IWorker.DoWork(RunTaskType paraRunType)
-        {
-            try
-            {
-                #region 记录到日志中
-                string log = _Task.Task.TaskEntity.Name + " Start Working.";
-
-                LogType logtype = LogType.TaskRunStart;
-                switch (paraRunType)
-                {
-                    case RunTaskType.TaskListInTime:
-                        logtype = LogType.TaskRunStart;
-                        break;
-                    case RunTaskType.ImmediateNoDisturb:
-                        logtype = LogType.TaskRunStart_Immediate;
-                        break;
-                    case RunTaskType.ImmediateDisturb:
-                        logtype = LogType.TaskRunStart_Immediate_Interupt;
-                        break;
-                }
-
-                _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, logtype);
-                #endregion
-
-                #region 更新下一步工作
-                if (paraRunType != RunTaskType.ImmediateNoDisturb)
-                {
-                    _Task.Notify_WorkStarted();
-                }
-                #endregion
-
-                #region 开始工作
-                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _Task.Task.TaskAssembly.AppFile;
-                if (File.Exists(destFile))
-                {
-                    FileInfo fi = new FileInfo(destFile);
-                    if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                    {
-                        _Process = Process.Start(
-                            fi.FullName, _Task.Task.TaskEntity.ExeCommandParaMeter);
-                        _Process.EnableRaisingEvents = true;
-                        _Process.Exited += new EventHandler(Process_Exited);
-                    }
-
-                    if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                    {
-                        object obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-                        _WorkInterface = (ITimeWorkTask)obj;
-
-                        _WorkInterface.ThreadCompleteFunc = Process_Exited;
-
-                        _Thread = new Thread(new ThreadStart(_WorkInterface.TaskExecuteFunc));
-                        _Thread.IsBackground = true;
-                        _Thread.Start();
-                    }
-
-                    #region 监控超时
-                    if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-                    {
-                        if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                        {
-                            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                            Thread th = new Thread(threadStart);
-                            th.IsBackground = true;
-                            th.Start(_WorkInterface);
-                        }
-                        else
-                        {
-                            ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadMonitor);
-                            Thread th = new Thread(threadStart);
-                            th.IsBackground = true;
-                            th.Start(_Process);
-                        }
-                    }
-                    #endregion
-                }
-                else
-                {
-                    string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile); ;
-                    Console.WriteLine(s);
-                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
-                }
-                #endregion
-
-
-            }
-            catch (Exception ex)
-            {
-                LogEntity log = new LogEntity();
-                log.LogContent = ex.Message;
-                log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
-                _BLL.WriteLog(log);
-            }
-        }
-
-        private void ThreadMonitor(object paraMonitorDest)
-        {
-            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
-            {
-                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    Process p = (Process)paraMonitorDest;
-                    if (p != null) p.Kill();
-                }
-                else
-                {
-                    ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
-                    if (th != null) th.StopRuning();
-                }
-            }
-        }
+        #region private function
 
         /// <summary>
         /// 进程结束
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Process_Exited(object sender, EventArgs e)
+        protected void Process_Exited(object sender, EventArgs e)
         {
             #region 记录到日志中
             string log = _Task.Task.TaskEntity.Name + " Work Complete.";
@@ -169,39 +46,49 @@ namespace BOCO.TimerTask.TaskEngine
             #endregion
         }
 
-        void IWorker.EnforceKillWork()
+        #endregion
+
+        #region IWorker 成员
+
+        /// <summary>
+        /// 开始工作
+        /// </summary>
+        /// <param name="paraRunType">被调度方式</param>
+        public virtual void DoWork(RunTaskType paraRunType)
         {
-            try
+
+            #region 记录到日志中
+            string log = _Task.Task.TaskEntity.Name + " Start Working.";
+
+            LogType logtype = LogType.TaskRunStart;
+            switch (paraRunType)
             {
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-                {
-                    if (_Process != null && !_Process.HasExited)
-                    {
-                        _Process.Kill();
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-                    }
-                }
-                if (_Task.Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-                {
-                    if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
-                    {
-                        if (_WorkInterface != null)
-                        {
-                            _WorkInterface.StopRuning();
-                            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
-                        }
-                    }
-                }
+                case RunTaskType.TaskListInTime:
+                    logtype = LogType.TaskRunStart;
+                    break;
+                case RunTaskType.ImmediateNoDisturb:
+                    logtype = LogType.TaskRunStart_Immediate;
+                    break;
+                case RunTaskType.ImmediateDisturb:
+                    logtype = LogType.TaskRunStart_Immediate_Interupt;
+                    break;
             }
-            catch (Exception ex)
+
+            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, logtype);
+            #endregion
+
+            #region 更新下一步工作
+            if (paraRunType != RunTaskType.ImmediateNoDisturb)
             {
-                LogEntity log = new LogEntity();
-                log.LogContent = ex.Message;
-                log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
-                _BLL.WriteLog(log);
+                _Task.Notify_WorkStarted();
             }
+            #endregion
+
+        }
+
+        public virtual void EnforceKillWork()
+        {
+
         }
 
         #endregion
