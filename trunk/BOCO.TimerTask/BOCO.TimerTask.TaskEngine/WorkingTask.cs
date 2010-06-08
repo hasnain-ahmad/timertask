@@ -70,7 +70,7 @@ namespace BOCO.TimerTask.TaskEngine
         }
 
         /// <summary>
-        /// 工作已经开始
+        /// 被通知，任务已经开始
         /// </summary>
         public void Notify_WorkStarted()
         {
@@ -78,6 +78,9 @@ namespace BOCO.TimerTask.TaskEngine
             _LastRunTime = DateTime.Now;
         }
 
+        /// <summary>
+        /// 被通知，任务已经完成
+        /// </summary>
         public void Notify_WorkComplete()
         {
             if (_Task.TaskEntity.DateEnd < DateTime.Now)
@@ -92,6 +95,7 @@ namespace BOCO.TimerTask.TaskEngine
 
         /// <summary>
         /// 设置上次执行时间，并计算工作状态
+        /// ［从数据库中读取出来的任务，需要设置初始状态]
         /// </summary>
         /// <param name="paraLastRunTime"></param>
         public void SetTaskCurrentState(DateTime paraLastRunTime)

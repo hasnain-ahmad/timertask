@@ -14,6 +14,33 @@ namespace BOCO.TimerTask.BLL
     public class MessageParser
     {
         /// <summary>
+        /// 检查并设置任务的频率
+        /// [对用户输入的信息做检验]
+        /// </summary>
+        /// <param name="paraTask"></param>
+        public static void CheckAndSetTaskFrequence(ref TaskEntity paraTask)
+        {
+            switch (paraTask.RunSpaceType)
+            {
+                case TaskFrequence.Day:
+                    paraTask.RunSpaceTime = 24 * 60 * 60;
+                    break;
+                case TaskFrequence.Hour:
+                    paraTask.RunSpaceTime = 60 * 60;
+                    break;
+                case TaskFrequence.Minute:
+                    paraTask.RunSpaceTime = 60;
+                    break;
+                case TaskFrequence.Week:
+                    paraTask.RunSpaceTime = 7 * 24 * 60 * 60;
+                    break;
+                case TaskFrequence.Once:    //如果执行一次，设置间隔为２分钟，结束时间为开始时间＋２０秒（给２０秒的缓冲区）
+                    paraTask.RunSpaceTime = 2 * 60;
+                    paraTask.DateEnd = paraTask.DateStart.AddSeconds(20);
+            }
+        }
+
+        /// <summary>
         /// 组装一条消息(所有接口都通过此方法组装)
         /// </summary>
         /// <param name="paraAddedTasks"></param>
@@ -47,6 +74,7 @@ namespace BOCO.TimerTask.BLL
                     ele.SetAttribute("ExeCommandParaMeter", task.ExeCommandParaMeter);
                     ele.SetAttribute("RunTimeOutSecs", task.RunTimeOutSecs.ToString());
                     ele.SetAttribute("RegestesAppName", task.RegestesAppName);
+                    
                     addNode.AppendChild(ele);
                 }
             }
@@ -150,6 +178,8 @@ namespace BOCO.TimerTask.BLL
                 entity.ExeCommandParaMeter = ele.GetAttribute("ExeCommandParaMeter");
                 entity.RunTimeOutSecs = Int64.Parse(ele.GetAttribute("RunTimeOutSecs"));
                 entity.RegestesAppName = ele.GetAttribute("RegestesAppName");
+
+                CheckAndSetTaskFrequence(ref entity);
                 paraAddedTasks.Add(entity);
             }
 
