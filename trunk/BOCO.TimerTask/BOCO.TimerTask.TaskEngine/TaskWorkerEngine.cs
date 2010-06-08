@@ -134,10 +134,7 @@ namespace BOCO.TimerTask.TaskEngine
                 //构建TaskList
                 _TaskList = GetWorkingTask();
 
-
-
                 Console.WriteLine("加载任务队列" + _TaskList.Count + "条");
-
 
                 //启动线程
                 _EngineThread = new Thread(new ThreadStart(ThreadFuncEngine));
@@ -248,7 +245,6 @@ namespace BOCO.TimerTask.TaskEngine
             {
                 WorkingTask task = _TaskList.Find(delegate(WorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 _TaskList.Remove(task);
-
             }
         }
 
