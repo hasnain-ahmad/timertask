@@ -48,13 +48,28 @@ namespace BOCO.TimerTask.TaskEngine
                     {
                         //处理到期的任务
                         TimeSpan ts = DateTime.Now - task.LastRunTime;
-                        if (task.Task.TaskEntity.Enable && task.RunState != TaskRuningState.OutTime && ts.TotalSeconds >= task.Task.TaskEntity.RunSpaceTime)
+                        if (IsThisTaskOnTime(task))
                         {
                             task.Worker.DoWork(RunTaskType.TaskListInTime);
                         }
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 该任务是否到时间并且可以执行
+        /// </summary>
+        /// <param name="paraWorkTask"></param>
+        //[STAThread]
+        private bool IsThisTaskOnTime(WorkingTask paraWorkTask)
+        {
+            DateTime dtNow = DateTime.Now;
+            return paraWorkTask.Task.TaskEntity.Enable &&   //可用
+                paraWorkTask.RunState != TaskRuningState.OutTime &&　//没有超时
+                ((TimeSpan)(dtNow - paraWorkTask.LastRunTime)).TotalSeconds >= paraWorkTask.Task.TaskEntity.RunSpaceTime && //间隔到了
+                ((TimeSpan)(dtNow - paraWorkTask.Task.TaskEntity.DateStart)).TotalSeconds >= -_IdleSpanInMSecs &&　//在时间范围内
+                 ((TimeSpan)(paraWorkTask.Task.TaskEntity.DateEnd - dtNow)).TotalSeconds >= -_IdleSpanInMSecs;
         }
 
         /// <summary>
