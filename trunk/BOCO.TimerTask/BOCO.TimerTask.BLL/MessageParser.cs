@@ -37,6 +37,7 @@ namespace BOCO.TimerTask.BLL
                 case TaskFrequence.Once:    //如果执行一次，设置间隔为２分钟，结束时间为开始时间＋２０秒（给２０秒的缓冲区）
                     paraTask.RunSpaceTime = 2 * 60;
                     paraTask.DateEnd = paraTask.DateStart.AddSeconds(20);
+                    break;
             }
         }
 

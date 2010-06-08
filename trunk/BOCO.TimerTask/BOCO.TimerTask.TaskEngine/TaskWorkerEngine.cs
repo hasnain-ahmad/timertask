@@ -47,7 +47,6 @@ namespace BOCO.TimerTask.TaskEngine
                     foreach (WorkingTask task in _TaskList)
                     {
                         //处理到期的任务
-                        TimeSpan ts = DateTime.Now - task.LastRunTime;
                         if (IsThisTaskOnTime(task))
                         {
                             task.Worker.DoWork(RunTaskType.TaskListInTime);
