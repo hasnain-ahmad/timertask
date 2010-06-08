@@ -50,7 +50,7 @@ namespace BOCO.TimerTask.TaskEngine
                         TimeSpan ts = DateTime.Now - task.LastRunTime;
                         if (task.Task.TaskEntity.Enable && task.RunState != TaskRuningState.OutTime && ts.TotalSeconds >= task.Task.TaskEntity.RunSpaceTime)
                         {
-                            task.Worker.DoWork( RunTaskType.TaskListInTime);
+                            task.Worker.DoWork(RunTaskType.TaskListInTime);
                         }
                     }
                 }
@@ -120,7 +120,7 @@ namespace BOCO.TimerTask.TaskEngine
                 //构建TaskList
                 _TaskList = GetWorkingTask();
 
-                
+
 
                 Console.WriteLine("加载任务队列" + _TaskList.Count + "条");
 
