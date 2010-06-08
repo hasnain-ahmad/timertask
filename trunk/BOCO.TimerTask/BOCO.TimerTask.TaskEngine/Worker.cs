@@ -10,8 +10,9 @@ namespace BOCO.TimerTask.TaskEngine
 {
     /// <summary>
     /// 工作者模式： 工作执行者
+    /// <remarks>定义为抽象类,防止直接去创建这个类</remarks>
     /// </summary>
-    internal class Worker : IWorker
+    internal abstract class Worker : IWorker
     {
         protected BLL.IBLLLogic _BLL;
         protected WorkingTask _Task;

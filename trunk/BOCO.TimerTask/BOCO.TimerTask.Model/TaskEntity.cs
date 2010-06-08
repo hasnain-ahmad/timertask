@@ -96,16 +96,6 @@ namespace BOCO.TimerTask.Model
             set { _ExtraParaStr = value; }
         }
 
-        //private TaskAssembly _Assembly;
-        ///// <summary>
-        ///// 任务执行程序集信息
-        ///// </summary>
-        //public TaskAssembly Assembly
-        //{
-        //    get { return _Assembly; }
-        //    //set { _Assembly = value; }
-        //}
-
         private string _ExeCommandParaMeter;
         /// <summary>
         /// 命令行执行附加参数
@@ -146,7 +136,6 @@ namespace BOCO.TimerTask.Model
             string paraExtraParaStr,
             string paraExeCommandParaMeter,
             Int64 paraRunTimeOutSecs,
-            //TaskAssembly paraAssembly
             string paraRegestesAppName
             )
         {
@@ -161,7 +150,6 @@ namespace BOCO.TimerTask.Model
             _ExeCommandParaMeter = paraExeCommandParaMeter;
             _RunTimeOutSecs = paraRunTimeOutSecs;
             _RegestesAppName = paraRegestesAppName;
-            //_Assembly = paraAssembly;
         }
 
         /// <summary>

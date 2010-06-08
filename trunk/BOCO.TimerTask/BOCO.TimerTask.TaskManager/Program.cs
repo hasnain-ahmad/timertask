@@ -61,7 +61,6 @@ namespace BOCO.TimerTask.TaskManager
                 {
                     Console.Read();
                 }
-                //Thread.Sleep(5000);
             }
             catch(Exception ex)
             {

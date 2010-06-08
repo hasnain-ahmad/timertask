@@ -8,21 +8,18 @@ namespace TestAssembly
 {
     public class Class1 : ITimeWorkTask
     {
-
+        System.Windows.Forms.Form frm;
         public override void TaskExecuteFunc()
         {
-            Thread.Sleep(10000);
-            //System.Windows.Forms.MessageBox.Show("Hello I has Complete");
-
+            frm = new System.Windows.Forms.Form();
+            frm.Show();
             Console.WriteLine("Closed");
             base.TaskExecuteFunc();
         }
 
         public override void StopRuning()
         {
-            
-            Thread.Sleep(10000);
-            //System.Windows.Forms.MessageBox.Show("Hello I has Stoped");
+            frm.Dispose();
             
         }
     }

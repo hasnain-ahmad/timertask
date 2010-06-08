@@ -23,11 +23,9 @@ namespace BOCO.TimerTask.BLL
     /// </summary>
     internal class BLLService : IBLLLogic
     {
+        private const string TIMERMANAGER_PROCESSNAME = "BOCO.TimerTask.TaskManager";
+
         private DAL.IDataAccess _DataAccess = DAL.DALFactory.GetDataAccess();
-        //public IDataAccess DataAccess
-        //{
-        //    get { return _DataAccess; }
-        //}
 
         #region private function
         private List<TaskAssembly> GetRegestedApps()
@@ -53,7 +51,6 @@ namespace BOCO.TimerTask.BLL
             {
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
-                //log.LogDate = DateTime.Now;
                 log.LogType = LogType.SocketClientSendError;
                 log.TaskID = -1;
                 WriteLog(log);
@@ -70,7 +67,7 @@ namespace BOCO.TimerTask.BLL
 
         public TaskEntity AddTask(TaskEntity paraEntity)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetAllApp(paraEntity.RegestesAppName);
+            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
             if (assembly == null)
             {
                 return null;
@@ -89,7 +86,7 @@ namespace BOCO.TimerTask.BLL
 
         public TaskEntity AddTask(string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetAllApp(paraAppName);
+            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
             if (assembly == null)
             {
                 return null;
@@ -110,7 +107,6 @@ namespace BOCO.TimerTask.BLL
                 //保存到数据库
                 Int64 id = _DataAccess.AddTask(entity);
                 entity.SetKeyID(id);
-                //entity = new TaskEntity(id, entity.Name, entity.Enable, entity.DateStart, entity.DateEnd, entity.RunSpaceTime, entity.RunSpaceType, entity.ExtraParaStr, entity.ExeCommandParaMeter, entity.RunTimeOutSecs, entity.RegestesAppName);
                 //发送消息同步到任务管理器中
                 string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
                 this.SendXMLSocket2Server(message);
@@ -128,7 +124,7 @@ namespace BOCO.TimerTask.BLL
 
         public bool UpdateTask(TaskEntity paraEntity)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetAllApp(paraEntity.RegestesAppName);
+            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
             if (assembly == null)
             {
                 return false;
@@ -149,7 +145,7 @@ namespace BOCO.TimerTask.BLL
 
         public bool UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetAllApp(paraAppName);
+            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
             if (assembly == null)
             {
                 return false;
@@ -218,7 +214,7 @@ namespace BOCO.TimerTask.BLL
 
         public bool IsTaskManagerAlive()
         {
-            Process[] arr = Process.GetProcessesByName("BOCO.TimerTask.TaskManager");
+            Process[] arr = Process.GetProcessesByName(TIMERMANAGER_PROCESSNAME);
             if (arr.Length > 0)
             {
                 return true;
@@ -254,7 +250,7 @@ namespace BOCO.TimerTask.BLL
         public void RunTaskImmediate(Int64 paraTaskID, bool isDisTurbBackTask)
         {
             RunTaskType runType = RunTaskType.ImmediateDisturb;
-            if(isDisTurbBackTask == false)
+            if (isDisTurbBackTask == false)
             {
                 runType = RunTaskType.ImmediateNoDisturb;
             }
@@ -278,7 +274,7 @@ namespace BOCO.TimerTask.BLL
             //}
             //else
             //{
-            string path = AssemblyHelper.GetAssemblyPath() + "BOCO.TimerTask.TaskManager.exe";
+            string path = AssemblyHelper.GetAssemblyPath() + TIMERMANAGER_PROCESSNAME + ".exe";
             if (File.Exists(path))
             {
                 Process.Start(path);

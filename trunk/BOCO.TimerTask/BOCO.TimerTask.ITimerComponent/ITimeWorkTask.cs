@@ -53,27 +53,4 @@ namespace BOCO.TimerTask.ITimerComponent
         public abstract void StopRuning();
 
     }
-
-    #region 旧接口
-    ///// <summary>
-    ///// 定义定时任务要实现的接口
-    ///// </summary>
-    //public interface ITimeWorkTask
-    //{
-    //    /// <summary>
-    //    /// 执行任务的附加参数
-    //    /// </summary>
-    //    string ExtraParaStr { get; set; }
-    //    /// <summary>
-    //    /// 具体执行任务的方法
-    //    /// </summary>
-    //    void TaskExecuteFunc();
-
-    //    /// <summary>
-    //    /// 停止正在执行的任务
-    //    /// </summary>
-    //    void StopRuning();
-
-    //}
-    #endregion
 }

@@ -42,7 +42,7 @@ namespace BOCO.TimerTask.BLL
         /// 获取所有已经注册的程序
         /// </summary>
         /// <returns></returns>
-        public static TaskAssembly GetAllApp(string paraAppName)
+        public static TaskAssembly GetRegestedApp(string paraAppName)
         {
             return GetAllApps().Find(delegate(TaskAssembly ta)
             {

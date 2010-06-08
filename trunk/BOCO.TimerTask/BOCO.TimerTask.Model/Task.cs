@@ -22,7 +22,6 @@ namespace BOCO.TimerTask.Model
         public TaskEntity TaskEntity
         {
             get { return _TaskEntity; }
-            //set { _TaskEntity = value; }
         }
 
         private TaskAssembly _TaskAssembly;
@@ -32,7 +31,6 @@ namespace BOCO.TimerTask.Model
         public TaskAssembly TaskAssembly
         {
             get { return _TaskAssembly; }
-            //set { _TaskAssembly = value; }
         }
 
 
