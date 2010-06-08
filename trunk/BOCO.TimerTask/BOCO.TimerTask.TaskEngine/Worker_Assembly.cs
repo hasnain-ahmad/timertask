@@ -8,6 +8,9 @@ using System.IO;
 
 namespace BOCO.TimerTask.TaskEngine
 {
+    /// <summary>
+    /// 执行者：动态库方式
+    /// </summary>
     class Worker_Assembly : Worker
     {
         private Thread _Thread;

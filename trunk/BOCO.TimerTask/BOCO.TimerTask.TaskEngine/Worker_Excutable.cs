@@ -8,6 +8,9 @@ using System.IO;
 
 namespace BOCO.TimerTask.TaskEngine
 {
+    /// <summary>
+    /// 执行者：可执行文件方式
+    /// </summary>
     class Worker_Excutable : Worker
     {
         Process _Process;
