@@ -13,12 +13,13 @@ namespace TestAssembly
         {
             frm = new Form1();
             frm.ShowDialog();
-            Console.WriteLine("Closed");
+            Console.WriteLine("Task Closed By Self");
             base.TaskExecuteFunc();
         }
 
         public override void StopRuning()
         {
+            Console.WriteLine("This Task OutDate Killed");
             frm.Dispose();
             
         }
