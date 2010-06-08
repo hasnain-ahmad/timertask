@@ -41,6 +41,9 @@ namespace BOCO.TimerTask.TaskEngine
             thread.Start();
         }
 
+        /// <summary>
+        /// 循环监听函数
+        /// </summary>
         private void ThreadFuncRecieve()
         {
             while (true)

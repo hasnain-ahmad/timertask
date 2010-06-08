@@ -90,7 +90,6 @@ namespace BOCO.TimerTask.TaskEngine
                 if (_Process != null && !_Process.HasExited)
                 {
                     _Process.Kill();
-                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
                 }
             }
             catch (Exception ex)

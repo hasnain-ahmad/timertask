@@ -11,8 +11,8 @@ namespace TestAssembly
         System.Windows.Forms.Form frm;
         public override void TaskExecuteFunc()
         {
-            frm = new System.Windows.Forms.Form();
-            frm.Show();
+            frm = new Form1();
+            frm.ShowDialog();
             Console.WriteLine("Closed");
             base.TaskExecuteFunc();
         }

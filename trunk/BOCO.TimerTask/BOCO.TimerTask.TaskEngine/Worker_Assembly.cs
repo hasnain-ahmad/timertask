@@ -103,7 +103,6 @@ namespace BOCO.TimerTask.TaskEngine
                     if (_WorkInterface != null)
                     {
                         _WorkInterface.StopRuning();
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
                     }
                 }
             }

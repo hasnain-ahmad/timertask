@@ -89,7 +89,9 @@ namespace BOCO.TimerTask.TaskEngine
 
         public virtual void EnforceKillWork()
         {
-
+            #region 记录到日志中
+            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
+            #endregion
         }
 
         #endregion

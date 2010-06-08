@@ -12,27 +12,30 @@ namespace BOCO.TimerTask.TaskEngine
     internal class WorkingTask
     {
         private Task _Task;
-
+        /// <summary>
+        /// 任务
+        /// </summary>
         public Task Task
         {
             get { return _Task; }
-            set { _Task = value; }
         }
 
         private TaskRuningState _RunState;
-
+        /// <summary>
+        /// 当前任务的执行状态
+        /// </summary>
         public TaskRuningState RunState
         {
             get { return _RunState; }
-            set { _RunState = value; }
         }
 
         private DateTime _LastRunTime;
-
+        /// <summary>
+        /// 上次运行时间
+        /// </summary>
         public DateTime LastRunTime
         {
             get { return _LastRunTime; }
-            set { _LastRunTime = value; }
         }
 
         private IWorker _Worker;
@@ -52,6 +55,8 @@ namespace BOCO.TimerTask.TaskEngine
         public WorkingTask(Task task, BLL.IBLLLogic parabll)
         {
             _Task = task;
+
+            //根据任务的不同构造不同的任务执行者
             if (_Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
             {
                 _Worker = new Worker_Excutable(this, parabll);
