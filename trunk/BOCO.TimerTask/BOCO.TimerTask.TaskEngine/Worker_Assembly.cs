@@ -96,8 +96,6 @@ namespace BOCO.TimerTask.TaskEngine
         {
             try
             {
-                base.EnforceKillWork();
-
                 if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
                 {
                     if (_WorkInterface != null)
@@ -105,6 +103,10 @@ namespace BOCO.TimerTask.TaskEngine
                         _WorkInterface.StopRuning();
                     }
                 }
+                base.EnforceKillWork();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             catch (Exception ex)
             {

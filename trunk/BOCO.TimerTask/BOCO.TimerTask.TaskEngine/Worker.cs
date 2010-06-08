@@ -45,6 +45,9 @@ namespace BOCO.TimerTask.TaskEngine
             #region 更新下一步工作
             _Task.Notify_WorkComplete();
             #endregion
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #endregion

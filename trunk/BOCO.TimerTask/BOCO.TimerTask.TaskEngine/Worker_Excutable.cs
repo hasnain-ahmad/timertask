@@ -91,6 +91,10 @@ namespace BOCO.TimerTask.TaskEngine
                 {
                     _Process.Kill();
                 }
+                base.EnforceKillWork();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
             catch (Exception ex)
             {
