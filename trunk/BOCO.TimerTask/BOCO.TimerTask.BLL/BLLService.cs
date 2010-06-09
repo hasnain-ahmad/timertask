@@ -104,11 +104,15 @@ namespace BOCO.TimerTask.BLL
                 entity.RunSpaceType = paraRunSpaceType;
                 entity.RunTimeOutSecs = paraRunTimeOutSecs;
                 entity.RegestesAppName = paraAppName;
+
+                //先校验，后保存
+
+                //输入校验
+                MessageParser.CheckAndSetTaskFrequence(ref entity);
                 //保存到数据库
                 Int64 id = _DataAccess.AddTask(entity);
                 entity.SetKeyID(id);
-                //输入校验
-                MessageParser.CheckAndSetTaskFrequence(ref entity);
+                
                 //发送消息同步到任务管理器中
                 string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
                 this.SendXMLSocket2Server(message);

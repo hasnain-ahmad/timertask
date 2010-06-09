@@ -199,6 +199,8 @@ namespace BOCO.TimerTask.BLL
                 entity.RunTimeOutSecs = Int64.Parse(ele.GetAttribute("RunTimeOutSecs"));
                 entity.RegestesAppName = ele.GetAttribute("RegestesAppName");
                 entity.SetKeyID(Int64.Parse(ele.GetAttribute("ID")));
+
+                CheckAndSetTaskFrequence(ref entity);
                 paraUpdateTasks.Add(entity);
             }
 
