@@ -12,8 +12,11 @@ namespace TestAssembly
         public override void TaskExecuteFunc()
         {
             frm = new Form1();
-            frm.ShowDialog();
+            frm.Show();
             Console.WriteLine("Task Closed By Self");
+
+            Thread.Sleep(2000);
+            frm.Close();
             base.TaskExecuteFunc();
         }
 
