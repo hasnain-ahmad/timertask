@@ -89,7 +89,7 @@ namespace BOCO.TimerTask.BLL
         DataTable GetTaskLogByDate(DateTime paraDateStart, DateTime paraDateEnd);
 
         /// <summary>
-        /// 查看一个已指定计划的日志
+        /// 查看一个已制定计划的日志
         /// </summary>
         /// <param name="paraTaskId"></param>
         /// <returns></returns>
@@ -113,7 +113,7 @@ namespace BOCO.TimerTask.BLL
         bool IsTaskManagerAlive();
 
         /// <summary>
-        ///  获取已经注册的任务（指定任务的时候要选择）
+        ///  获取已经注册的任务（制定任务的时候要选择）
         /// </summary>
         /// <returns></returns>
         List<String> GetRegestedApp();
