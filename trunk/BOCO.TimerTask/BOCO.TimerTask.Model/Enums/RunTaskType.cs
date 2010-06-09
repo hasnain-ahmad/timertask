@@ -18,9 +18,9 @@ namespace BOCO.TimerTask.Model.Enums
         /// 立即执行不影响后续任务计划
         /// </summary>
         ImmediateNoDisturb,
-        /// <summary>
-        /// 立即执行，影响后续计划
-        /// </summary>
-        ImmediateDisturb
+        ///// <summary>
+        ///// 立即执行，影响后续计划
+        ///// </summary>
+        //ImmediateDisturb
     }
 }

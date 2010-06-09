@@ -132,9 +132,9 @@ namespace TimerTaskService
         }
 
         [WebMethod]
-        public void RunTaskImmediate(Int64 paraTaskID, bool isDisTurbBackTask)
+        public void RunTaskImmediate(Int64 paraTaskID)
         {
-            _BLL.RunTaskImmediate(paraTaskID, isDisTurbBackTask);
+            _BLL.RunTaskImmediate(paraTaskID);
         }
 
         [WebMethod]

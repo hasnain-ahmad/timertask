@@ -20,7 +20,7 @@ namespace TestAssembly
         public override void StopRuning()
         {
             Console.WriteLine("This Task OutDate Killed");
-            frm.Dispose();
+            //frm.Dispose();
             
         }
     }

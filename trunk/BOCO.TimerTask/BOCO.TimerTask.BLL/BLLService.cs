@@ -249,13 +249,13 @@ namespace BOCO.TimerTask.BLL
             this.SendXMLSocket2Server(message);
         }
 
-        public void RunTaskImmediate(Int64 paraTaskID, bool isDisTurbBackTask)
+        public void RunTaskImmediate(Int64 paraTaskID)
         {
-            RunTaskType runType = RunTaskType.ImmediateDisturb;
-            if (isDisTurbBackTask == false)
-            {
-                runType = RunTaskType.ImmediateNoDisturb;
-            }
+            RunTaskType runType = RunTaskType.ImmediateNoDisturb;
+            //if (isDisTurbBackTask == false)
+            //{
+            //    runType = RunTaskType.ImmediateNoDisturb;
+            //}
             string message = MessageParser.BuildMessage(null, null, null,
                 new List<long>() { paraTaskID }, new List<RunTaskType>() { runType }, null);
             this.SendXMLSocket2Server(message);

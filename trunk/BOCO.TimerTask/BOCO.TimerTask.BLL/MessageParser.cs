@@ -216,6 +216,10 @@ namespace BOCO.TimerTask.BLL
                     Int64.Parse(ele.GetAttribute("ID")));
                 paraRunType.Add((RunTaskType)Enum.Parse(typeof(RunTaskType),ele.GetAttribute("Type")));
             }
+
+            //释放内存流
+            ms.Close();
+            ms.Dispose();
         }
     }
 }

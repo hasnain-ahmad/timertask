@@ -137,7 +137,7 @@ namespace BOCO.TimerTask.BLL
         /// </summary>
         /// <param name="paraTaskID"></param>
         /// <param name="isDisTurbBackTask">是否影响后续的任务执行时间</param>
-        void RunTaskImmediate(Int64 paraTaskID, bool isDisTurbBackTask);
+        void RunTaskImmediate(Int64 paraTaskID);
 
         /// <summary>
         /// 启动任务管理器进程

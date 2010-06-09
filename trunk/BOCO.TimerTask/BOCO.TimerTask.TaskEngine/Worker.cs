@@ -73,9 +73,9 @@ namespace BOCO.TimerTask.TaskEngine
                 case RunTaskType.ImmediateNoDisturb:
                     logtype = LogType.TaskRunStart_Immediate;
                     break;
-                case RunTaskType.ImmediateDisturb:
-                    logtype = LogType.TaskRunStart_Immediate_Interupt;
-                    break;
+                //case RunTaskType.ImmediateDisturb:
+                //    logtype = LogType.TaskRunStart_Immediate_Interupt;
+                //    break;
             }
 
             _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, logtype);

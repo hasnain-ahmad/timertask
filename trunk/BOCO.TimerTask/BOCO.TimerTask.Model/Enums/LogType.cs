@@ -58,7 +58,13 @@ namespace BOCO.TimerTask.Model.Enums
         /// <summary>
         /// 任务配置文件找不到
         /// </summary>
-        TaskConfigAssemblyFileNotFind = 109
+        TaskConfigAssemblyFileNotFind = 109,
+
+        /// <summary>
+        /// 通过接口方法结束任务出错
+        /// <remarks>注意，如果任务重有窗体弹出，直接结束会抱错</remarks>
+        /// </summary>
+        StopRuningFromInterfaceError = 110
 
     }
 }

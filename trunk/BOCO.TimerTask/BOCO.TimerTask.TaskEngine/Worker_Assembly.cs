@@ -23,13 +23,21 @@ namespace BOCO.TimerTask.TaskEngine
 
         private void WorkMonitor(object paraMonitorDest)
         {
-            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+            try
             {
-                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
+                if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+                {
+                    Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
 
-                ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
-                if (th != null) th.StopRuning();
+                    ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
+                    if (th != null) th.StopRuning();
 
+                }
+            }
+            catch (Exception ex)
+            {
+                _BLL.WriteLog(
+                    _Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, ex.Message, LogType.StopRuningFromInterfaceError);
             }
         }
 

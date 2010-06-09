@@ -66,9 +66,8 @@ namespace BOCO.TimerTask.TaskEngine
             DateTime dtNow = DateTime.Now;
             return paraWorkTask.Task.TaskEntity.Enable &&   //可用
                 paraWorkTask.RunState != TaskRuningState.OutTime &&　//没有超时
-                ((TimeSpan)(dtNow - paraWorkTask.LastRunTime)).TotalSeconds >= paraWorkTask.Task.TaskEntity.RunSpaceTime && //间隔到了
-                ((TimeSpan)(dtNow - paraWorkTask.Task.TaskEntity.DateStart)).TotalSeconds >= -_IdleSpanInMSecs &&　//在时间范围内
-                 ((TimeSpan)(paraWorkTask.Task.TaskEntity.DateEnd - dtNow)).TotalSeconds >= -_IdleSpanInMSecs;
+                dtNow >= paraWorkTask.NextRunTime; //间隔到了
+                
         }
 
         /// <summary>
@@ -102,7 +101,7 @@ namespace BOCO.TimerTask.TaskEngine
         #endregion
 
         #region ITaskWorkerEngine 成员
-        private int _IdleSpanInMSecs = 2;
+        private int _IdleSpanInMSecs = 1;
         public int IdleSpanInMSecs
         {
             get
