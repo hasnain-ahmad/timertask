@@ -74,7 +74,6 @@ namespace BOCO.TimerTask.TaskEngine
                         Thread th = new Thread(threadStart);
                         th.IsBackground = true;
                         th.Start(_WorkInterface);
-
                     }
                     #endregion
                 }
