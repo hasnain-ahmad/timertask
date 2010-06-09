@@ -101,7 +101,7 @@ namespace BOCO.TimerTask.TaskEngine
         #endregion
 
         #region ITaskWorkerEngine 成员
-        private int _IdleSpanInMSecs = 1;
+        private int _IdleSpanInMSecs = 2;
         public int IdleSpanInMSecs
         {
             get
