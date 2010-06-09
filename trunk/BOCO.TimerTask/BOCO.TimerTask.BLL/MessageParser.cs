@@ -67,8 +67,8 @@ namespace BOCO.TimerTask.BLL
                     XmlElement ele = doc.CreateElement("Task");
                     ele.SetAttribute("Name", task.Name);
                     ele.SetAttribute("Enable", task.Enable.ToString());
-                    ele.SetAttribute("DateStart", task.DateStart.ToLongDateString());
-                    ele.SetAttribute("DateEnd", task.DateEnd.ToLongDateString());
+                    ele.SetAttribute("DateStart", task.DateStart.ToString("T"));
+                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("T"));
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);
@@ -90,8 +90,8 @@ namespace BOCO.TimerTask.BLL
                     ele.SetAttribute("ID", task.ID.ToString());
                     ele.SetAttribute("Name", task.Name);
                     ele.SetAttribute("Enable", task.Enable.ToString());
-                    ele.SetAttribute("DateStart", task.DateStart.ToLongDateString());
-                    ele.SetAttribute("DateEnd", task.DateEnd.ToLongDateString());
+                    ele.SetAttribute("DateStart", task.DateStart.ToString("T"));
+                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("T"));
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);
