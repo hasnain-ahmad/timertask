@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BOCO.TimerTask.ITimerComponent;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace TestAssembly
 {
@@ -14,8 +15,9 @@ namespace TestAssembly
             frm = new Form1();
             frm.Show();
             Console.WriteLine("Task Closed By Self");
-
+            Application.DoEvents();
             Thread.Sleep(2000);
+            
             frm.Close();
             base.TaskExecuteFunc();
         }

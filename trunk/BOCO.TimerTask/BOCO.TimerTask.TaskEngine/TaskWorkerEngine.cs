@@ -233,6 +233,8 @@ namespace BOCO.TimerTask.TaskEngine
                     task.Task.TaskEntity.RunSpaceTime = paraTask.RunSpaceTime;
                     task.Task.TaskEntity.RunSpaceType = paraTask.RunSpaceType;
                     task.Task.TaskEntity.RunTimeOutSecs = paraTask.RunTimeOutSecs;
+
+                    task.RebuildTaskRunTimeList();
                 }
 
             }

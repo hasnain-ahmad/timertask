@@ -183,8 +183,7 @@ namespace BOCO.TimerTask.TaskEngine
                 }
                 else
                 {
-                    DateTime dtBuildStart = _LastRunTime.AddSeconds(_Task.TaskEntity.RunSpaceTime);
-                    if (_Task.TaskEntity.DateStart > _LastRunTime) dtBuildStart = _Task.TaskEntity.DateStart;
+                    DateTime dtBuildStart = _Task.TaskEntity.DateStart;
                     while (dtBuildStart < dtNow) dtBuildStart = dtBuildStart.AddSeconds(_Task.TaskEntity.RunSpaceTime);
                     int i = 0;
                     while (i < 100)//构建100个
