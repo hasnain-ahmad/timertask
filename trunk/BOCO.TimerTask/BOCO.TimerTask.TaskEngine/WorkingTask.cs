@@ -9,7 +9,7 @@ namespace BOCO.TimerTask.TaskEngine
     /// <summary>
     /// 工作者模式-待执行任务实体
     /// </summary>
-    internal class WorkingTask
+    internal class WorkingTask : IWorkingTask
     {
         private Task _Task;
         /// <summary>
@@ -42,7 +42,7 @@ namespace BOCO.TimerTask.TaskEngine
         /// <summary>
         /// 任务对应的执行者
         /// </summary>
-        internal IWorker Worker
+        public IWorker Worker
         {
             get { return _Worker; }
         }
@@ -52,7 +52,7 @@ namespace BOCO.TimerTask.TaskEngine
         /// </summary>
         /// <param name="task"></param>
         /// <param name="parabll"></param>
-        public WorkingTask(Task task, BLL.IBLLLogic parabll)
+        public WorkingTask(Task task, BLL.IBLLLogic parabll,DateTime paraLastRunDate)
         {
             _Task = task;
 
@@ -67,6 +67,16 @@ namespace BOCO.TimerTask.TaskEngine
             }
             else
                 throw new Exception("尚未定义的工作类型,AssemblyType:" + _Task.TaskAssembly.AssemblyType.ToString());
+
+            _LastRunTime = paraLastRunDate;
+            if (_Task.TaskEntity.DateEnd < DateTime.Now)
+            {
+                _RunState = TaskRuningState.OutTime;
+            }
+            else
+            {
+                _RunState = TaskRuningState.Waite;
+            }
         }
 
         /// <summary>
@@ -93,24 +103,16 @@ namespace BOCO.TimerTask.TaskEngine
             }
         }
 
-        /// <summary>
-        /// 设置上次执行时间，并计算工作状态
-        /// ［从数据库中读取出来的任务，需要设置初始状态]
-        /// </summary>
-        /// <param name="paraLastRunTime"></param>
-        public void SetTaskCurrentState(DateTime paraLastRunTime)
-        {
-            _LastRunTime = paraLastRunTime;
-            if (_Task.TaskEntity.DateEnd < DateTime.Now)
-            {
-                _RunState = TaskRuningState.OutTime;
-            }
-            else
-            {
-                _RunState = TaskRuningState.Waite;
-            }
+        ///// <summary>
+        ///// 设置上次执行时间，并计算工作状态
+        ///// ［从数据库中读取出来的任务，需要设置初始状态]
+        ///// </summary>
+        ///// <param name="paraLastRunTime"></param>
+        //public void SetTaskCurrentState(DateTime paraLastRunTime)
+        //{
+            
 
-        }
+        //}
 
     }
 }

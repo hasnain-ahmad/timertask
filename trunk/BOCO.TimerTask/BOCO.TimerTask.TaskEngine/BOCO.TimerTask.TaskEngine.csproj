@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="ITaskWorkerEngine.cs" />
     <Compile Include="IWorker.cs" />
+    <Compile Include="IWorkingTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketService.cs" />
     <Compile Include="TaskEngineFactory.cs" />

@@ -15,7 +15,7 @@ namespace BOCO.TimerTask.TaskEngine
     /// </summary>
     internal class TaskWorkerEngine : ITaskWorkerEngine
     {
-        private List<WorkingTask> _TaskList = new List<WorkingTask>();
+        private List<IWorkingTask> _TaskList = new List<IWorkingTask>();
 
         private SocketService _SocketService;
 
@@ -73,11 +73,12 @@ namespace BOCO.TimerTask.TaskEngine
 
         /// <summary>
         /// 获取所有的工作列表
+        /// [第一次加载 从数据库]
         /// </summary>
         /// <returns></returns>
-        private List<WorkingTask> GetWorkingTask()
+        private List<IWorkingTask> GetWorkingTask()
         {
-            List<WorkingTask> list = new List<WorkingTask>();
+            List<IWorkingTask> list = new List<IWorkingTask>();
             List<Task> tasks = _IBLLLogic.GetTaskList();
             foreach (Task t in tasks)
             {
@@ -92,11 +93,10 @@ namespace BOCO.TimerTask.TaskEngine
         /// </summary>
         /// <param name="task"></param>
         /// <returns></returns>
-        private WorkingTask GetWorkingTask(Task task)
+        private IWorkingTask GetWorkingTask(Task task)
         {
-            WorkingTask wt = new WorkingTask(task, _IBLLLogic);
             DateTime date = _IBLLLogic.GetTaskLastRunTime(task.TaskEntity.ID);
-            wt.SetTaskCurrentState(date);
+            IWorkingTask wt = new WorkingTask(task, _IBLLLogic, date);
             return wt;
         }
         #endregion
@@ -161,7 +161,7 @@ namespace BOCO.TimerTask.TaskEngine
         {
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                WorkingTask t = _TaskList.Find(delegate(WorkingTask task) { return task.Task.TaskEntity.ID == paraTaskId; });
+                IWorkingTask t = _TaskList.Find(delegate(IWorkingTask task) { return task.Task.TaskEntity.ID == paraTaskId; });
                 if (t != null)
                 {
                     return t.RunState;
@@ -174,7 +174,7 @@ namespace BOCO.TimerTask.TaskEngine
         {
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                WorkingTask task = _TaskList.Find(delegate(WorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
+                IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 if (task != null)
                 {
                     task.Worker.EnforceKillWork();
@@ -191,7 +191,7 @@ namespace BOCO.TimerTask.TaskEngine
         {
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                WorkingTask task = _TaskList.Find(delegate(WorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
+                IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 if (task != null)
                 {
                     task.Worker.DoWork(paraRunType);
@@ -221,7 +221,7 @@ namespace BOCO.TimerTask.TaskEngine
         {
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                WorkingTask task = _TaskList.Find(delegate(WorkingTask wt) { return wt.Task.TaskEntity.ID == paraTask.ID; });
+                IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTask.ID; });
                 if (task != null)
                 {
                     task.Task.TaskEntity.Name = paraTask.Name;
@@ -243,7 +243,7 @@ namespace BOCO.TimerTask.TaskEngine
         {
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                WorkingTask task = _TaskList.Find(delegate(WorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
+                IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 _TaskList.Remove(task);
             }
         }
