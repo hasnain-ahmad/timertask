@@ -18,7 +18,7 @@ namespace BOCO.TimerTask.TaskManager
         extern static IntPtr RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
         #endregion
 
-        internal const string STR_CAPTION_TITLE = "定时任务管理器（亿阳信通）";
+        internal const string STR_CAPTION_TITLE = "定时任务管理器";
 
         /// <summary>
         /// App Entry
