@@ -58,6 +58,7 @@ namespace BOCO.TimerTask.TaskEngine
 
         /// <summary>
         /// 该任务是否到时间并且可以执行
+        /// <remarks>这个算法写了很长时间</remarks>
         /// </summary>
         /// <param name="paraWorkTask"></param>
         //[STAThread]
