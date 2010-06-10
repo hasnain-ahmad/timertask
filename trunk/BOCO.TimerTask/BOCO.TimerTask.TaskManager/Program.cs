@@ -16,6 +16,15 @@ namespace BOCO.TimerTask.TaskManager
         extern static IntPtr GetSystemMenu(IntPtr hWnd, IntPtr bRevert);
         [DllImport("user32.dll", EntryPoint = "RemoveMenu")]
         extern static IntPtr RemoveMenu(IntPtr hMenu, uint uPosition, uint uFlags);
+
+        /// <summary>
+        /// Shows the window.
+        /// </summary>
+        /// <param name="hWnd">The h WND.</param>
+        /// <param name="nCmdShow">0 隐藏，1 显示.</param>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "ShowWindow")]
+        extern static bool ShowWindow(IntPtr hWnd, int nCmdShow);
         #endregion
 
         internal const string STR_CAPTION_TITLE = "定时任务管理器";
@@ -117,6 +126,9 @@ namespace BOCO.TimerTask.TaskManager
             IntPtr closeMenu = GetSystemMenu(windowHandle, IntPtr.Zero);
             uint SC_CLOSE = 0xF060;
             RemoveMenu(closeMenu, SC_CLOSE, 0x0);
+            //隐藏控制台窗口
+            ShowWindow(windowHandle, 0);
+            ShowWindow(windowHandle, 1);
         }
     }
 }
