@@ -46,12 +46,30 @@ namespace BOCO.TimerTask.TaskManager
             Console.Title = STR_CAPTION_TITLE;
             CloseBtn();
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-            Console.Beep();
+            //Console.Beep();
             Console.WriteLine("定时任务管理器已经启动...");
             #endregion
 
             try
             {
+                int engineIdleTimeSec = 2;
+                if (!string.IsNullOrEmpty(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"]))
+                {
+                    int tmp;
+                    if (int.TryParse(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"], out tmp))
+                    {
+                        engineIdleTimeSec = tmp;
+                        Console.WriteLine("定时任务管理器空闲时间间隔已经被配置为{0}秒。", tmp);
+                    }
+                    else
+                    {
+                        Console.WriteLine("配置定时任务管理器空闲时间间隔有误，将按照默认配置进行处理。");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
+                }
                 //开始启动定时任务管理引擎
                 ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine();
                 taskEngine.Start();
