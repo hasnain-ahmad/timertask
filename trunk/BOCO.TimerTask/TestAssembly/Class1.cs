@@ -16,7 +16,7 @@ namespace TestAssembly
             frm.Show();
             Console.WriteLine("Task Closed By Self");
             Application.DoEvents();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
             
             frm.Close();
             base.TaskExecuteFunc();

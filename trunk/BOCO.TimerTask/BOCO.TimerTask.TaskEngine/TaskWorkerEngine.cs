@@ -26,9 +26,10 @@ namespace BOCO.TimerTask.TaskEngine
         /// <summary>
         /// Construction Function
         /// </summary>
-        public TaskWorkerEngine()
+        public TaskWorkerEngine(int paraIdleSecs)
         {
             _IBLLLogic = BLL.BLlFactory.GetBllLogic();
+            _IdleSpanInMSecs = paraIdleSecs;
         }
 
         #region Private Function
@@ -154,7 +155,7 @@ namespace BOCO.TimerTask.TaskEngine
         #region 操作任务
         public bool Stop()
         {
-            return true;
+            return false;
         }
 
         public TaskRuningState GetTaskRuningState(Int64 paraTaskId)

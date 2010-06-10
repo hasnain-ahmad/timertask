@@ -71,7 +71,7 @@ namespace BOCO.TimerTask.TaskManager
                     Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
                 }
                 //开始启动定时任务管理引擎
-                ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine();
+                ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine(engineIdleTimeSec);
                 taskEngine.Start();
                 
                 //阻塞当前线程，因为控制台程序如果不阻塞会自动退出
