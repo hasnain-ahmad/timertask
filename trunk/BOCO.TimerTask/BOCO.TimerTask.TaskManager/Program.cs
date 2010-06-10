@@ -46,7 +46,7 @@ namespace BOCO.TimerTask.TaskManager
             Console.Title = STR_CAPTION_TITLE;
             CloseBtn();
             Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-
+            Console.Beep();
             Console.WriteLine("定时任务管理器已经启动...");
             #endregion
 
@@ -86,7 +86,8 @@ namespace BOCO.TimerTask.TaskManager
         /// <param name="e"></param>
         static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("该控制台程序不允许关闭");
+            e.Cancel = true;
         }
 
         /// <summary>
