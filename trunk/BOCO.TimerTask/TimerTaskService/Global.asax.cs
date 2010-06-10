@@ -14,10 +14,6 @@ namespace TimerTaskService
 {
     public class Global : System.Web.HttpApplication
     {
-        ///// <summary>
-        ///// 任务管理器进程
-        ///// </summary>
-        //internal static Process TaskManagerProcess;
 
         protected void Application_Start(object sender, EventArgs e)
         {

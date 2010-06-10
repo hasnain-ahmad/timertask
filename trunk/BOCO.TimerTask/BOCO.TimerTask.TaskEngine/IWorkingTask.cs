@@ -1,16 +1,46 @@
 ﻿using System;
+using BOCO.TimerTask.Model.Enums;
+using BOCO.TimerTask.Model;
 namespace BOCO.TimerTask.TaskEngine
 {
+    /// <summary>
+    /// 正在工作的任务
+    /// </summary>
     interface IWorkingTask
     {
+        /// <summary>
+        /// 上次运行时间
+        /// </summary>
         DateTime LastRunTime { get; }
-        DateTime NextRunTime { get; }
-        void Notify_WorkComplete();
-        void Notify_WorkStarted();
-        BOCO.TimerTask.Model.Enums.TaskRuningState RunState { get; }
-        BOCO.TimerTask.Model.Task Task { get; }
-        IWorker Worker { get; }
 
+        /// <summary>
+        /// Gets the next run time.
+        /// </summary>
+        /// <value>The next run time.</value>
+        DateTime NextRunTime { get; }
+        /// <summary>
+        /// Notify_s the work complete.
+        /// </summary>
+        void Notify_WorkComplete();
+        /// <summary>
+        /// Notify_s the work started.
+        /// </summary>
+        void Notify_WorkStarted();
+        /// <summary>
+        /// Gets the state of the run.
+        /// </summary>
+        /// <value>The state of the run.</value>
+        TaskRuningState RunState { get; }
+        /// <summary>
+        /// Gets the task.
+        /// </summary>
+        /// <value>The task.</value>
+        Task Task { get; }
+        /// <summary>
+        /// Gets the worker.
+        /// </summary>
+        /// <value>The worker.</value>
+        IWorker Worker { get; }
         /// <summary>
         /// 重构构建任务执行的时间列表
         /// [对任务有更新的时候重新构建]

@@ -11,12 +11,25 @@ using BOCO.TimerTask.Model;
 
 namespace BOCO.TimerTask.TaskEngine
 {
+    /// <summary>
+    /// 定时任务引擎
+    /// </summary>
     public interface ITaskWorkerEngine
     {
+        /// <summary>
+        /// 空闲时间（秒）
+        /// </summary>
         int IdleSpanInMSecs { get; set; }
 
+        /// <summary>
+        /// 是否在运行
+        /// </summary>
         bool IsRuning { get; }
 
+        /// <summary>
+        /// 启动
+        /// </summary>
+        /// <returns></returns>
         bool Start();
 
         bool Stop();

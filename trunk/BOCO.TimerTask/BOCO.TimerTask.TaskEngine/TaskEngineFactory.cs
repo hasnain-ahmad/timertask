@@ -4,6 +4,9 @@ using System.Text;
 
 namespace BOCO.TimerTask.TaskEngine
 {
+    /// <summary>
+    /// 工厂类 
+    /// </summary>
     public static class TaskEngineFactory
     {
         private static ITaskWorkerEngine _Engine = null;

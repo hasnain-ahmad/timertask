@@ -8,6 +8,14 @@ using BOCO.TimerTask.Model.Enums;
 
 namespace BOCO.TimerTask.BLL.Mapper
 {
+
+    /// <summary>
+    /// Date: 2010/6/10
+    /// Author:LvJinMing
+    /// Name:
+    /// FullName:BOCO.TimerTask.BLL.Mapper.CfgDataMapper
+    /// 数据映射器
+    /// </summary>
     internal static class CfgDataMapper
     {
         public static TaskAssembly MappingTaskAsssembly(XmlElement paraNode)

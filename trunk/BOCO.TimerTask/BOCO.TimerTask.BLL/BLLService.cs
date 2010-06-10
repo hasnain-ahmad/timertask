@@ -1,7 +1,7 @@
 ﻿// File:    BLLService.cs
 // Author:  LvJinMing
 // Created: 2010年6月4日 15:26:17
-// Purpose: Definition of Enum TaskRuningState
+// Purpose: Class
 
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using BOCO.TimerTask.DAL;
 using BOCO.TimerTask.Model;
 using BOCO.TimerTask.Model.Enums;
 using BOCO.TimerTask.Utility;
-using BOCO.TimerTask.DAL;
 
 namespace BOCO.TimerTask.BLL
 {
@@ -28,6 +28,10 @@ namespace BOCO.TimerTask.BLL
         private DAL.IDataAccess _DataAccess = DAL.DALFactory.GetDataAccess();
 
         #region private function
+        /// <summary>
+        /// Gets the regested apps.
+        /// </summary>
+        /// <returns></returns>
         private List<TaskAssembly> GetRegestedApps()
         {
             return RegestAppCfgHelper.GetAllApps();
@@ -65,6 +69,11 @@ namespace BOCO.TimerTask.BLL
 
         #region IBLLService 成员
 
+        /// <summary>
+        /// Adds the task.
+        /// </summary>
+        /// <param name="paraEntity">The para entity.</param>
+        /// <returns></returns>
         public TaskEntity AddTask(TaskEntity paraEntity)
         {
             TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
@@ -84,6 +93,18 @@ namespace BOCO.TimerTask.BLL
                 paraEntity.RunTimeOutSecs);
         }
 
+        /// <summary>
+        /// 添加定时任务
+        /// </summary>
+        /// <param name="paraName"></param>
+        /// <param name="paraDateStart"></param>
+        /// <param name="paraDateEnd"></param>
+        /// <param name="paraAppName"></param>
+        /// <param name="paraRunSpaceTimeSecs">周期数（秒）</param>
+        /// <param name="paraRunSpaceType">周期类型（便于存储和下次查看）</param>
+        /// <param name="paraExtraStr"></param>
+        /// <param name="paraRunTimeOutSecs">执行超时时间，如果不限定，则给-1，如果限定了，在指定时间内未执行完成，则强制结束（exe直接结束进程，dll通过接口通知结束）</param>
+        /// <returns></returns>
         public TaskEntity AddTask(string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
             TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
@@ -120,6 +141,11 @@ namespace BOCO.TimerTask.BLL
             }
         }
 
+        /// <summary>
+        /// 删除定时任务
+        /// </summary>
+        /// <param name="paraID"></param>
+        /// <returns></returns>
         public bool DelTask(Int64 paraID)
         {
             //发送消息同步到任务管理器中
@@ -128,6 +154,11 @@ namespace BOCO.TimerTask.BLL
             return _DataAccess.RemoveTask(paraID);
         }
 
+        /// <summary>
+        /// Updates the task.
+        /// </summary>
+        /// <param name="paraEntity">The para entity.</param>
+        /// <returns></returns>
         public bool UpdateTask(TaskEntity paraEntity)
         {
             TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
@@ -149,6 +180,19 @@ namespace BOCO.TimerTask.BLL
                 paraEntity.RunTimeOutSecs);
         }
 
+        /// <summary>
+        /// 更新任务
+        /// </summary>
+        /// <param name="paraTaskID"></param>
+        /// <param name="paraName"></param>
+        /// <param name="paraDateStart"></param>
+        /// <param name="paraDateEnd"></param>
+        /// <param name="paraAppName"></param>
+        /// <param name="paraRunSpaceTimeSecs"></param>
+        /// <param name="paraRunSpaceType"></param>
+        /// <param name="paraExtraStr"></param>
+        /// <param name="paraRunTimeOutSecs"></param>
+        /// <returns></returns>
         public bool UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
             TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
@@ -181,16 +225,29 @@ namespace BOCO.TimerTask.BLL
             }
         }
 
+        /// <summary>
+        /// 查询计划列表
+        /// </summary>
+        /// <param name="paraAppName"></param>
+        /// <returns></returns>
         public List<TaskEntity> GetTaskListByApp(string paraAppName)
         {
             return _DataAccess.GetTasks(paraAppName);
         }
 
+        /// <summary>
+        /// 查询计划列表
+        /// </summary>
+        /// <returns></returns>
         public List<TaskEntity> GetTaskEntityList()
         {
             return _DataAccess.GetTasks();
         }
 
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        /// <param name="paraLogEntity"></param>
         public void WriteLog(LogEntity paraLogEntity)
         {
             try
@@ -203,6 +260,12 @@ namespace BOCO.TimerTask.BLL
             }
         }
 
+        /// <summary>
+        /// 查看一段时间的日志
+        /// </summary>
+        /// <param name="paraDateStart"></param>
+        /// <param name="paraDateEnd"></param>
+        /// <returns></returns>
         public DataTable GetTaskLogByDate(DateTime paraDateStart, DateTime paraDateEnd)
         {
             return _DataAccess.GetLog(paraDateStart, paraDateEnd);
@@ -213,11 +276,20 @@ namespace BOCO.TimerTask.BLL
             return _DataAccess.GetLog(paraTaskId);
         }
 
+        /// <summary>
+        /// 查看一个已注册程序的日志
+        /// </summary>
+        /// <param name="paraRegestedAppName"></param>
+        /// <returns></returns>
         public DataTable GetTaskLogByApp(string paraRegestedAppName)
         {
             return _DataAccess.GetLog(paraRegestedAppName);
         }
 
+        /// <summary>
+        /// 服务是否启动
+        /// </summary>
+        /// <returns></returns>
         public bool IsTaskManagerAlive()
         {
             Process[] arr = Process.GetProcessesByName(TIMERMANAGER_PROCESSNAME);
@@ -231,6 +303,10 @@ namespace BOCO.TimerTask.BLL
             }
         }
 
+        /// <summary>
+        /// 获取已经注册的任务（制定任务的时候要选择）
+        /// </summary>
+        /// <returns></returns>
         public List<string> GetRegestedApp()
         {
             List<string> sc = new List<string>();
@@ -241,11 +317,20 @@ namespace BOCO.TimerTask.BLL
             return sc;
         }
 
+        /// <summary>
+        /// 查看任务目前的执行状态
+        /// </summary>
+        /// <param name="paraTaskId"></param>
+        /// <returns></returns>
         public TaskRuningState GetTaskRunState(Int64 paraTaskId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// 停止正在执行的任务
+        /// </summary>
+        /// <param name="paraTaskId"></param>
         public void StopRuningTask(Int64 paraTaskId)
         {
             string message = MessageParser.BuildMessage(null, null, null, null, null,
@@ -253,6 +338,10 @@ namespace BOCO.TimerTask.BLL
             this.SendXMLSocket2Server(message);
         }
 
+        /// <summary>
+        /// 立即执行一个任务
+        /// </summary>
+        /// <param name="paraTaskID"></param>
         public void RunTaskImmediate(Int64 paraTaskID)
         {
             RunTaskType runType = RunTaskType.ImmediateNoDisturb;
@@ -265,6 +354,10 @@ namespace BOCO.TimerTask.BLL
             this.SendXMLSocket2Server(message);
         }
 
+        /// <summary>
+        /// 启动任务管理器进程
+        /// </summary>
+        /// <returns></returns>
         public bool StartTaskManager()
         {
             //Process[] arr = Process.GetProcessesByName("BOCO.TimerTask.TaskManager");
@@ -300,6 +393,11 @@ namespace BOCO.TimerTask.BLL
 
 
 
+        /// <summary>
+        /// 查询（可用的）富计划对象
+        /// [外部接口不用使用，内部处理计划用]
+        /// </summary>
+        /// <returns></returns>
         public List<Task> GetTaskList()
         {
             List<TaskEntity> entitylist = this.GetTaskEntityList().FindAll(delegate(TaskEntity entity) { return entity.Enable == true; });
@@ -324,6 +422,11 @@ namespace BOCO.TimerTask.BLL
         #region IBLLLogic 成员
 
 
+        /// <summary>
+        /// 获取计划的上次执行时间,如果查询不到,返回DateTime.MinValue
+        /// </summary>
+        /// <param name="paraTaskID"></param>
+        /// <returns></returns>
         public DateTime GetTaskLastRunTime(long paraTaskID)
         {
             LogEntity log = _DataAccess.GetLog_LatestRun(paraTaskID, LogType.TaskRunStart);
@@ -342,6 +445,11 @@ namespace BOCO.TimerTask.BLL
         #region IBLLLogic 成员
 
 
+        /// <summary>
+        /// 获取计划富实体
+        /// </summary>
+        /// <param name="paraEntity"></param>
+        /// <returns></returns>
         public Task GetTask(TaskEntity paraEntity)
         {
             List<TaskAssembly> assList = this.GetRegestedApps();
@@ -361,6 +469,13 @@ namespace BOCO.TimerTask.BLL
         #region IBLLLogic 成员
 
 
+        /// <summary>
+        /// 写日志
+        /// </summary>
+        /// <param name="paraTaskid"></param>
+        /// <param name="paraTaskName"></param>
+        /// <param name="paraContent"></param>
+        /// <param name="paraLogType"></param>
         public void WriteLog(long paraTaskid, string paraTaskName, string paraContent, LogType paraLogType)
         {
             _DataAccess.WriteLog(paraTaskid, paraTaskName, paraContent, paraLogType);
@@ -371,17 +486,29 @@ namespace BOCO.TimerTask.BLL
         #region IBLLLogic 成员
 
 
+        /// <summary>
+        /// Adds the task2 DB.
+        /// </summary>
+        /// <param name="paraTask">The para task.</param>
         public void AddTask2DB(TaskEntity paraTask)
         {
             Int64 id = _DataAccess.AddTask(paraTask);
             paraTask.SetKeyID(id);
         }
 
+        /// <summary>
+        /// Updates the task2 DB.
+        /// </summary>
+        /// <param name="paraTask">The para task.</param>
         public void UpdateTask2DB(TaskEntity paraTask)
         {
             _DataAccess.ModifyTask(paraTask.ID, paraTask);
         }
 
+        /// <summary>
+        /// Deletes the task2 DB.
+        /// </summary>
+        /// <param name="paraTaskID">The para task ID.</param>
         public void DeleteTask2DB(long paraTaskID)
         {
             _DataAccess.RemoveTask(paraTaskID);
