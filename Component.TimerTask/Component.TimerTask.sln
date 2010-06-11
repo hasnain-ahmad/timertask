@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTaskService", "TimerTaskService\TimerTaskService.csproj", "{298C631C-E904-4DD7-8DDA-BB2B18F762FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly", "TestAssembly\TestAssembly.csproj", "{186834B3-E334-4DCD-BC6E-78949F3D7C55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document", "Document\Document.csproj", "{425D3C80-B83D-4BF8-AB01-306FBF387BED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.BLL", "Component.TimerTask.BLL\Component.TimerTask.BLL.csproj", "{217ED413-046C-49AF-A1BE-AA65D09D6F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.DAL", "Component.TimerTask.DAL\Component.TimerTask.DAL.csproj", "{3EC8EB3D-40F2-4FE3-A394-0900996A535E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.ITimerComponent", "Component.TimerTask.ITimerComponent\Component.TimerTask.ITimerComponent.csproj", "{607E3790-B6A3-47F0-98BD-BD1E28C04882}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Model", "Component.TimerTask.Model\Component.TimerTask.Model.csproj", "{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.TaskEngine", "Component.TimerTask.TaskEngine\Component.TimerTask.TaskEngine.csproj", "{A635E678-8804-49C7-9B26-E53D8C08682A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.TaskManager", "Component.TimerTask.TaskManager\Component.TimerTask.TaskManager.csproj", "{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Utility", "Component.TimerTask.Utility\Component.TimerTask.Utility.csproj", "{960D1AF7-C3D4-494F-8E03-DB98AC428A19}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{298C631C-E904-4DD7-8DDA-BB2B18F762FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{298C631C-E904-4DD7-8DDA-BB2B18F762FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{298C631C-E904-4DD7-8DDA-BB2B18F762FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{298C631C-E904-4DD7-8DDA-BB2B18F762FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186834B3-E334-4DCD-BC6E-78949F3D7C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186834B3-E334-4DCD-BC6E-78949F3D7C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186834B3-E334-4DCD-BC6E-78949F3D7C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186834B3-E334-4DCD-BC6E-78949F3D7C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425D3C80-B83D-4BF8-AB01-306FBF387BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425D3C80-B83D-4BF8-AB01-306FBF387BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425D3C80-B83D-4BF8-AB01-306FBF387BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425D3C80-B83D-4BF8-AB01-306FBF387BED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{217ED413-046C-49AF-A1BE-AA65D09D6F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217ED413-046C-49AF-A1BE-AA65D09D6F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217ED413-046C-49AF-A1BE-AA65D09D6F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217ED413-046C-49AF-A1BE-AA65D09D6F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC8EB3D-40F2-4FE3-A394-0900996A535E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC8EB3D-40F2-4FE3-A394-0900996A535E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC8EB3D-40F2-4FE3-A394-0900996A535E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC8EB3D-40F2-4FE3-A394-0900996A535E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{607E3790-B6A3-47F0-98BD-BD1E28C04882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{607E3790-B6A3-47F0-98BD-BD1E28C04882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{607E3790-B6A3-47F0-98BD-BD1E28C04882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{607E3790-B6A3-47F0-98BD-BD1E28C04882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A635E678-8804-49C7-9B26-E53D8C08682A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A635E678-8804-49C7-9B26-E53D8C08682A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A635E678-8804-49C7-9B26-E53D8C08682A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A635E678-8804-49C7-9B26-E53D8C08682A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
