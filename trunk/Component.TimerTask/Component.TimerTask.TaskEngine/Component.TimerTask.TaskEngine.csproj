@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A635E678-8804-49C7-9B26-E53D8C08682A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BOCO.TimerTask.TaskEngine</RootNamespace>
+    <AssemblyName>BOCO.TimerTask.TaskEngine</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ITaskWorkerEngine.cs" />
+    <Compile Include="IWorker.cs" />
+    <Compile Include="IWorkingTask.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SocketService.cs" />
+    <Compile Include="TaskEngineFactory.cs" />
+    <Compile Include="TaskWorkerEngine.cs" />
+    <Compile Include="Worker.cs" />
+    <Compile Include="Worker_Assembly.cs" />
+    <Compile Include="Worker_Excutable.cs" />
+    <Compile Include="WorkingTask.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Component.TimerTask.BLL\Component.TimerTask.BLL.csproj">
+      <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
+      <Name>Component.TimerTask.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.ITimerComponent\Component.TimerTask.ITimerComponent.csproj">
+      <Project>{607E3790-B6A3-47F0-98BD-BD1E28C04882}</Project>
+      <Name>Component.TimerTask.ITimerComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Model\Component.TimerTask.Model.csproj">
+      <Project>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</Project>
+      <Name>Component.TimerTask.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Utility\Component.TimerTask.Utility.csproj">
+      <Project>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</Project>
+      <Name>Component.TimerTask.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
