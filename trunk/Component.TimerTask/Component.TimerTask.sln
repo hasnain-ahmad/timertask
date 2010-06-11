@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.TaskMan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Utility", "Component.TimerTask.Utility\Component.TimerTask.Utility.csproj", "{960D1AF7-C3D4-494F-8E03-DB98AC428A19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Monitor", "Component.TimerTask.Monitor\Component.TimerTask.Monitor.csproj", "{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -71,6 +73,10 @@ Global
 		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{960D1AF7-C3D4-494F-8E03-DB98AC428A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
