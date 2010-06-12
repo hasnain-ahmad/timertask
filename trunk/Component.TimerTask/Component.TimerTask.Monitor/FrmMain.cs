@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Component.TimerTask.BLL;
+using Component.TimerTask.Model;
 
 namespace Component.TimerTask.Monitor
 {
     public partial class FrmMain : Form
     {
         private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
-        //private Process _MonitorProcess;
         IBLLService _Bll = BLlFactory.GetBLL();
 
         public FrmMain()
@@ -93,6 +93,71 @@ namespace Component.TimerTask.Monitor
             else
             {//已经启动
                 this.lbl_State.Text = ProcessState.已经启动.ToString();
+            }
+            InitTaskList();
+        }
+
+        private void InitTaskList()
+        {
+            this.listView1.BeginUpdate();
+            this.listView1.Items.Clear();
+            List<TaskEntity> list = _Bll.GetTaskEntityList();
+            foreach (TaskEntity entity in list)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = entity.Name;
+                lvi.Tag = entity;
+                lvi.SubItems[0].Text = GetTaskState(entity).ToString();
+                this.listView1.Items.Add(lvi);
+            }
+            this.listView1.EndUpdate();
+        }
+
+        private TaskState GetTaskState(TaskEntity paraTask)
+        {
+            DateTime dtNow = DateTime.Now;
+            if (paraTask.DateEnd < dtNow) return  TaskState.超时;
+            if (paraTask.DateStart > dtNow) return  TaskState.等待执行;
+            if (paraTask.Enable == false) return TaskState.已删除;
+            return  TaskState.正在执行;
+        }
+
+        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
+            if (item != null)
+            {
+                item.Selected = true;
+
+
+                if (e.Button == MouseButtons.Right)
+                {
+                    tsmi_Del.Enabled = true;
+                    tsmi_Add.Enabled = true;
+                    tsmi_Update.Enabled = true;
+                    TaskEntity entity = (TaskEntity)item.Tag;
+                    TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[0].Text);
+                    switch (s)
+                    {
+                        case TaskState.超时:
+                            break;
+                        case TaskState.等待执行:
+                            break;
+                        case TaskState.正在执行:
+                            break;
+                        case TaskState.已删除:
+                            tsmi_Del.Enabled = false;
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    tsmi_Del.Enabled = false;
+                    tsmi_Add.Enabled = false;
+                }
             }
         }
     }

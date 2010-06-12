@@ -79,11 +79,16 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TaskState.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Component.TimerTask.BLL\Component.TimerTask.BLL.csproj">
       <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
       <Name>Component.TimerTask.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Model\Component.TimerTask.Model.csproj">
+      <Project>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</Project>
+      <Name>Component.TimerTask.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
