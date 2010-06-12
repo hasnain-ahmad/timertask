@@ -81,15 +81,13 @@ namespace Component.TimerTask.BLL
             {
                 return null;
             }
-            string paraStr = assembly.AssemblyType == AssemblyType.Dll ? paraEntity.ExtraParaStr : paraEntity.ExeCommandParaMeter;
-
             return AddTask(paraEntity.Name,
                 paraEntity.DateStart,
                 paraEntity.DateEnd,
                 paraEntity.RegestesAppName,
                 paraEntity.RunSpaceTime,
                 paraEntity.RunSpaceType,
-                paraStr,
+                paraEntity.ExtraParaStr,
                 paraEntity.RunTimeOutSecs);
         }
 
@@ -118,8 +116,7 @@ namespace Component.TimerTask.BLL
                 entity.DateEnd = paraDateEnd;
                 entity.DateStart = paraDateStart;
                 entity.Enable = true;
-                entity.ExeCommandParaMeter = assembly.AssemblyType == AssemblyType.Exe ? paraExtraStr : string.Empty;
-                entity.ExtraParaStr = assembly.AssemblyType == AssemblyType.Dll ? paraExtraStr : string.Empty;
+                entity.ExtraParaStr = paraExtraStr;
                 entity.Name = paraName;
                 entity.RunSpaceTime = paraRunSpaceTimeSecs;
                 entity.RunSpaceType = paraRunSpaceType;
@@ -166,7 +163,6 @@ namespace Component.TimerTask.BLL
             {
                 return false;
             }
-            string paraStr = assembly.AssemblyType == AssemblyType.Dll ? paraEntity.ExtraParaStr : paraEntity.ExeCommandParaMeter;
 
             return UpdateTask(
                 paraEntity.ID,
@@ -176,7 +172,7 @@ namespace Component.TimerTask.BLL
                 paraEntity.RegestesAppName,
                 paraEntity.RunSpaceTime,
                 paraEntity.RunSpaceType,
-                paraStr,
+                paraEntity.ExtraParaStr,
                 paraEntity.RunTimeOutSecs);
         }
 
@@ -206,8 +202,7 @@ namespace Component.TimerTask.BLL
                 entity.DateEnd = paraDateEnd;
                 entity.DateStart = paraDateStart;
                 entity.Enable = true;
-                entity.ExeCommandParaMeter = assembly.AssemblyType == AssemblyType.Exe ? paraExtraStr : string.Empty;
-                entity.ExtraParaStr = assembly.AssemblyType == AssemblyType.Dll ? paraExtraStr : string.Empty;
+                entity.ExtraParaStr = paraExtraStr;
                 entity.Name = paraName;
                 entity.RunSpaceTime = paraRunSpaceTimeSecs;
                 entity.RunSpaceType = paraRunSpaceType;

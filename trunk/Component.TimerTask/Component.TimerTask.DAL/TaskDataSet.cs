@@ -1,4 +1,5 @@
-﻿namespace Component.TimerTask.DAL {
+﻿namespace Component.TimerTask.DAL
+{
     
     
     public partial class TaskDataSet {

@@ -22,7 +22,6 @@ namespace Component.TimerTask.DAL.Mapper
                 paraDr.RunSpaceTimeSecs,
                 (TaskFrequence)Enum.Parse(typeof(TaskFrequence), paraDr.RunSpaceType),
                 paraDr.ExtraParaStr,
-                paraDr.ExeCommandParaMeter,
                 paraDr.RunTimeOutSecs,
                 paraDr.TaskAppName
                 );
@@ -35,7 +34,6 @@ namespace Component.TimerTask.DAL.Mapper
             paraRow.DateEnd = paraTaskEntity.DateEnd;
             paraRow.DateStart = paraTaskEntity.DateStart;
             paraRow.Enable = paraTaskEntity.Enable.ToString();
-            paraRow.ExeCommandParaMeter = paraTaskEntity.ExeCommandParaMeter;
             paraRow.ExtraParaStr = paraTaskEntity.ExtraParaStr;
             paraRow.Name = paraTaskEntity.Name;
             paraRow.RunSpaceTimeSecs = paraTaskEntity.RunSpaceTime;

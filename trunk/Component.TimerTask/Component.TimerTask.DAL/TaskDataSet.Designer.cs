@@ -10,7 +10,8 @@
 
 #pragma warning disable 1591
 
-namespace Component.TimerTask.DAL {
+namespace Component.TimerTask.DAL
+{
     
     
     /// <summary>
@@ -314,8 +315,6 @@ namespace Component.TimerTask.DAL {
             
             private global::System.Data.DataColumn columnExtraParaStr;
             
-            private global::System.Data.DataColumn columnExeCommandParaMeter;
-            
             private global::System.Data.DataColumn columnRunTimeOutSecs;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -419,13 +418,6 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn ExeCommandParaMeterColumn {
-                get {
-                    return this.columnExeCommandParaMeter;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public global::System.Data.DataColumn RunTimeOutSecsColumn {
                 get {
                     return this.columnRunTimeOutSecs;
@@ -461,7 +453,7 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow AddPL_TimerTaskRow(string Name, string TaskAppName, string Enable, System.DateTime CreateDate, System.DateTime DateStart, System.DateTime DateEnd, long RunSpaceTimeSecs, string RunSpaceType, string ExtraParaStr, string ExeCommandParaMeter, long RunTimeOutSecs) {
+            public PL_TimerTaskRow AddPL_TimerTaskRow(string Name, string TaskAppName, string Enable, System.DateTime CreateDate, System.DateTime DateStart, System.DateTime DateEnd, long RunSpaceTimeSecs, string RunSpaceType, string ExtraParaStr, long RunTimeOutSecs) {
                 PL_TimerTaskRow rowPL_TimerTaskRow = ((PL_TimerTaskRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -474,7 +466,6 @@ namespace Component.TimerTask.DAL {
                         RunSpaceTimeSecs,
                         RunSpaceType,
                         ExtraParaStr,
-                        ExeCommandParaMeter,
                         RunTimeOutSecs};
                 rowPL_TimerTaskRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPL_TimerTaskRow);
@@ -516,7 +507,6 @@ namespace Component.TimerTask.DAL {
                 this.columnRunSpaceTimeSecs = base.Columns["RunSpaceTimeSecs"];
                 this.columnRunSpaceType = base.Columns["RunSpaceType"];
                 this.columnExtraParaStr = base.Columns["ExtraParaStr"];
-                this.columnExeCommandParaMeter = base.Columns["ExeCommandParaMeter"];
                 this.columnRunTimeOutSecs = base.Columns["RunTimeOutSecs"];
             }
             
@@ -542,8 +532,6 @@ namespace Component.TimerTask.DAL {
                 base.Columns.Add(this.columnRunSpaceType);
                 this.columnExtraParaStr = new global::System.Data.DataColumn("ExtraParaStr", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExtraParaStr);
-                this.columnExeCommandParaMeter = new global::System.Data.DataColumn("ExeCommandParaMeter", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExeCommandParaMeter);
                 this.columnRunTimeOutSecs = new global::System.Data.DataColumn("RunTimeOutSecs", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRunTimeOutSecs);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -551,12 +539,23 @@ namespace Component.TimerTask.DAL {
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
+                this.columnID.Caption = "序号";
                 this.columnName.AllowDBNull = false;
+                this.columnName.Caption = "名称";
                 this.columnTaskAppName.AllowDBNull = false;
+                this.columnTaskAppName.Caption = "程序名称";
                 this.columnEnable.AllowDBNull = false;
+                this.columnEnable.Caption = "是否可用";
+                this.columnCreateDate.Caption = "创建日期";
                 this.columnDateStart.AllowDBNull = false;
+                this.columnDateStart.Caption = "计划开始时间";
                 this.columnDateEnd.AllowDBNull = false;
+                this.columnDateEnd.Caption = "计划结束时间";
                 this.columnRunSpaceTimeSecs.AllowDBNull = false;
+                this.columnRunSpaceTimeSecs.Caption = "运行间隔";
+                this.columnRunSpaceType.Caption = "计划间隔频率";
+                this.columnExtraParaStr.Caption = "运行参数";
+                this.columnRunTimeOutSecs.Caption = "超时时间";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -861,6 +860,12 @@ namespace Component.TimerTask.DAL {
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
+                this.columnID.Caption = "序号";
+                this.columnLogDate.Caption = "记录时间";
+                this.columnTaskID.Caption = "计划号";
+                this.columnTaskName.Caption = "计划名称";
+                this.columnLogType.Caption = "日志类型";
+                this.columnLogContent.Caption = "日志内容";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1108,21 +1113,6 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ExeCommandParaMeter {
-                get {
-                    try {
-                        return ((string)(this[this.tablePL_TimerTask.ExeCommandParaMeterColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask”中列“ExeCommandParaMeter”的值为 DBNull。", e);
-                    }
-                }
-                set {
-                    this[this.tablePL_TimerTask.ExeCommandParaMeterColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long RunTimeOutSecs {
                 get {
                     try {
@@ -1165,16 +1155,6 @@ namespace Component.TimerTask.DAL {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetExtraParaStrNull() {
                 this[this.tablePL_TimerTask.ExtraParaStrColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsExeCommandParaMeterNull() {
-                return this.IsNull(this.tablePL_TimerTask.ExeCommandParaMeterColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetExeCommandParaMeterNull() {
-                this[this.tablePL_TimerTask.ExeCommandParaMeterColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
