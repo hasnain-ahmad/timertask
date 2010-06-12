@@ -67,19 +67,19 @@ namespace Component.TimerTask.TaskEngine
                     MessageParser.ParseMessage(recieveContent, out addedList, out deledList, out updateList, out runList,out runTypeList, out stopedList);
 
                     #region 先保存入库
-                    //----
-                    foreach (TaskEntity entity in addedList)
-                    {
-                        _IBLLLogic.AddTask2DB(entity);
-                    }
-                    foreach (TaskEntity entity in updateList)
-                    {
-                        _IBLLLogic.UpdateTask2DB(entity);
-                    }
-                    foreach (Int64 entitu in deledList)
-                    {
-                        _IBLLLogic.DeleteTask2DB(entitu);
-                    }
+                    //----入库在发消息前已经保存，这里不再保存
+                    //foreach (TaskEntity entity in addedList)
+                    //{
+                    //    _IBLLLogic.AddTask2DB(entity);
+                    //}
+                    //foreach (TaskEntity entity in updateList)
+                    //{
+                    //    _IBLLLogic.UpdateTask2DB(entity);
+                    //}
+                    //foreach (Int64 entitu in deledList)
+                    //{
+                    //    _IBLLLogic.DeleteTask2DB(entitu);
+                    //}
 
                     #endregion
 

@@ -22,6 +22,7 @@ namespace Component.TimerTask.Monitor
             InitializeComponent();
         }
 
+        #region 事件
         private void FrmMain_Load(object sender, EventArgs e)
         {
             this.notifyIcon1.Text = this.Text;
@@ -122,12 +123,12 @@ namespace Component.TimerTask.Monitor
         private TaskState GetTaskState(TaskEntity paraTask)
         {
             DateTime dtNow = DateTime.Now;
+            if (paraTask.Enable == false) return TaskState.已删除;
             if (paraTask.DateEnd < dtNow) return TaskState.超时;
             if (paraTask.DateStart > dtNow) return TaskState.等待执行;
-            if (paraTask.Enable == false) return TaskState.已删除;
             return TaskState.正在执行;
         }
-
+        #endregion
 
         #region 计划维护菜单
         private void listView1_MouseDown(object sender, MouseEventArgs e)
@@ -246,7 +247,7 @@ namespace Component.TimerTask.Monitor
             }
         }
 
-        #endregion
+       
 
         private void tsmi_Run_Click(object sender, EventArgs e)
         {
@@ -283,5 +284,7 @@ namespace Component.TimerTask.Monitor
                 }
             }
         }
+
+        #endregion
     }
 }
