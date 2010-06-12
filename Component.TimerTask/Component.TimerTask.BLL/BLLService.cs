@@ -360,17 +360,16 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public bool StartTaskManager()
         {
-            //Process[] arr = Process.GetProcessesByName("Component.TimerTask.TaskManager");
-            //if (arr.Length > 0)
-            //{
-            //    LogEntity log = new LogEntity();
-            //    log.LogContent = "已经有进程启动，无法再次启动进程。";
-            //    log.LogDate = DateTime.Now;
-            //    log.LogType = TaskLogType.TaskManagerStartError;
-            //    log.TaskID = -1;
-            //    WriteLog(log);
-            //    return false;
-            //}
+            Process[] arr = Process.GetProcessesByName("Component.TimerTask.TaskManager");
+            if (arr.Length > 0)
+            {
+                LogEntity log = new LogEntity();
+                log.LogContent = "已经有进程启动，无法再次启动进程。";
+                log.LogType = LogType.TaskManagerStartError;
+                log.TaskID = -1;
+                WriteLog(log);
+                return false;
+            }
             //else
             //{
             string path = AssemblyHelper.GetAssemblyPath() + TIMERMANAGER_PROCESSNAME + ".exe";
