@@ -151,6 +151,7 @@
             this.colState});
             this.listView1.ContextMenuStrip = this.cms_TaskList;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.FullRowSelect = true;
             this.listView1.Location = new System.Drawing.Point(3, 17);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
@@ -182,38 +183,38 @@
             this.cms_TaskList.Name = "cms_TaskList";
             this.cms_TaskList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cms_TaskList.ShowImageMargin = false;
-            this.cms_TaskList.Size = new System.Drawing.Size(128, 120);
+            this.cms_TaskList.Size = new System.Drawing.Size(100, 98);
             // 
             // tsmi_Add
             // 
             this.tsmi_Add.Name = "tsmi_Add";
-            this.tsmi_Add.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Add.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Add.Text = "新增任务";
             this.tsmi_Add.Click += new System.EventHandler(this.tsmi_Add_Click);
             // 
             // tsmi_Del
             // 
             this.tsmi_Del.Name = "tsmi_Del";
-            this.tsmi_Del.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Del.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Del.Text = "删除任务";
             this.tsmi_Del.Click += new System.EventHandler(this.tsmi_Del_Click);
             // 
             // tsmi_Update
             // 
             this.tsmi_Update.Name = "tsmi_Update";
-            this.tsmi_Update.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Update.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Update.Text = "修改任务";
             this.tsmi_Update.Click += new System.EventHandler(this.tsmi_Update_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(96, 6);
             // 
             // tsmi_Log
             // 
             this.tsmi_Log.Name = "tsmi_Log";
-            this.tsmi_Log.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Log.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Log.Text = "查看日志";
             this.tsmi_Log.Click += new System.EventHandler(this.tsmi_Log_Click);
             // 

@@ -99,6 +99,7 @@ namespace Component.TimerTask.Monitor
 
         private void InitTaskList()
         {
+            int selected = this.listView1.SelectedIndices.Count > 0 ? this.listView1.SelectedIndices[0] : 0;
             this.listView1.BeginUpdate();
             this.listView1.Items.Clear();
             List<TaskEntity> list = _Bll.GetTaskEntityList();
@@ -111,7 +112,9 @@ namespace Component.TimerTask.Monitor
                 lvi.SubItems[1].Text = GetTaskState(entity).ToString();
                 this.listView1.Items.Add(lvi);
             }
+            this.listView1.Items[selected].Selected = true;
             this.listView1.EndUpdate();
+            
         }
 
         private TaskState GetTaskState(TaskEntity paraTask)
@@ -211,6 +214,7 @@ namespace Component.TimerTask.Monitor
                     frm.ShowDialog();
                     if (frm.DialogResult == DialogResult.OK)
                     {
+                        _Bll.UpdateTask(entity);
                         this.InitTaskList();
                     }
                 }
