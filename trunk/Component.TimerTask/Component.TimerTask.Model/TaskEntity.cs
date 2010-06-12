@@ -66,7 +66,7 @@ namespace Component.TimerTask.Model
             set { _DateEnd = value; }
         }
 
-        private Int64 _RunSpaceTime;
+        private Int64 _RunSpaceTime = 1;
         /// <summary>
         /// 任务执行间隔[秒]
         /// </summary>
