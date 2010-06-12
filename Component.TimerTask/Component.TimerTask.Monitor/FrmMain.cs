@@ -114,16 +114,16 @@ namespace Component.TimerTask.Monitor
             }
             this.listView1.Items[selected].Selected = true;
             this.listView1.EndUpdate();
-            
+
         }
 
         private TaskState GetTaskState(TaskEntity paraTask)
         {
             DateTime dtNow = DateTime.Now;
-            if (paraTask.DateEnd < dtNow) return  TaskState.超时;
-            if (paraTask.DateStart > dtNow) return  TaskState.等待执行;
+            if (paraTask.DateEnd < dtNow) return TaskState.超时;
+            if (paraTask.DateStart > dtNow) return TaskState.等待执行;
             if (paraTask.Enable == false) return TaskState.已删除;
-            return  TaskState.正在执行;
+            return TaskState.正在执行;
         }
 
 
@@ -138,6 +138,7 @@ namespace Component.TimerTask.Monitor
 
                 if (e.Button == MouseButtons.Right)
                 {
+                    tsmi_Run.Enabled = true;
                     tsmi_Del.Enabled = true;
                     tsmi_Add.Enabled = true;
                     tsmi_Update.Enabled = true;
@@ -150,10 +151,12 @@ namespace Component.TimerTask.Monitor
                         case TaskState.等待执行:
                             break;
                         case TaskState.正在执行:
+
                             break;
                         case TaskState.已删除:
                             tsmi_Del.Enabled = false;
                             tsmi_Update.Enabled = false;
+                            tsmi_Run.Enabled = false;
                             break;
                     }
                 }
@@ -163,7 +166,9 @@ namespace Component.TimerTask.Monitor
                 if (e.Button == MouseButtons.Right)
                 {
                     tsmi_Del.Enabled = false;
-                    
+                    tsmi_Run.Enabled = false;
+                    tsmi_Update.Enabled = false;
+
                 }
             }
         }
@@ -210,7 +215,7 @@ namespace Component.TimerTask.Monitor
                 TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
                 if (entity != null)
                 {
-                    FrmTaskEdit frm = new FrmTaskEdit(entity,_Bll);
+                    FrmTaskEdit frm = new FrmTaskEdit(entity, _Bll);
                     frm.ShowDialog();
                     if (frm.DialogResult == DialogResult.OK)
                     {
@@ -226,6 +231,42 @@ namespace Component.TimerTask.Monitor
 
         }
 
-        #endregion 
+        #endregion
+
+        private void tsmi_Run_Click(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems.Count > 0)
+            {
+                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                if (entity != null)
+                {
+                    DialogResult dr = MessageBox.Show("确定要立即执行该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        _Bll.RunTaskImmediate(entity.ID);
+                        MessageBox.Show("执行成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.InitTaskList();
+                    }
+                }
+            }
+        }
+
+        private void tsmi_Stop_Click(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems.Count > 0)
+            {
+                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                if (entity != null)
+                {
+                    DialogResult dr = MessageBox.Show("确定要立即停止该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        _Bll.StopRuningTask(entity.ID);
+                        MessageBox.Show("停止成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.InitTaskList();
+                    }
+                }
+            }
+        }
     }
 }

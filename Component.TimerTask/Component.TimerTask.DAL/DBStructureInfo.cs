@@ -23,7 +23,6 @@ namespace Component.TimerTask.DAL
 [RunSpaceTimeSecs] INTEGER  NOT NULL,
 [RunSpaceType] NVARCHAR2(50)  NULL,
 [ExtraParaStr] NVARCHAR2(200)  NULL,
-[ExeCommandParaMeter] NVARCHAR2(200)  NULL,
 [RunTimeOutSecs] INTEGER
 );";
 

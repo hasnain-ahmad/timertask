@@ -96,16 +96,6 @@ namespace Component.TimerTask.Model
             set { _ExtraParaStr = value; }
         }
 
-        private string _ExeCommandParaMeter;
-        /// <summary>
-        /// 命令行执行附加参数
-        /// </summary>
-        public string ExeCommandParaMeter
-        {
-            get { return _ExeCommandParaMeter; }
-            set { _ExeCommandParaMeter = value; }
-        }
-
         private Int64 _RunTimeOutSecs = -1;
         /// <summary>
         /// 任务执行超时时间,如果超时时间到了,任务没有执行结束,则强制结束,不限制设为-1
@@ -134,7 +124,7 @@ namespace Component.TimerTask.Model
             Int64 paraRunSpaceTime,
             TaskFrequence paraRunSpaceType,
             string paraExtraParaStr,
-            string paraExeCommandParaMeter,
+            //string paraExeCommandParaMeter,
             Int64 paraRunTimeOutSecs,
             string paraRegestesAppName
             )
@@ -147,7 +137,7 @@ namespace Component.TimerTask.Model
             _RunSpaceTime = paraRunSpaceTime;
             _RunSpaceType = paraRunSpaceType;
             _ExtraParaStr = paraExtraParaStr;
-            _ExeCommandParaMeter = paraExeCommandParaMeter;
+            //_ExeCommandParaMeter = paraExeCommandParaMeter;
             _RunTimeOutSecs = paraRunTimeOutSecs;
             _RegestesAppName = paraRegestesAppName;
         }

@@ -72,7 +72,6 @@ namespace Component.TimerTask.BLL
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);
-                    ele.SetAttribute("ExeCommandParaMeter", task.ExeCommandParaMeter);
                     ele.SetAttribute("RunTimeOutSecs", task.RunTimeOutSecs.ToString());
                     ele.SetAttribute("RegestesAppName", task.RegestesAppName);
                     
@@ -95,7 +94,6 @@ namespace Component.TimerTask.BLL
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);
-                    ele.SetAttribute("ExeCommandParaMeter", task.ExeCommandParaMeter);
                     ele.SetAttribute("RunTimeOutSecs", task.RunTimeOutSecs.ToString());
                     ele.SetAttribute("RegestesAppName", task.RegestesAppName);
                     mdfNode.AppendChild(ele);
@@ -176,7 +174,6 @@ namespace Component.TimerTask.BLL
                 entity.RunSpaceTime = Int64.Parse(ele.GetAttribute("RunSpaceTime"));
                 entity.RunSpaceType = (TaskFrequence)Enum.Parse(typeof(TaskFrequence), ele.GetAttribute("RunSpaceType"));
                 entity.ExtraParaStr = ele.GetAttribute("ExtraParaStr");
-                entity.ExeCommandParaMeter = ele.GetAttribute("ExeCommandParaMeter");
                 entity.RunTimeOutSecs = Int64.Parse(ele.GetAttribute("RunTimeOutSecs"));
                 entity.RegestesAppName = ele.GetAttribute("RegestesAppName");
 
@@ -195,7 +192,6 @@ namespace Component.TimerTask.BLL
                 entity.RunSpaceTime = Int64.Parse(ele.GetAttribute("RunSpaceTime"));
                 entity.RunSpaceType = (TaskFrequence)Enum.Parse(typeof(TaskFrequence), ele.GetAttribute("RunSpaceType"));
                 entity.ExtraParaStr = ele.GetAttribute("ExtraParaStr");
-                entity.ExeCommandParaMeter = ele.GetAttribute("ExeCommandParaMeter");
                 entity.RunTimeOutSecs = Int64.Parse(ele.GetAttribute("RunTimeOutSecs"));
                 entity.RegestesAppName = ele.GetAttribute("RegestesAppName");
                 entity.SetKeyID(Int64.Parse(ele.GetAttribute("ID")));

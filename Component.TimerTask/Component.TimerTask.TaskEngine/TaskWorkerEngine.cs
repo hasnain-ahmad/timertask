@@ -229,7 +229,6 @@ namespace Component.TimerTask.TaskEngine
                     task.Task.TaskEntity.DateEnd = paraTask.DateEnd;
                     task.Task.TaskEntity.DateStart = paraTask.DateStart;
                     task.Task.TaskEntity.Enable = paraTask.Enable;
-                    task.Task.TaskEntity.ExeCommandParaMeter = paraTask.ExeCommandParaMeter;
                     task.Task.TaskEntity.ExtraParaStr = paraTask.ExtraParaStr;
                     task.Task.TaskEntity.RegestesAppName = paraTask.RegestesAppName;
                     task.Task.TaskEntity.RunSpaceTime = paraTask.RunSpaceTime;

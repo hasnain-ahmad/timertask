@@ -60,11 +60,7 @@ namespace Component.TimerTask.Monitor
         private void InitControls()
         {
             this.txt_Name.Text = _Task.Name;
-            this.txtParams.Name = _Task.ExeCommandParaMeter;
-            if (string.IsNullOrEmpty(_Task.ExeCommandParaMeter))
-            {
-                this.txtParams.Name = _Task.ExtraParaStr;
-            }
+            this.txtParams.Name = _Task.ExtraParaStr;
             this.dtpStart.Value = _Task.DateStart < this.dtpStart.MinDate ? DateTime.Now:_Task.DateStart;
             this.dtpEnd.Value = _Task.DateEnd < this.dtpEnd.MinDate ? DateTime.Now : _Task.DateEnd;
             this.cbx_Apps.Text = _Task.RegestesAppName;
