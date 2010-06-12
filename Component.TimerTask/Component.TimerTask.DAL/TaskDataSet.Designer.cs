@@ -10,8 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Component.TimerTask.DAL
-{
+namespace Component.TimerTask.DAL {
     
     
     /// <summary>

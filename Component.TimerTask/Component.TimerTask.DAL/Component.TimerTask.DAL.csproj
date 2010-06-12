@@ -8,8 +8,8 @@
     <ProjectGuid>{3EC8EB3D-40F2-4FE3-A394-0900996A535E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BOCO.TimerTask.DAL</RootNamespace>
-    <AssemblyName>BOCO.TimerTask.DAL</AssemblyName>
+    <RootNamespace>Component.TimerTask.DAL</RootNamespace>
+    <AssemblyName>Component.TimerTask.DAL</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

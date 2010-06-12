@@ -8,8 +8,8 @@
     <ProjectGuid>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BOCO.TimerTask.Utility</RootNamespace>
-    <AssemblyName>BOCO.TimerTask.Utility</AssemblyName>
+    <RootNamespace>Component.TimerTask.Utility</RootNamespace>
+    <AssemblyName>Component.TimerTask.Utility</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>
@@ -52,6 +52,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

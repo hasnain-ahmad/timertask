@@ -8,8 +8,8 @@
     <ProjectGuid>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BOCO.TimerTask.Model</RootNamespace>
-    <AssemblyName>BOCO.TimerTask.Model</AssemblyName>
+    <RootNamespace>Component.TimerTask.Model</RootNamespace>
+    <AssemblyName>Component.TimerTask.Model</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
