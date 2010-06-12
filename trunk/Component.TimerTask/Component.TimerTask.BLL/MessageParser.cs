@@ -67,8 +67,8 @@ namespace Component.TimerTask.BLL
                     XmlElement ele = doc.CreateElement("Task");
                     ele.SetAttribute("Name", task.Name);
                     ele.SetAttribute("Enable", task.Enable.ToString());
-                    ele.SetAttribute("DateStart", task.DateStart.ToString("T"));
-                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("T"));
+                    ele.SetAttribute("DateStart", task.DateStart.ToString("F"));
+                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("F"));
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);
@@ -89,8 +89,8 @@ namespace Component.TimerTask.BLL
                     ele.SetAttribute("ID", task.ID.ToString());
                     ele.SetAttribute("Name", task.Name);
                     ele.SetAttribute("Enable", task.Enable.ToString());
-                    ele.SetAttribute("DateStart", task.DateStart.ToString("T"));
-                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("T"));
+                    ele.SetAttribute("DateStart", task.DateStart.ToString("F"));
+                    ele.SetAttribute("DateEnd", task.DateEnd.ToString("F"));
                     ele.SetAttribute("RunSpaceTime", task.RunSpaceTime.ToString());
                     ele.SetAttribute("RunSpaceType", task.RunSpaceType.ToString());
                     ele.SetAttribute("ExtraParaStr", task.ExtraParaStr);

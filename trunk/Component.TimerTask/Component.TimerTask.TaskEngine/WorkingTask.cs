@@ -215,6 +215,7 @@ namespace Component.TimerTask.TaskEngine
 
         public void RebuildTaskRunTimeList()
         {
+            _RunState = TaskRuningState.Waite;
             _IsTimeQueueEnd = false;
             _RunTimeList.Clear();
             this.BuildTimeQueueByLastRunTime();
