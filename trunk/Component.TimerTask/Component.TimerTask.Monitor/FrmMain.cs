@@ -160,5 +160,42 @@ namespace Component.TimerTask.Monitor
                 }
             }
         }
+
+        private void tsmi_Add_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void tsmi_Del_Click(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems.Count > 0)
+            {
+                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                if (entity != null)
+                {
+                    DialogResult dr = MessageBox.Show("确定要删除该任务吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        bool b = _Bll.DelTask(entity.ID);
+                        if (b == true)
+                        {
+                            MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void tsmi_Update_Click(object sender, EventArgs e)
+        {
+            if (this.listView1.SelectedItems.Count > 0)
+            {
+                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                if (entity != null)
+                {
+
+                }
+            }
+        }
     }
 }
