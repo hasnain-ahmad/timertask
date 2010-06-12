@@ -59,7 +59,7 @@
             this.btnOK.Location = new System.Drawing.Point(249, 279);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 0;
+            this.btnOK.TabIndex = 8;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -70,7 +70,7 @@
             this.btnCancle.Location = new System.Drawing.Point(342, 279);
             this.btnCancle.Name = "btnCancle";
             this.btnCancle.Size = new System.Drawing.Size(75, 23);
-            this.btnCancle.TabIndex = 1;
+            this.btnCancle.TabIndex = 9;
             this.btnCancle.Text = "取消";
             this.btnCancle.UseVisualStyleBackColor = true;
             // 
@@ -134,14 +134,14 @@
             this.txtParams.Location = new System.Drawing.Point(117, 199);
             this.txtParams.Name = "txtParams";
             this.txtParams.Size = new System.Drawing.Size(124, 21);
-            this.txtParams.TabIndex = 15;
+            this.txtParams.TabIndex = 7;
             // 
             // txt_Name
             // 
             this.txt_Name.Location = new System.Drawing.Point(117, 3);
             this.txt_Name.Name = "txt_Name";
             this.txt_Name.Size = new System.Drawing.Size(124, 21);
-            this.txt_Name.TabIndex = 1;
+            this.txt_Name.TabIndex = 0;
             // 
             // label8
             // 
@@ -176,7 +176,7 @@
             -2147483648});
             this.nud_OutTime.Name = "nud_OutTime";
             this.nud_OutTime.Size = new System.Drawing.Size(120, 21);
-            this.nud_OutTime.TabIndex = 13;
+            this.nud_OutTime.TabIndex = 6;
             this.nud_OutTime.Value = new decimal(new int[] {
             1,
             0,
@@ -190,7 +190,7 @@
             this.dtpStart.Location = new System.Drawing.Point(117, 31);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(172, 21);
-            this.dtpStart.TabIndex = 3;
+            this.dtpStart.TabIndex = 1;
             // 
             // label7
             // 
@@ -220,7 +220,7 @@
             0});
             this.nud_SpaceTime.Name = "nud_SpaceTime";
             this.nud_SpaceTime.Size = new System.Drawing.Size(120, 21);
-            this.nud_SpaceTime.TabIndex = 11;
+            this.nud_SpaceTime.TabIndex = 5;
             // 
             // dtpEnd
             // 
@@ -229,7 +229,7 @@
             this.dtpEnd.Location = new System.Drawing.Point(117, 59);
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.Size = new System.Drawing.Size(172, 21);
-            this.dtpEnd.TabIndex = 4;
+            this.dtpEnd.TabIndex = 2;
             // 
             // label6
             // 
@@ -256,7 +256,7 @@
             this.cbx_Frequnce.Location = new System.Drawing.Point(117, 115);
             this.cbx_Frequnce.Name = "cbx_Frequnce";
             this.cbx_Frequnce.Size = new System.Drawing.Size(121, 20);
-            this.cbx_Frequnce.TabIndex = 9;
+            this.cbx_Frequnce.TabIndex = 4;
             this.cbx_Frequnce.SelectedIndexChanged += new System.EventHandler(this.cbx_Frequnce_SelectedIndexChanged);
             // 
             // cbx_Apps
@@ -266,7 +266,7 @@
             this.cbx_Apps.Location = new System.Drawing.Point(117, 87);
             this.cbx_Apps.Name = "cbx_Apps";
             this.cbx_Apps.Size = new System.Drawing.Size(121, 20);
-            this.cbx_Apps.TabIndex = 7;
+            this.cbx_Apps.TabIndex = 3;
             // 
             // label5
             // 
