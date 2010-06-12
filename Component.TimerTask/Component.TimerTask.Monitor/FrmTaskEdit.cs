@@ -54,7 +54,7 @@ namespace Component.TimerTask.Monitor
             {
                 _Task = new TaskEntity();
             }
-
+            this.InitControls();
         }
 
         private void InitControls()
@@ -65,8 +65,8 @@ namespace Component.TimerTask.Monitor
             {
                 this.txtParams.Name = _Task.ExtraParaStr;
             }
-            this.dtpStart.Value = _Task.DateStart;
-            this.dtpEnd.Value = _Task.DateEnd;
+            this.dtpStart.Value = _Task.DateStart < this.dtpStart.MinDate ? DateTime.Now:_Task.DateStart;
+            this.dtpEnd.Value = _Task.DateEnd < this.dtpEnd.MinDate ? DateTime.Now : _Task.DateEnd;
             this.cbx_Apps.Text = _Task.RegestesAppName;
             this.cbx_Frequnce.Text = _Task.RunSpaceType.ToString();
             this.nud_OutTime.Value = _Task.RunTimeOutSecs;
@@ -116,7 +116,16 @@ namespace Component.TimerTask.Monitor
             {
                 MessageBox.Show("名称不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.txt_Name.Focus();
+                return;
             }
+            if (string.IsNullOrEmpty(this.cbx_Apps.Text))
+            {
+                MessageBox.Show("计划程序不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.cbx_Apps.Focus();
+                return;
+            }
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

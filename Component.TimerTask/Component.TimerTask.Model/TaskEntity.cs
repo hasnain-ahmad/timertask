@@ -106,7 +106,7 @@ namespace Component.TimerTask.Model
             set { _ExeCommandParaMeter = value; }
         }
 
-        private Int64 _RunTimeOutSecs;
+        private Int64 _RunTimeOutSecs = -1;
         /// <summary>
         /// 任务执行超时时间,如果超时时间到了,任务没有执行结束,则强制结束,不限制设为-1
         /// </summary>
