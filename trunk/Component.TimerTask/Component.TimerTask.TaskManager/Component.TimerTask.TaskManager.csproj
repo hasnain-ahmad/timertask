@@ -8,8 +8,8 @@
     <ProjectGuid>{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BOCO.TimerTask.TaskManager</RootNamespace>
-    <AssemblyName>BOCO.TimerTask.TaskManager</AssemblyName>
+    <RootNamespace>Component.TimerTask.TaskManager</RootNamespace>
+    <AssemblyName>Component.TimerTask.TaskManager</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>Component.TimerTask.TaskManager.Program</StartupObject>

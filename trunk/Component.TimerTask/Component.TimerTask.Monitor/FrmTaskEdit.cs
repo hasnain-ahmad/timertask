@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Component.TimerTask.BLL;
 using Component.TimerTask.Model;
+using Component.TimerTask.Model.Enums;
 
 namespace Component.TimerTask.Monitor
 {
@@ -120,6 +121,17 @@ namespace Component.TimerTask.Monitor
                 this.cbx_Apps.Focus();
                 return;
             }
+
+            _Task.Name = this.txt_Name.Text.Trim();
+            _Task.RegestesAppName = this.cbx_Apps.Text;
+            _Task.RunSpaceTime = (long)this.nud_SpaceTime.Value;
+            _Task.RunSpaceType = (TaskFrequence)Enum.Parse(typeof(TaskFrequence), this.cbx_Frequnce.Text);
+            _Task.RunTimeOutSecs = (long)this.nud_OutTime.Value;
+            _Task.ExtraParaStr = this.txtParams.Text;
+            _Task.Enable = true;
+            _Task.DateStart = this.dtpStart.Value;
+            _Task.DateEnd = this.dtpEnd.Value;
+
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

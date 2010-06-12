@@ -61,7 +61,8 @@ namespace Component.TimerTask.BLL
             }
             finally
             {
-                SocketHelper.CloseSocket(socket);
+                if(socket != null)
+                    SocketHelper.CloseSocket(socket);
             }
         }
 

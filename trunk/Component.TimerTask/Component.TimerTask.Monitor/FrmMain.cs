@@ -112,7 +112,9 @@ namespace Component.TimerTask.Monitor
                 lvi.SubItems[1].Text = GetTaskState(entity).ToString();
                 this.listView1.Items.Add(lvi);
             }
-            this.listView1.Items[selected].Selected = true;
+            if (this.listView1.Items.Count > 0)
+
+                this.listView1.Items[selected].Selected = true;
             this.listView1.EndUpdate();
 
         }
