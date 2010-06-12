@@ -182,7 +182,7 @@
             this.cms_TaskList.Name = "cms_TaskList";
             this.cms_TaskList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cms_TaskList.ShowImageMargin = false;
-            this.cms_TaskList.Size = new System.Drawing.Size(100, 98);
+            this.cms_TaskList.Size = new System.Drawing.Size(128, 120);
             // 
             // tsmi_Add
             // 
@@ -215,6 +215,7 @@
             this.tsmi_Log.Name = "tsmi_Log";
             this.tsmi_Log.Size = new System.Drawing.Size(127, 22);
             this.tsmi_Log.Text = "查看日志";
+            this.tsmi_Log.Click += new System.EventHandler(this.tsmi_Log_Click);
             // 
             // tableLayoutPanel1
             // 

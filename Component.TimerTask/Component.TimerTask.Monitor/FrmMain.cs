@@ -15,7 +15,7 @@ namespace Component.TimerTask.Monitor
     public partial class FrmMain : Form
     {
         private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
-        IBLLService _Bll = BLlFactory.GetBLL();
+        IBLLLogic _Bll = BLlFactory.GetBllLogic();
 
         public FrmMain()
         {
@@ -122,6 +122,8 @@ namespace Component.TimerTask.Monitor
             return  TaskState.正在执行;
         }
 
+
+        #region 计划维护菜单
         private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
             ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
@@ -156,14 +158,23 @@ namespace Component.TimerTask.Monitor
                 if (e.Button == MouseButtons.Right)
                 {
                     tsmi_Del.Enabled = false;
-                    tsmi_Add.Enabled = false;
+                    
                 }
             }
         }
 
         private void tsmi_Add_Click(object sender, EventArgs e)
         {
-            
+            FrmTaskEdit frm = new FrmTaskEdit(_Bll);
+            frm.ShowDialog();
+            if (frm.DialogResult == DialogResult.OK)
+            {
+                if (frm.Task != null)
+                {
+                    _Bll.AddTask(frm.Task);
+                    this.InitTaskList();
+                }
+            }
         }
 
         private void tsmi_Del_Click(object sender, EventArgs e)
@@ -180,6 +191,7 @@ namespace Component.TimerTask.Monitor
                         if (b == true)
                         {
                             MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.InitTaskList();
                         }
                     }
                 }
@@ -193,9 +205,21 @@ namespace Component.TimerTask.Monitor
                 TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
                 if (entity != null)
                 {
-
+                    FrmTaskEdit frm = new FrmTaskEdit(entity,_Bll);
+                    frm.ShowDialog();
+                    if (frm.DialogResult == DialogResult.OK)
+                    {
+                        this.InitTaskList();
+                    }
                 }
             }
         }
+
+        private void tsmi_Log_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion 
     }
 }
