@@ -218,9 +218,19 @@
             2328,
             0,
             0});
+            this.nud_SpaceTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nud_SpaceTime.Name = "nud_SpaceTime";
             this.nud_SpaceTime.Size = new System.Drawing.Size(120, 21);
             this.nud_SpaceTime.TabIndex = 5;
+            this.nud_SpaceTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // dtpEnd
             // 
