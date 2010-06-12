@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cms_NotifyIco = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmi_Show = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_Hide = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,34 +40,43 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssl_Info = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.colName = new System.Windows.Forms.ColumnHeader();
+            this.colState = new System.Windows.Forms.ColumnHeader();
+            this.cms_TaskList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmi_Add = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Del = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Update = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmi_Log = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.contextMenuStrip1.SuspendLayout();
+            this.cms_NotifyIco.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.cms_TaskList.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
+            this.notifyIcon1.ContextMenuStrip = this.cms_NotifyIco;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             this.notifyIcon1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDown);
             // 
-            // contextMenuStrip1
+            // cms_NotifyIco
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cms_NotifyIco.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmi_Show,
             this.tsmi_Hide});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(76, 48);
+            this.cms_NotifyIco.Name = "contextMenuStrip1";
+            this.cms_NotifyIco.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cms_NotifyIco.ShowImageMargin = false;
+            this.cms_NotifyIco.Size = new System.Drawing.Size(76, 48);
             // 
             // tsmi_Show
             // 
@@ -135,6 +144,62 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "任务列表";
             // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colName,
+            this.colState});
+            this.listView1.ContextMenuStrip = this.cms_TaskList;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Location = new System.Drawing.Point(3, 17);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(402, 201);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
+            // 
+            // cms_TaskList
+            // 
+            this.cms_TaskList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmi_Add,
+            this.tsmi_Del,
+            this.tsmi_Update,
+            this.toolStripMenuItem1,
+            this.tsmi_Log});
+            this.cms_TaskList.Name = "cms_TaskList";
+            this.cms_TaskList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.cms_TaskList.ShowImageMargin = false;
+            this.cms_TaskList.Size = new System.Drawing.Size(100, 98);
+            // 
+            // tsmi_Add
+            // 
+            this.tsmi_Add.Name = "tsmi_Add";
+            this.tsmi_Add.Size = new System.Drawing.Size(99, 22);
+            this.tsmi_Add.Text = "新增任务";
+            // 
+            // tsmi_Del
+            // 
+            this.tsmi_Del.Name = "tsmi_Del";
+            this.tsmi_Del.Size = new System.Drawing.Size(99, 22);
+            this.tsmi_Del.Text = "删除任务";
+            // 
+            // tsmi_Update
+            // 
+            this.tsmi_Update.Name = "tsmi_Update";
+            this.tsmi_Update.Size = new System.Drawing.Size(99, 22);
+            this.tsmi_Update.Text = "修改任务";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(96, 6);
+            // 
+            // tsmi_Log
+            // 
+            this.tsmi_Log.Name = "tsmi_Log";
+            this.tsmi_Log.Size = new System.Drawing.Size(99, 22);
+            this.tsmi_Log.Text = "查看日志";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
@@ -164,15 +229,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(408, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // listView1
-            // 
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.Location = new System.Drawing.Point(3, 17);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(402, 201);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -187,10 +243,11 @@
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMain_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.cms_NotifyIco.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.cms_TaskList.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -202,7 +259,7 @@
         #endregion
 
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip cms_NotifyIco;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Show;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Hide;
         private System.Windows.Forms.Label label1;
@@ -214,6 +271,14 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader colName;
+        private System.Windows.Forms.ColumnHeader colState;
+        private System.Windows.Forms.ContextMenuStrip cms_TaskList;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Add;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Del;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Update;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmi_Log;
     }
 }
 
