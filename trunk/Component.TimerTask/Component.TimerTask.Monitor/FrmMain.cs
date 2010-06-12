@@ -133,6 +133,23 @@ namespace Component.TimerTask.Monitor
         #region 计划维护菜单
         private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (!_Bll.IsTaskManagerAlive())
+            {
+                this.tsmi_Add.Enabled = false;
+                this.tsmi_Del.Enabled = false;
+                this.tsmi_Run.Enabled = false;
+                this.tsmi_Update.Enabled = false;
+                this.tsmi_Stop.Enabled = false;
+            }
+            else
+            {
+                this.tsmi_Add.Enabled = true;
+                this.tsmi_Del.Enabled = true;
+                this.tsmi_Run.Enabled = true;
+                this.tsmi_Update.Enabled = true;
+                this.tsmi_Stop.Enabled = true;
+            }
+
             ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
             if (item != null)
             {
@@ -171,6 +188,7 @@ namespace Component.TimerTask.Monitor
                     tsmi_Del.Enabled = false;
                     tsmi_Run.Enabled = false;
                     tsmi_Update.Enabled = false;
+                    this.tsmi_Stop.Enabled = false;
 
                 }
             }
