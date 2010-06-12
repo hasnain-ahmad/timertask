@@ -228,7 +228,20 @@ namespace Component.TimerTask.Monitor
 
         private void tsmi_Log_Click(object sender, EventArgs e)
         {
-
+            if (this.listView1.SelectedItems.Count > 0)
+            {
+                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                if (entity != null)
+                {
+                    FrmQueryLog frm = new FrmQueryLog(_Bll, entity.ID);
+                    frm.ShowDialog();
+                }
+            }
+            else
+            {
+                FrmQueryLog frm = new FrmQueryLog(_Bll);
+                frm.ShowDialog();
+            }
         }
 
         #endregion

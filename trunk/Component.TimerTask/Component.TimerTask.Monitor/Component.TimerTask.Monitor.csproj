@@ -35,6 +35,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\Component.TimerTask.BLL\Component.TimerTask.BLL.csproj">
       <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
       <Name>Component.TimerTask.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.DAL\Component.TimerTask.DAL.csproj">
+      <Project>{3EC8EB3D-40F2-4FE3-A394-0900996A535E}</Project>
+      <Name>Component.TimerTask.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Component.TimerTask.Model\Component.TimerTask.Model.csproj">
       <Project>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</Project>
