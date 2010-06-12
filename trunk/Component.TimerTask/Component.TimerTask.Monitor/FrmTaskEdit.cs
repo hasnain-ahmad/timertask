@@ -115,6 +115,7 @@ namespace Component.TimerTask.Monitor
             if (string.IsNullOrEmpty(this.txt_Name.Text.Trim()))
             {
                 MessageBox.Show("名称不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.txt_Name.Focus();
             }
         }
     }

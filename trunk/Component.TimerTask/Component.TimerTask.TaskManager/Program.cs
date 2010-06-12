@@ -36,7 +36,7 @@ namespace Component.TimerTask.TaskManager
         static void Main(string[] args)
         {
             #region 互斥
-            System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX");
+            System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERMANAGER");
             if (!mutex.WaitOne(0, false))  //请求互斥的所有权
             {
                 mutex.Close();
@@ -45,7 +45,7 @@ namespace Component.TimerTask.TaskManager
             if (mutex == null)
             {
                 Console.WriteLine("已经有一个实例启动");
-                Console.ReadKey();
+                Thread.Sleep(5000);
                 return;
                 //Environment.Exit(0);
             }

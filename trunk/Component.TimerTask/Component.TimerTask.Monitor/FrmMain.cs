@@ -107,7 +107,8 @@ namespace Component.TimerTask.Monitor
                 ListViewItem lvi = new ListViewItem();
                 lvi.Text = entity.Name;
                 lvi.Tag = entity;
-                lvi.SubItems[0].Text = GetTaskState(entity).ToString();
+                lvi.SubItems.Add(new ListViewItem.ListViewSubItem());
+                lvi.SubItems[1].Text = GetTaskState(entity).ToString();
                 this.listView1.Items.Add(lvi);
             }
             this.listView1.EndUpdate();
@@ -138,7 +139,7 @@ namespace Component.TimerTask.Monitor
                     tsmi_Add.Enabled = true;
                     tsmi_Update.Enabled = true;
                     TaskEntity entity = (TaskEntity)item.Tag;
-                    TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[0].Text);
+                    TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[1].Text);
                     switch (s)
                     {
                         case TaskState.超时:
@@ -149,6 +150,7 @@ namespace Component.TimerTask.Monitor
                             break;
                         case TaskState.已删除:
                             tsmi_Del.Enabled = false;
+                            tsmi_Update.Enabled = false;
                             break;
                     }
                 }
