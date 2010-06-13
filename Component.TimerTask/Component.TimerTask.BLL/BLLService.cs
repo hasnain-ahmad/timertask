@@ -49,7 +49,16 @@ namespace Component.TimerTask.BLL
                 IPEndPoint ip = SocketHelper.GetIpEndPoint();
                 socket = SocketHelper.GetSocket(ip);
 
-                SocketHelper.Send(socket, paraContent);
+                //SocketHelper.Send(socket, paraContent);
+                string handshake = SocketHelper.SendMessageGetStr(socket, paraContent);
+                if (handshake == SocketHelper.HANDSHAKE)
+                {
+                    return;
+                }
+                else
+                {
+                    throw new Exception("Socket没有收到握手信息");
+                }
             }
             catch (Exception ex)
             {
@@ -487,36 +496,36 @@ namespace Component.TimerTask.BLL
         #region IBLLLogic 成员
 
 
-        /// <summary>
-        /// Adds the task2 DB.
-        /// </summary>
-        /// <param name="paraTask">The para task.</param>
-        public void AddTask2DB(TaskEntity paraTask)
-        {
-            Int64 id = _DataAccess.AddTask(paraTask);
-            paraTask.SetKeyID(id);
-        }
+        ///// <summary>
+        ///// Adds the task2 DB.
+        ///// </summary>
+        ///// <param name="paraTask">The para task.</param>
+        //public void AddTask2DB(TaskEntity paraTask)
+        //{
+        //    Int64 id = _DataAccess.AddTask(paraTask);
+        //    paraTask.SetKeyID(id);
+        //}
+
+        ///// <summary>
+        ///// Updates the task2 DB.
+        ///// </summary>
+        ///// <param name="paraTask">The para task.</param>
+        //public void UpdateTask2DB(TaskEntity paraTask)
+        //{
+        //    _DataAccess.ModifyTask(paraTask.ID, paraTask);
+        //}
+
+        ///// <summary>
+        ///// Deletes the task2 DB.
+        ///// </summary>
+        ///// <param name="paraTaskID">The para task ID.</param>
+        //public void DeleteTask2DB(long paraTaskID)
+        //{
+        //    _DataAccess.RemoveTask(paraTaskID);
+        //}
 
         /// <summary>
-        /// Updates the task2 DB.
-        /// </summary>
-        /// <param name="paraTask">The para task.</param>
-        public void UpdateTask2DB(TaskEntity paraTask)
-        {
-            _DataAccess.ModifyTask(paraTask.ID, paraTask);
-        }
-
-        /// <summary>
-        /// Deletes the task2 DB.
-        /// </summary>
-        /// <param name="paraTaskID">The para task ID.</param>
-        public void DeleteTask2DB(long paraTaskID)
-        {
-            _DataAccess.RemoveTask(paraTaskID);
-        }
-
-        /// <summary>
-        /// Dels the task complet.
+        /// 彻底删除计划，在添加计划后发送消息失败的情况下删除
         /// </summary>
         /// <param name="paraID">The para ID.</param>
         /// <returns></returns>
