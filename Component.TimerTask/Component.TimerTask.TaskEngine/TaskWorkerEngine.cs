@@ -237,10 +237,11 @@ namespace Component.TimerTask.TaskEngine
                     task.Task.TaskEntity.RunTimeOutSecs = paraTask.RunTimeOutSecs;
 
                     task.RebuildTaskRunTimeList();
+                    Console.WriteLine("更新一条任务，ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
                 }
 
             }
-            Console.WriteLine("更新一条任务，ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
+            
         }
 
         public void DelTask(long paraTaskId)
@@ -248,9 +249,13 @@ namespace Component.TimerTask.TaskEngine
             lock (((ICollection)_TaskList).SyncRoot)
             {
                 IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
-                _TaskList.Remove(task);
+                if (task != null)
+                {
+                    _TaskList.Remove(task);
+                    Console.WriteLine("删除一条任务，ID：{0}", paraTaskId);
+                }
             }
-            Console.WriteLine("删除一条任务，ID：{0}", paraTaskId);
+            
         }
 
         #endregion
