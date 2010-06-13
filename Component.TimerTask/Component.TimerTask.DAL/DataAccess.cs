@@ -101,7 +101,8 @@ namespace Component.TimerTask.DAL
             Mapper.DataMapper.ReseveMappingTaskEntity(paraTask, ref taskRow);
             _DataSet.PL_TimerTask.AddPL_TimerTaskRow(taskRow);
             this.Save2DB();
-            return paraTask.ID = taskRow.ID;
+            paraTask.SetKeyID(taskRow.ID);
+            return taskRow.ID;
         }
 
         public void ModifyTask(Int64 paraTaskId, TaskEntity paraTask)

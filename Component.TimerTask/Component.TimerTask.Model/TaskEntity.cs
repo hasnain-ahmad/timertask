@@ -23,7 +23,7 @@ namespace Component.TimerTask.Model
         public Int64 ID
         {
             get { return _ID; }
-            set { _ID = value; }
+            //set { _ID = value; }
         }
 
         private string _Name;
