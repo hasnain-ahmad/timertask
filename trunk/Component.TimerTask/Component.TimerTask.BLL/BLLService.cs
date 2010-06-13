@@ -38,6 +38,16 @@ namespace Component.TimerTask.BLL
         }
 
         /// <summary>
+        /// 彻底删除计划，在添加计划后发送消息失败的情况下删除
+        /// </summary>
+        /// <param name="paraID">The para ID.</param>
+        /// <returns></returns>
+        private bool DelTaskComplet(long paraID)
+        {
+            return _DataAccess.DelTaskComplet(paraID);
+        }
+
+        /// <summary>
         /// 给服务器发送消息
         /// </summary>
         /// <param name="paraContent"></param>
@@ -174,6 +184,7 @@ namespace Component.TimerTask.BLL
         {
             //发送消息同步到任务管理器中
             string message = MessageParser.BuildMessage(null, new List<long>() { paraID }, null, null, null, null);
+            //一定要保证先发送，后保存
             this.SendXMLSocket2Server(message);
             return _DataAccess.RemoveTask(paraID);
         }
@@ -230,6 +241,7 @@ namespace Component.TimerTask.BLL
 
                 //发送消息同步到任务管理器中
                 string message = MessageParser.BuildMessage(null, null, new List<TaskEntity>() { entity }, null, null, null);
+                //一定要保证先发送，后保存
                 this.SendXMLSocket2Server(message);
                 _DataAccess.ModifyTask(paraTaskID, entity);
                 return true;
@@ -356,10 +368,6 @@ namespace Component.TimerTask.BLL
         public void RunTaskImmediate(Int64 paraTaskID)
         {
             RunTaskType runType = RunTaskType.ImmediateNoDisturb;
-            //if (isDisTurbBackTask == false)
-            //{
-            //    runType = RunTaskType.ImmediateNoDisturb;
-            //}
             string message = MessageParser.BuildMessage(null, null, null,
                 new List<long>() { paraTaskID }, new List<RunTaskType>() { runType }, null);
             this.SendXMLSocket2Server(message);
@@ -428,7 +436,6 @@ namespace Component.TimerTask.BLL
 
         #endregion
 
-
         #region IBLLLogic 成员
 
 
@@ -493,46 +500,5 @@ namespace Component.TimerTask.BLL
 
         #endregion
 
-        #region IBLLLogic 成员
-
-
-        ///// <summary>
-        ///// Adds the task2 DB.
-        ///// </summary>
-        ///// <param name="paraTask">The para task.</param>
-        //public void AddTask2DB(TaskEntity paraTask)
-        //{
-        //    Int64 id = _DataAccess.AddTask(paraTask);
-        //    paraTask.SetKeyID(id);
-        //}
-
-        ///// <summary>
-        ///// Updates the task2 DB.
-        ///// </summary>
-        ///// <param name="paraTask">The para task.</param>
-        //public void UpdateTask2DB(TaskEntity paraTask)
-        //{
-        //    _DataAccess.ModifyTask(paraTask.ID, paraTask);
-        //}
-
-        ///// <summary>
-        ///// Deletes the task2 DB.
-        ///// </summary>
-        ///// <param name="paraTaskID">The para task ID.</param>
-        //public void DeleteTask2DB(long paraTaskID)
-        //{
-        //    _DataAccess.RemoveTask(paraTaskID);
-        //}
-
-        /// <summary>
-        /// 彻底删除计划，在添加计划后发送消息失败的情况下删除
-        /// </summary>
-        /// <param name="paraID">The para ID.</param>
-        /// <returns></returns>
-        public bool DelTaskComplet(long paraID)
-        {
-            return _DataAccess.DelTaskComplet(paraID);
-        }
-        #endregion
     }
 }
