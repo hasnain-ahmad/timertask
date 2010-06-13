@@ -215,7 +215,9 @@ namespace Component.TimerTask.TaskEngine
 
         public void RebuildTaskRunTimeList()
         {
+            //因为是更新，所以需要重新设置状态，后面再去计算
             _RunState = TaskRuningState.Waite;
+
             _IsTimeQueueEnd = false;
             _RunTimeList.Clear();
             this.BuildTimeQueueByLastRunTime();

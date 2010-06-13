@@ -54,6 +54,7 @@ namespace Component.TimerTask.TaskEngine
                     Socket recieveSocket = _Socket.Accept();
                     //关键地方，Recieve方法会阻塞线程
                     recieveSocket.Receive(recieveByte);
+                    SocketHelper.Send(recieveSocket, SocketHelper.HANDSHAKE);
                     string recieveContent = Encoding.Default.GetString(recieveByte);
                     recieveSocket.Close();
                     

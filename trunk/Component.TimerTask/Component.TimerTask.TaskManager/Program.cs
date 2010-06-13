@@ -35,75 +35,83 @@ namespace Component.TimerTask.TaskManager
         /// <param name="args"></param>
         static void Main(string[] args)
         {
-            #region 互斥
-            System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERMANAGER");
-            if (!mutex.WaitOne(0, false))  //请求互斥的所有权
-            {
-                mutex.Close();
-                mutex = null;
-            }
-            if (mutex == null)
-            {
-                Console.WriteLine("已经有一个实例启动");
-                Thread.Sleep(5000);
-                return;
-                //Environment.Exit(0);
-            }
-            #endregion
-
-            #region Prepare
-            Console.Title = STR_CAPTION_TITLE;
-            CloseBtn();
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
-            //Console.Beep();
-            Console.WriteLine("定时任务管理器已经启动...");
-            #endregion
-
             try
             {
-                int engineIdleTimeSec = 2;
-                if (!string.IsNullOrEmpty(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"]))
+                #region 互斥
+                System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERMANAGER");
+                if (!mutex.WaitOne(0, false))  //请求互斥的所有权
                 {
-                    int tmp;
-                    if (int.TryParse(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"], out tmp))
+                    mutex.Close();
+                    mutex = null;
+                }
+                if (mutex == null)
+                {
+                    Console.WriteLine("已经有一个实例启动");
+                    Thread.Sleep(5000);
+                    return;
+                    //Environment.Exit(0);
+                }
+                #endregion
+
+                #region Prepare
+                Console.Title = STR_CAPTION_TITLE;
+                CloseBtn();
+                Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
+                //Console.Beep();
+                Console.WriteLine("定时任务管理器已经启动...");
+                #endregion
+
+                try
+                {
+                    int engineIdleTimeSec = 2;
+                    if (!string.IsNullOrEmpty(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"]))
                     {
-                        engineIdleTimeSec = tmp;
-                        Console.WriteLine("定时任务管理器空闲时间间隔已经被配置为{0}秒。", tmp);
+                        int tmp;
+                        if (int.TryParse(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"], out tmp))
+                        {
+                            engineIdleTimeSec = tmp;
+                            Console.WriteLine("定时任务管理器空闲时间间隔已经被配置为{0}秒。", tmp);
+                        }
+                        else
+                        {
+                            Console.WriteLine("配置定时任务管理器空闲时间间隔有误，将按照默认配置进行处理。");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("配置定时任务管理器空闲时间间隔有误，将按照默认配置进行处理。");
+                        Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
+                    }
+                    //开始启动定时任务管理引擎
+                    ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine(engineIdleTimeSec);
+                    taskEngine.Start();
+
+                    //阻塞当前线程，因为控制台程序如果不阻塞会自动退出
+                    while (true)
+                    {
+                        Console.Read();
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
+                    Console.WriteLine("程序异常：" + ex.Message);
                 }
-                //开始启动定时任务管理引擎
-                ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine(engineIdleTimeSec);
-                taskEngine.Start();
-                
-                //阻塞当前线程，因为控制台程序如果不阻塞会自动退出
-                while (true)
-                {
-                    Console.Read();
-                }
+
+                #region 程序运行结束，可以释放锁
+                mutex.Close();
+                mutex = null;
+                #endregion
+
+                Console.WriteLine("程序结束,互斥锁已经释放。");
+
+                Thread.Sleep(10000);
+                //发布后去掉下面这句
+                //Console.Read();
             }
             catch(Exception ex)
             {
-                Console.WriteLine("程序异常：" + ex.Message);
+                Console.WriteLine(ex.Message);
+                Thread.Sleep(5000);
             }
-
-            #region 程序运行结束，可以释放锁
-            mutex.Close();
-            mutex = null;
-            #endregion
-
-            Console.WriteLine("程序结束,互斥锁已经释放。");
-
-            Thread.Sleep(10000);
-            //发布后去掉下面这句
-            //Console.Read();
         }
 
         /// <summary>

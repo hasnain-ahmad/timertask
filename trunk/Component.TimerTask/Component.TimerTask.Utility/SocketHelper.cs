@@ -14,6 +14,11 @@ namespace Component.TimerTask.Utility
     public class SocketHelper
     {
         /// <summary>
+        /// 通信握手信息
+        /// </summary>
+        public const string HANDSHAKE = "OK";
+
+        /// <summary>
         /// 获取Socket连接
         /// </summary>
         /// <param name="paraPoint"></param>
@@ -114,6 +119,7 @@ namespace Component.TimerTask.Utility
         {
             byte[] sendbyte = Encoding.Default.GetBytes(sendStr);
             socket.Send(sendbyte);
+            sendbyte = Encoding.Default.GetBytes(HANDSHAKE);
             socket.Receive(sendbyte);
             string obj = Encoding.Default.GetString(sendbyte);
             return obj;
