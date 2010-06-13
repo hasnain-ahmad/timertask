@@ -54,6 +54,14 @@ namespace Component.TimerTask.DAL
         bool RemoveTask(Int64 paraID);
 
         /// <summary>
+        /// 彻底删除任务
+        /// [只要在计划添加失败的时候才调用,平时不要调用]
+        /// </summary>
+        /// <param name="paraID"></param>
+        /// <returns></returns>
+        bool DelTaskComplet(Int64 paraID);
+
+        /// <summary>
         /// 写日志
         /// </summary>
         /// <param name="paraLog"></param>

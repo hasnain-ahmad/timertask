@@ -58,10 +58,11 @@ namespace Component.TimerTask.BLL
                 log.LogType = LogType.SocketClientSendError;
                 log.TaskID = -1;
                 WriteLog(log);
+                throw ex;
             }
             finally
             {
-                if(socket != null)
+                if (socket != null)
                     SocketHelper.CloseSocket(socket);
             }
         }
@@ -130,12 +131,28 @@ namespace Component.TimerTask.BLL
                 MessageParser.CheckAndSetTaskFrequence(ref entity);
                 //保存到数据库
                 Int64 id = _DataAccess.AddTask(entity);
-                entity.SetKeyID(id);
-                
-                //发送消息同步到任务管理器中
-                string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
-                this.SendXMLSocket2Server(message);
-                return entity;
+
+                if (id >= 0)
+                {//保存成功
+                    entity.SetKeyID(id);
+                    try
+                    {
+                        //发送消息同步到任务管理器中
+                        string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
+                        this.SendXMLSocket2Server(message);
+                        return entity;
+                    }
+                    catch
+                    {
+                        this.DelTaskComplet(id);
+                        return null;
+                    }
+                }
+                else
+                {//未保存成功
+                    this.WriteLog(-1, entity.Name, "计划保存到数据库未成功", LogType.TaskAdd2DBError);
+                    return null;
+                }
             }
         }
 
@@ -199,24 +216,13 @@ namespace Component.TimerTask.BLL
             }
             else
             {
-                TaskEntity entity = new TaskEntity();
-                entity.DateEnd = paraDateEnd;
-                entity.DateStart = paraDateStart;
-                entity.Enable = true;
-                entity.ExtraParaStr = paraExtraStr;
-                entity.Name = paraName;
-                entity.RunSpaceTime = paraRunSpaceTimeSecs;
-                entity.RunSpaceType = paraRunSpaceType;
-                entity.RunTimeOutSecs = paraRunTimeOutSecs;
-                entity.SetKeyID(paraTaskID);
-                entity.RegestesAppName = paraAppName;
-                _DataAccess.ModifyTask(paraTaskID, entity);
-
+                TaskEntity entity = new TaskEntity(paraTaskID, paraName, true, paraDateStart, paraDateEnd, paraRunSpaceTimeSecs,
+                    paraRunSpaceType, paraExtraStr, paraRunTimeOutSecs, paraAppName);
 
                 //发送消息同步到任务管理器中
                 string message = MessageParser.BuildMessage(null, null, new List<TaskEntity>() { entity }, null, null, null);
                 this.SendXMLSocket2Server(message);
-
+                _DataAccess.ModifyTask(paraTaskID, entity);
                 return true;
             }
         }
@@ -509,6 +515,15 @@ namespace Component.TimerTask.BLL
             _DataAccess.RemoveTask(paraTaskID);
         }
 
+        /// <summary>
+        /// Dels the task complet.
+        /// </summary>
+        /// <param name="paraID">The para ID.</param>
+        /// <returns></returns>
+        public bool DelTaskComplet(long paraID)
+        {
+            return _DataAccess.DelTaskComplet(paraID);
+        }
         #endregion
     }
 }

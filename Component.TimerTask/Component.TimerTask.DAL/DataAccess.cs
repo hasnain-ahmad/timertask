@@ -139,6 +139,23 @@ namespace Component.TimerTask.DAL
             
         }
 
+        public bool DelTaskComplet(long paraTaskId)
+        {
+            this.LoadTaskDataFromDB();
+            TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
+            if (taskRow == null)
+            {
+                //throw new Exception("修改任务错误：传入的任务ID非法！");
+                return false;
+            }
+            else
+            {
+                taskRow.Delete();
+                this.Save2DB();
+                return true;
+            }
+        }
+
         public bool WriteLog(LogEntity paraLog)
         {
             TaskDataSet.PL_TimerTask_LogRow logRow = _DataSet.PL_TimerTask_Log.NewPL_TimerTask_LogRow();
