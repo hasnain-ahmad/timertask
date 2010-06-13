@@ -53,6 +53,7 @@
     <None Include="定时任务管理组件 - 详细设计说明书.doc" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="使用说明.txt" />
     <Content Include="遗留问题.txt" />
   </ItemGroup>
 </Project>

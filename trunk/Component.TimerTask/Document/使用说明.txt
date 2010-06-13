@@ -1,0 +1,41 @@
+组件说明;
+	Component.TimerTask.BLL
+		业务逻辑处理类，所有的逻辑接口都封装在这个库中
+		内部用接口：IBLLLogic
+		外部用接口：IBLLService
+	Component.TimerTask.DAL
+		数据访问组件
+	Component.TimerTask.ITimerComponent
+		外部组件要适配到定时任务管理器需要继承的接口（如果外部组件是DLL形式的，则需要继承此接口并重载其中的TaskExecuteFunc方法）。
+	Component.TimerTask.TaskEngine
+		定时任务管理器引擎
+	Component.TimerTask.TaskManager
+		定时任务管理器程序（负责加载定时任务引擎）
+	Component.TimerTask.Monitor
+		定时任务监控器（负责监控定时任务管理器程序，并自动启动它），同时也是一个本地的定时任务维护UI，可以增加和维护定时任务。
+	Component.TimerTask.Utility
+		一些应用类库
+	TimerTaskService
+		定时任务管理器外部服务接口（WebService），实现了IBLLService中的所有接口。如果外部程序通过远程访问定时任务管理器就使用该服务接口。
+		
+		
+部署使用说明：
+	所有上面这些组件和程序都要部署在一个目录下，可分两种情况部署：
+		1，访问WebService方式部署，所有这些组件程序放在WebService的Bin目录下
+		2，访问组件方式部署(不需要部署WebService)，引用Compenet.TimerTask.BLL程序集，并获取外部服务接口IBLLService，通过工厂类BLlFactory获得。然后所有的维护接口在在IBLLService中包含。
+		
+	配置说明：
+		1，定时任务管理器程序自身需要的配置
+		    <!--定时任务服务部署的服务器，如果部署的目标机器上只有一个网卡(包括虚拟网卡在内)，则不用配置-->
+			<add key="SocketIP" value="127.0.0.1"/>
+			<add key="SocketPort" value="8081"/>
+			<!--定时任务管理器空闲时间，根据任务的精确程度和执行频率来定，如果任务周期大，可以稍微大点，如20秒，60秒，如果执行频率或者精度很高，可以设为1秒，2秒-->
+			<add key="TimerTaskEngineIdelSec" value="2"/>
+		2，访问定时任务管理组件维护接口需要的配置
+			A：如果通过组建方式访问，则需要将配置提升到引用它的程序级别
+			B：如果通过WebService方式访问，则需要将配置写到网站配置中
+			C：定时任务监控程序，和A条配置一样
+			    <!--定时任务服务部署的服务器，如果部署的目标机器上只有一个网卡(包括虚拟网卡在内)，则不用配置-->
+				<add key="SocketIP" value="127.0.0.1"/>
+				<add key="SocketPort" value="8081"/>
+			
