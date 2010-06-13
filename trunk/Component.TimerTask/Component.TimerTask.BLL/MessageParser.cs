@@ -65,6 +65,7 @@ namespace Component.TimerTask.BLL
                 foreach (TaskEntity task in paraAddedTasks)
                 {
                     XmlElement ele = doc.CreateElement("Task");
+                    ele.SetAttribute("ID", task.ID.ToString());
                     ele.SetAttribute("Name", task.Name);
                     ele.SetAttribute("Enable", task.Enable.ToString());
                     ele.SetAttribute("DateStart", task.DateStart.ToString("F"));
@@ -167,6 +168,7 @@ namespace Component.TimerTask.BLL
             foreach (XmlElement ele in addNode.ChildNodes)
             {
                 TaskEntity entity = new TaskEntity();
+                entity.SetKeyID(long.Parse(ele.GetAttribute("ID")));
                 entity.Name = ele.GetAttribute("Name");
                 entity.Enable = bool.Parse(ele.GetAttribute("Enable"));
                 entity.DateStart = DateTime.Parse(ele.GetAttribute("DateStart"));
