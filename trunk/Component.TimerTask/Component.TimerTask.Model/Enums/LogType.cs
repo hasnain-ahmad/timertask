@@ -64,7 +64,11 @@ namespace Component.TimerTask.Model.Enums
         /// 通过接口方法结束任务出错
         /// <remarks>注意，如果任务重有窗体弹出，直接结束会抱错</remarks>
         /// </summary>
-        StopRuningFromInterfaceError = 110
+        StopRuningFromInterfaceError = 110,
+        /// <summary>
+        /// 计划保存到数据库失败
+        /// </summary>
+        TaskAdd2DBError = 111
 
     }
 }
