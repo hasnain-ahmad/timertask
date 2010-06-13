@@ -216,7 +216,7 @@ namespace Component.TimerTask.TaskEngine
             {
                 _TaskList.Add(GetWorkingTask(_IBLLLogic.GetTask(paraTask)));
             }
-            Console.WriteLine("新增一条任务：{0}", paraTask.Name);
+            Console.WriteLine("新增一条任务，ID：{0}，：{1}",paraTask.ID, paraTask.Name);
         }
 
         public void ModifyTask(TaskEntity paraTask)
@@ -240,7 +240,7 @@ namespace Component.TimerTask.TaskEngine
                 }
 
             }
-            Console.WriteLine("更新一条任务：{0}", paraTask.Name);
+            Console.WriteLine("更新一条任务，ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
         }
 
         public void DelTask(long paraTaskId)
@@ -250,7 +250,7 @@ namespace Component.TimerTask.TaskEngine
                 IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 _TaskList.Remove(task);
             }
-            Console.WriteLine("删除一条任务：{0}", paraTaskId);
+            Console.WriteLine("删除一条任务，ID：{0}", paraTaskId);
         }
 
         #endregion
