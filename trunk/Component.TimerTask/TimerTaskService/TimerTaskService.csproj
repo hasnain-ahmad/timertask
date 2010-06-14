@@ -64,6 +64,10 @@
       <Project>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</Project>
       <Name>Component.TimerTask.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.TaskManager\Component.TimerTask.TaskManager.csproj">
+      <Project>{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}</Project>
+      <Name>Component.TimerTask.TaskManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
