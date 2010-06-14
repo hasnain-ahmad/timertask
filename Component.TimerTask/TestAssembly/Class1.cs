@@ -31,7 +31,7 @@ namespace TestAssembly
         public override void StopRuning()
         {
             Console.WriteLine("This Task OutDate Killed");
-            Thread.CurrentThread.Abort();
+            //通过设置标记为来是上面的任务执行方法结束
             //frm.Dispose();
             
         }
