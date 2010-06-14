@@ -43,3 +43,18 @@
 				<add key="SocketPort" value="8081"/>
 		3，外部组件适配方式配置文件
 			RegestedApps.XML
+			
+			
+
+外部组件如何集成到定时任务管理中来，被定时任务管理器托管：
+	A：EXE方式外部组件，
+		在RegestedApps.XML添加如下配置：<App name="记事本" dll="TaskTest/notepad.exe" namespace="" class=""/>，其中dll为exe的相对路径
+	B：DLL方式外部组件（参考示例程序集 TestAssembly），
+		外部类继承ITimeWorkTask接口， 重写任务执行入口方法，override void TaskExecuteFunc()，同时在该方法后加上base.TaskExecuteFunc();确保系统能知道执行完成时间.
+		同时,StopRuning方法用于停止任务的执行,接口中的属性ExtraParaStr为新建计划的时候可以指定的额外参数,这里通过接口的方式传递过来。
+		在RegestedApps.XML添加如下配置：<App name="testclass" dll="TaskTest/TestAssembly.DLL" namespace="TestAssembly" class="Class1"/>
+		分别表示，dll相对路径， 继承接口的任务类命名空间，类名
+		
+外部业务系统如何调用定时任务管理器接口维护计划数据：
+	A：如果通过webservice方式，可以直接调用webservice中提供的方法。
+	B：如果通过dll调用，可以通过接口IBLLService进行调用其中接口的创建方式为 BLlFactory.GetBLL();

@@ -10,6 +10,10 @@ namespace TestAssembly
     public class Class1 : ITimeWorkTask
     {
         System.Windows.Forms.Form frm;
+
+        /// <summary>
+        /// 任务执行入口
+        /// </summary>
         public override void TaskExecuteFunc()
         {
             frm = new Form1();
@@ -19,12 +23,15 @@ namespace TestAssembly
             Thread.Sleep(5000);
             
             frm.Close();
+
+            //加上此方法确保能通知系统任务运行完成
             base.TaskExecuteFunc();
         }
 
         public override void StopRuning()
         {
             Console.WriteLine("This Task OutDate Killed");
+            Thread.CurrentThread.Abort();
             //frm.Dispose();
             
         }
