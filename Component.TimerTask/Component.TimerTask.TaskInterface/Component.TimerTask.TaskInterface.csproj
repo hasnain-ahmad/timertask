@@ -8,8 +8,8 @@
     <ProjectGuid>{607E3790-B6A3-47F0-98BD-BD1E28C04882}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Component.TimerTask.ITimerComponent</RootNamespace>
-    <AssemblyName>Component.TimerTask.ITimerComponent</AssemblyName>
+    <RootNamespace>Component.TimerTask.TaskInterface</RootNamespace>
+    <AssemblyName>Component.TimerTask.TaskInterface</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
