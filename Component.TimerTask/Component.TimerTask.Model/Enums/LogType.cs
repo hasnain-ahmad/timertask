@@ -68,7 +68,12 @@ namespace Component.TimerTask.Model.Enums
         /// <summary>
         /// 计划保存到数据库失败
         /// </summary>
-        TaskAdd2DBError = 111
+        TaskAdd2DBError = 111,
+
+        /// <summary>
+        /// 任务执行线程抛出异常
+        /// </summary>
+        TaskThreadThrowException = 112
 
     }
 }

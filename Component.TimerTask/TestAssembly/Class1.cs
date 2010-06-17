@@ -16,16 +16,23 @@ namespace TestAssembly
         /// </summary>
         public override void TaskExecuteFunc()
         {
-            frm = new Form1();
-            frm.Show();
-            Console.WriteLine("Task Closed By Self");
-            Application.DoEvents();
-            Thread.Sleep(5000);
-            
-            frm.Close();
+            try
+            {
+                frm = new Form1();
+                frm.Show();
+                Console.WriteLine("Task Closed By Self");
+                Application.DoEvents();
+                Thread.Sleep(5000);
 
-            //加上此方法确保能通知系统任务运行完成
-            base.TaskExecuteFunc();
+                frm.Close();
+
+                //加上此方法确保能通知系统任务运行完成
+                base.TaskExecuteFunc();
+            }
+            catch(Exception ex) //线程执行方法需要进行异常捕获,最好是能通过委托告诉主线程进行记录
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public override void StopRuning()
