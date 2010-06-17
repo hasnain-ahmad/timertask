@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using Component.TimerTask.ITimerComponent;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using System.IO;
+using Component.TimerTask.TaskInterface;
 
 namespace Component.TimerTask.TaskEngine
 {
@@ -14,7 +14,7 @@ namespace Component.TimerTask.TaskEngine
     class Worker_Assembly : Worker
     {
         private Thread _Thread;
-        private ITimeWorkTask _WorkInterface;
+        private ITask _WorkInterface;
 
         public Worker_Assembly(WorkingTask paraTask, BLL.IBLLLogic paraBll)
             : base(paraTask, paraBll)
@@ -29,7 +29,7 @@ namespace Component.TimerTask.TaskEngine
                 {
                     Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
 
-                    ITimeWorkTask th = (ITimeWorkTask)paraMonitorDest;
+                    ITask th = (ITask)paraMonitorDest;
                     if (th != null) th.StopRuning();
 
                 }
@@ -59,7 +59,7 @@ namespace Component.TimerTask.TaskEngine
                     FileInfo fi = new FileInfo(destFile);
 
                     object obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-                    _WorkInterface = (ITimeWorkTask)obj;
+                    _WorkInterface = (ITask)obj;
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
                     _WorkInterface.ExtraParaStr = _Task.Task.TaskEntity.ExtraParaStr;

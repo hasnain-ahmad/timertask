@@ -54,9 +54,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Component.TimerTask.ITimerComponent\Component.TimerTask.ITimerComponent.csproj">
+    <ProjectReference Include="..\Component.TimerTask.TaskInterface\Component.TimerTask.TaskInterface.csproj">
       <Project>{607E3790-B6A3-47F0-98BD-BD1E28C04882}</Project>
-      <Name>Component.TimerTask.ITimerComponent</Name>
+      <Name>Component.TimerTask.TaskInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

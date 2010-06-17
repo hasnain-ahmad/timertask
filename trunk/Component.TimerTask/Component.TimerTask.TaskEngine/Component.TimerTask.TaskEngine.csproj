@@ -53,9 +53,9 @@
       <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
       <Name>Component.TimerTask.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Component.TimerTask.ITimerComponent\Component.TimerTask.ITimerComponent.csproj">
+    <ProjectReference Include="..\Component.TimerTask.TaskInterface\Component.TimerTask.TaskInterface.csproj">
       <Project>{607E3790-B6A3-47F0-98BD-BD1E28C04882}</Project>
-      <Name>Component.TimerTask.ITimerComponent</Name>
+      <Name>Component.TimerTask.TaskInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Component.TimerTask.Model\Component.TimerTask.Model.csproj">
       <Project>{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}</Project>
