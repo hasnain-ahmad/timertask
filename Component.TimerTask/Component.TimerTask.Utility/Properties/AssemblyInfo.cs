@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Component.TimerTask.Utility")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("定时任务管理器应用类库")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Component.TimerTask.Utility")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
+[assembly: AssemblyProduct("TimerTask")]
+[assembly: AssemblyCopyright("Copyright © LvJinMing 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
