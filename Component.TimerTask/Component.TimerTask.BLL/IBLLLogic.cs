@@ -23,28 +23,37 @@ namespace Component.TimerTask.BLL
         /// <summary>
         /// 获取计划的上次执行时间,如果查询不到,返回DateTime.MinValue
         /// </summary>
-        /// <param name="paraTaskID"></param>
+        /// <param name="paraTaskID">The para task ID.</param>
         /// <returns></returns>
         DateTime GetTaskLastRunTime(Int64 paraTaskID);
 
         /// <summary>
         /// 获取计划富实体
         /// </summary>
-        /// <param name="paraEntity"></param>
+        /// <param name="paraEntity">The para entity.</param>
         /// <returns></returns>
         Task GetTask(TaskEntity paraEntity);
 
+        /// <summary>
+        /// Adds the task.
+        /// </summary>
+        /// <param name="paraEntity">The para entity.</param>
+        /// <returns></returns>
         TaskEntity AddTask(TaskEntity paraEntity);
 
-        bool UpdateTask(TaskEntity paraEntity);
+        /// <summary>
+        /// Updates the task.
+        /// </summary>
+        /// <param name="paraEntity">The para entity.</param>
+        void UpdateTask(TaskEntity paraEntity);
 
         /// <summary>
         /// 写日志
         /// </summary>
-        /// <param name="paraTaskid"></param>
-        /// <param name="paraTaskName"></param>
-        /// <param name="paraContent"></param>
-        /// <param name="paraLogType"></param>
+        /// <param name="paraTaskid">The para taskid.</param>
+        /// <param name="paraTaskName">Name of the para task.</param>
+        /// <param name="paraContent">Content of the para.</param>
+        /// <param name="paraLogType">Type of the para log.</param>
         void WriteLog(Int64 paraTaskid, string paraTaskName, string paraContent, Model.Enums.LogType paraLogType);
 
         //void AddTask2DB(TaskEntity paraTask);

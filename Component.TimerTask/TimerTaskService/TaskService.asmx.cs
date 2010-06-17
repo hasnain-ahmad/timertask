@@ -59,9 +59,9 @@ namespace TimerTaskService
         }
 
         [WebMethod(Description = "更新任务")]
-        public bool UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
+        public void UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
-            return _BLL.UpdateTask(paraTaskID,
+            _BLL.UpdateTask(paraTaskID,
                 paraName,
                 paraDateStart,
                 paraDateEnd,

@@ -39,7 +39,7 @@ namespace Component.TimerTask.DAL
             catch
             {
                 CheckAndInitDataBase();
-                throw;
+                //throw;
             }
         }
 
@@ -97,63 +97,90 @@ namespace Component.TimerTask.DAL
 
         public Int64 AddTask(TaskEntity paraTask)
         {
-            TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.NewPL_TimerTaskRow();
-            Mapper.DataMapper.ReseveMappingTaskEntity(paraTask, ref taskRow);
-            _DataSet.PL_TimerTask.AddPL_TimerTaskRow(taskRow);
-            this.Save2DB();
-            paraTask.SetKeyID(taskRow.ID);
-            return taskRow.ID;
+            try
+            {
+                TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.NewPL_TimerTaskRow();
+                Mapper.DataMapper.ReseveMappingTaskEntity(paraTask, ref taskRow);
+                _DataSet.PL_TimerTask.AddPL_TimerTaskRow(taskRow);
+                this.Save2DB();
+                paraTask.SetKeyID(taskRow.ID);
+                return taskRow.ID;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void ModifyTask(Int64 paraTaskId, TaskEntity paraTask)
         {
-            this.LoadTaskDataFromDB();
-            TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
-            if (taskRow == null)
+            try
             {
-                throw new Exception("修改任务错误：传入的任务ID非法！");
+                this.LoadTaskDataFromDB();
+                TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
+                if (taskRow == null)
+                {
+                    throw new Exception("修改任务错误：传入的任务ID非法！");
+                }
+                else
+                {
+                    Mapper.DataMapper.ReseveMappingTaskEntity(paraTask, ref taskRow);
+                }
+                this.Save2DB();
             }
-            else
+            catch
             {
-                Mapper.DataMapper.ReseveMappingTaskEntity(paraTask, ref taskRow);
+                throw;
             }
-            this.Save2DB();
         }
 
         public bool RemoveTask(Int64 paraTaskId)
         {
-            this.LoadTaskDataFromDB();
-            TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
-            if (taskRow == null)
+            try
             {
-                //throw new Exception("修改任务错误：传入的任务ID非法！");
-                return false;
-            }
-            else
-            {
-                if (taskRow.Enable == bool.FalseString)
+                this.LoadTaskDataFromDB();
+                TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
+                if (taskRow == null)
+                {
+                    //throw new Exception("修改任务错误：传入的任务ID非法！");
                     return false;
-                taskRow.Enable = bool.FalseString;
-                this.Save2DB();
-                return true;
+                }
+                else
+                {
+                    if (taskRow.Enable == bool.FalseString)
+                        return false;
+                    taskRow.Enable = bool.FalseString;
+                    this.Save2DB();
+                    return true;
+                }
             }
-            
+            catch
+            {
+                throw;
+            }
         }
 
         public bool DelTaskComplet(long paraTaskId)
         {
-            this.LoadTaskDataFromDB();
-            TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
-            if (taskRow == null)
+            try
             {
-                //throw new Exception("修改任务错误：传入的任务ID非法！");
-                return false;
+                this.LoadTaskDataFromDB();
+                TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
+                if (taskRow == null)
+                {
+                    //throw new Exception("修改任务错误：传入的任务ID非法！");
+                    return false;
+                }
+                else
+                {
+                    taskRow.Delete();
+                    this.Save2DB();
+                    return true;
+                }
             }
-            else
+            catch
             {
-                taskRow.Delete();
-                this.Save2DB();
-                return true;
+                throw;
             }
         }
 

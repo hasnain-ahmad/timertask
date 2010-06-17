@@ -77,7 +77,7 @@ namespace Component.TimerTask.BLL
                 log.LogType = LogType.SocketClientSendError;
                 log.TaskID = -1;
                 WriteLog(log);
-                throw ex;
+                throw new Exception("计划数据通过Socket同步到定时任务管理器失败",ex);
             }
             finally
             {
@@ -97,19 +97,21 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public TaskEntity AddTask(TaskEntity paraEntity)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
-            if (assembly == null)
+            try
             {
-                return null;
+                return AddTask(paraEntity.Name,
+                    paraEntity.DateStart,
+                    paraEntity.DateEnd,
+                    paraEntity.RegestesAppName,
+                    paraEntity.RunSpaceTime,
+                    paraEntity.RunSpaceType,
+                    paraEntity.ExtraParaStr,
+                    paraEntity.RunTimeOutSecs);
             }
-            return AddTask(paraEntity.Name,
-                paraEntity.DateStart,
-                paraEntity.DateEnd,
-                paraEntity.RegestesAppName,
-                paraEntity.RunSpaceTime,
-                paraEntity.RunSpaceType,
-                paraEntity.ExtraParaStr,
-                paraEntity.RunTimeOutSecs);
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -126,52 +128,59 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public TaskEntity AddTask(string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
-            if (assembly == null)
+            try
             {
-                return null;
-            }
-            else
-            {
-                TaskEntity entity = new TaskEntity();
-                entity.DateEnd = paraDateEnd;
-                entity.DateStart = paraDateStart;
-                entity.Enable = true;
-                entity.ExtraParaStr = paraExtraStr;
-                entity.Name = paraName;
-                entity.RunSpaceTime = paraRunSpaceTimeSecs;
-                entity.RunSpaceType = paraRunSpaceType;
-                entity.RunTimeOutSecs = paraRunTimeOutSecs;
-                entity.RegestesAppName = paraAppName;
-
-                //先校验，后保存
-
-                //输入校验
-                MessageParser.CheckAndSetTaskFrequence(ref entity);
-                //保存到数据库
-                Int64 id = _DataAccess.AddTask(entity);
-
-                if (id >= 0)
-                {//保存成功
-                    entity.SetKeyID(id);
-                    try
-                    {
-                        //发送消息同步到任务管理器中
-                        string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
-                        this.SendXMLSocket2Server(message);
-                        return entity;
-                    }
-                    catch
-                    {
-                        this.DelTaskComplet(id);
-                        return null;
-                    }
+                TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
+                if (assembly == null)
+                {
+                    throw new Exception(string.Format("添加的计划的程序(RegestesAppName){0}尚未在配置文件(RegestedApps.xml)中注册", paraAppName));
                 }
                 else
-                {//未保存成功
-                    this.WriteLog(-1, entity.Name, "计划保存到数据库未成功", LogType.TaskAdd2DBError);
-                    return null;
+                {
+                    TaskEntity entity = new TaskEntity();
+                    entity.DateEnd = paraDateEnd;
+                    entity.DateStart = paraDateStart;
+                    entity.Enable = true;
+                    entity.ExtraParaStr = paraExtraStr;
+                    entity.Name = paraName;
+                    entity.RunSpaceTime = paraRunSpaceTimeSecs;
+                    entity.RunSpaceType = paraRunSpaceType;
+                    entity.RunTimeOutSecs = paraRunTimeOutSecs;
+                    entity.RegestesAppName = paraAppName;
+
+                    //先校验，后保存
+
+                    //输入校验
+                    MessageParser.CheckAndSetTaskFrequence(ref entity);
+                    //保存到数据库
+                    Int64 id = _DataAccess.AddTask(entity);
+
+                    if (id >= 0)
+                    {//保存成功
+                        entity.SetKeyID(id);
+                        try
+                        {
+                            //发送消息同步到任务管理器中
+                            string message = MessageParser.BuildMessage(new List<TaskEntity>() { entity }, null, null, null, null, null);
+                            this.SendXMLSocket2Server(message);
+                            return entity;
+                        }
+                        catch
+                        {
+                            this.DelTaskComplet(id);
+                            throw;// 
+                        }
+                    }
+                    else
+                    {//未保存成功
+                        this.WriteLog(-1, entity.Name, "计划保存到数据库没有成功", LogType.TaskAdd2DBError);
+                        throw new Exception("计划保存到数据库没有成功");
+                    }
                 }
+            }
+            catch
+            {
+                throw;
             }
         }
 
@@ -182,11 +191,18 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public bool DelTask(Int64 paraID)
         {
-            //发送消息同步到任务管理器中
-            string message = MessageParser.BuildMessage(null, new List<long>() { paraID }, null, null, null, null);
-            //一定要保证先发送，后保存
-            this.SendXMLSocket2Server(message);
-            return _DataAccess.RemoveTask(paraID);
+            try
+            {
+                //发送消息同步到任务管理器中
+                string message = MessageParser.BuildMessage(null, new List<long>() { paraID }, null, null, null, null);
+                //一定要保证先发送，后保存
+                this.SendXMLSocket2Server(message);
+                return _DataAccess.RemoveTask(paraID);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -194,24 +210,25 @@ namespace Component.TimerTask.BLL
         /// </summary>
         /// <param name="paraEntity">The para entity.</param>
         /// <returns></returns>
-        public bool UpdateTask(TaskEntity paraEntity)
+        public void UpdateTask(TaskEntity paraEntity)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraEntity.RegestesAppName);
-            if (assembly == null)
+            try
             {
-                return false;
+                this.UpdateTask(
+                    paraEntity.ID,
+                    paraEntity.Name,
+                    paraEntity.DateStart,
+                    paraEntity.DateEnd,
+                    paraEntity.RegestesAppName,
+                    paraEntity.RunSpaceTime,
+                    paraEntity.RunSpaceType,
+                    paraEntity.ExtraParaStr,
+                    paraEntity.RunTimeOutSecs);
             }
-
-            return UpdateTask(
-                paraEntity.ID,
-                paraEntity.Name,
-                paraEntity.DateStart,
-                paraEntity.DateEnd,
-                paraEntity.RegestesAppName,
-                paraEntity.RunSpaceTime,
-                paraEntity.RunSpaceType,
-                paraEntity.ExtraParaStr,
-                paraEntity.RunTimeOutSecs);
+            catch
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -227,24 +244,30 @@ namespace Component.TimerTask.BLL
         /// <param name="paraExtraStr"></param>
         /// <param name="paraRunTimeOutSecs"></param>
         /// <returns></returns>
-        public bool UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
+        public void UpdateTask(Int64 paraTaskID, string paraName, DateTime paraDateStart, DateTime paraDateEnd, string paraAppName, Int64 paraRunSpaceTimeSecs, TaskFrequence paraRunSpaceType, string paraExtraStr, Int64 paraRunTimeOutSecs)
         {
-            TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
-            if (assembly == null)
+            try
             {
-                return false;
-            }
-            else
-            {
-                TaskEntity entity = new TaskEntity(paraTaskID, paraName, true, paraDateStart, paraDateEnd, paraRunSpaceTimeSecs,
-                    paraRunSpaceType, paraExtraStr, paraRunTimeOutSecs, paraAppName);
+                TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
+                if (assembly == null)
+                {
+                    throw new Exception(string.Format("更新的计划的程序(RegestesAppName){0}尚未在配置文件(RegestedApps.xml)中注册", paraAppName));
+                }
+                else
+                {
+                    TaskEntity entity = new TaskEntity(paraTaskID, paraName, true, paraDateStart, paraDateEnd, paraRunSpaceTimeSecs,
+                        paraRunSpaceType, paraExtraStr, paraRunTimeOutSecs, paraAppName);
 
-                //发送消息同步到任务管理器中
-                string message = MessageParser.BuildMessage(null, null, new List<TaskEntity>() { entity }, null, null, null);
-                //一定要保证先发送，后保存
-                this.SendXMLSocket2Server(message);
-                _DataAccess.ModifyTask(paraTaskID, entity);
-                return true;
+                    //发送消息同步到任务管理器中
+                    string message = MessageParser.BuildMessage(null, null, new List<TaskEntity>() { entity }, null, null, null);
+                    //一定要保证先发送，后保存
+                    this.SendXMLSocket2Server(message);
+                    _DataAccess.ModifyTask(paraTaskID, entity);
+                }
+            }
+            catch
+            {
+                throw;
             }
         }
 
