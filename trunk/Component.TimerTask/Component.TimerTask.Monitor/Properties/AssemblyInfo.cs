@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Component.TimerTask.Monitor")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("定时任务管理器监控器")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP(惠普)电脑")]
-[assembly: AssemblyProduct("Component.TimerTask.Monitor")]
-[assembly: AssemblyCopyright("Copyright © HP(惠普)电脑 2010")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("TimerTask")]
+[assembly: AssemblyCopyright("Copyright © LvJinMing 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
