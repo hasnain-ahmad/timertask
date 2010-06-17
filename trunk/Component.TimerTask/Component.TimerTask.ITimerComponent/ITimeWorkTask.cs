@@ -22,18 +22,16 @@ namespace Component.TimerTask.ITimerComponent
         /// <summary>
         /// 通知外部事件，线程执行结束
         /// </summary>
+        /// <value>The thread complete func.</value>
         public DEL_THREADCOMPLETE ThreadCompleteFunc
         {
             set { _ThreadCompleteFunc = value; }
         }
 
-        //public ITimeWorkTask()
-        //{
-        //}
-
         /// <summary>
         /// 执行任务的附加参数
         /// </summary>
+        /// <value>The extra para STR.</value>
         public string ExtraParaStr { get; set; }
         /// <summary>
         /// 具体执行任务的方法
