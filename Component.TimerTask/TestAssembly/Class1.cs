@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Component.TimerTask.ITimerComponent;
 using System.Threading;
 using System.Windows.Forms;
+using Component.TimerTask.TaskInterface;
 
 namespace TestAssembly
 {
-    public class Class1 : ITimeWorkTask
+    public class Class1 : ITask
     {
         System.Windows.Forms.Form frm;
 

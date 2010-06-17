@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.BLL", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.DAL", "Component.TimerTask.DAL\Component.TimerTask.DAL.csproj", "{3EC8EB3D-40F2-4FE3-A394-0900996A535E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.ITimerComponent", "Component.TimerTask.ITimerComponent\Component.TimerTask.ITimerComponent.csproj", "{607E3790-B6A3-47F0-98BD-BD1E28C04882}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.TaskInterface", "Component.TimerTask.TaskInterface\Component.TimerTask.TaskInterface.csproj", "{607E3790-B6A3-47F0-98BD-BD1E28C04882}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Model", "Component.TimerTask.Model\Component.TimerTask.Model.csproj", "{E2E678ED-E41E-4048-B51C-4F6225BA8FAE}"
 EndProject

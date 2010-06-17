@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using Component.TimerTask.ITimerComponent;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using System.IO;
