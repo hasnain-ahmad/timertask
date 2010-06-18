@@ -78,24 +78,31 @@ namespace Component.TimerTask.Monitor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (false == _Bll.IsTaskManagerAlive())
-            {//没有启动
-                this.lbl_State.Text = ProcessState.没有启动.ToString();
-                bool b = _Bll.StartTaskManager();
-                if (false == b)
-                {
-                    this.tssl_Info.Text = "当前目录下不存在任务管理器进程，请检查程序。";
+            try
+            {
+                if (false == _Bll.IsTaskManagerAlive())
+                {//没有启动
+                    this.lbl_State.Text = ProcessState.没有启动.ToString();
+                    bool b = _Bll.StartTaskManager();
+                    if (false == b)
+                    {
+                        this.tssl_Info.Text = "当前目录下不存在任务管理器进程，请检查程序。";
+                    }
+                    else
+                    {
+                        this.tssl_Info.Text = "成功启动任务管理";
+                    }
                 }
                 else
-                {
-                    this.tssl_Info.Text = "成功启动任务管理";
+                {//已经启动
+                    this.lbl_State.Text = ProcessState.已经启动.ToString();
                 }
+                InitTaskList();
             }
-            else
-            {//已经启动
-                this.lbl_State.Text = ProcessState.已经启动.ToString();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
-            InitTaskList();
         }
 
         private void InitTaskList()
@@ -133,135 +140,170 @@ namespace Component.TimerTask.Monitor
         #region 计划维护菜单
         private void listView1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (!_Bll.IsTaskManagerAlive())
+            try
             {
-                this.tsmi_Add.Enabled = false;
-                this.tsmi_Del.Enabled = false;
-                this.tsmi_Run.Enabled = false;
-                this.tsmi_Update.Enabled = false;
-                this.tsmi_Stop.Enabled = false;
-            }
-            else
-            {
-                this.tsmi_Add.Enabled = true;
-                this.tsmi_Del.Enabled = true;
-                this.tsmi_Run.Enabled = true;
-                this.tsmi_Update.Enabled = true;
-                this.tsmi_Stop.Enabled = true;
-            }
-
-            ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
-            if (item != null)
-            {
-                item.Selected = true;
-
-
-                if (e.Button == MouseButtons.Right)
+                if (!_Bll.IsTaskManagerAlive())
                 {
-                    tsmi_Run.Enabled = true;
-                    tsmi_Del.Enabled = true;
-                    tsmi_Add.Enabled = true;
-                    tsmi_Update.Enabled = true;
-                    TaskEntity entity = (TaskEntity)item.Tag;
-                    TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[1].Text);
-                    switch (s)
-                    {
-                        case TaskState.超时:
-                            break;
-                        case TaskState.等待执行:
-                            break;
-                        case TaskState.正在执行:
+                    this.tsmi_Add.Enabled = false;
+                    this.tsmi_Del.Enabled = false;
+                    this.tsmi_Run.Enabled = false;
+                    this.tsmi_Update.Enabled = false;
+                    this.tsmi_Stop.Enabled = false;
+                }
+                else
+                {
+                    this.tsmi_Add.Enabled = true;
+                    this.tsmi_Del.Enabled = true;
+                    this.tsmi_Run.Enabled = true;
+                    this.tsmi_Update.Enabled = true;
+                    this.tsmi_Stop.Enabled = true;
+                }
 
-                            break;
-                        case TaskState.已删除:
-                            tsmi_Del.Enabled = false;
-                            tsmi_Update.Enabled = false;
-                            tsmi_Run.Enabled = false;
-                            break;
+                ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
+                if (item != null)
+                {
+                    item.Selected = true;
+
+
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        tsmi_Run.Enabled = true;
+                        tsmi_Del.Enabled = true;
+                        tsmi_Add.Enabled = true;
+                        tsmi_Update.Enabled = true;
+                        TaskEntity entity = (TaskEntity)item.Tag;
+                        TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[1].Text);
+                        switch (s)
+                        {
+                            case TaskState.超时:
+                                break;
+                            case TaskState.等待执行:
+                                break;
+                            case TaskState.正在执行:
+
+                                break;
+                            case TaskState.已删除:
+                                tsmi_Del.Enabled = false;
+                                tsmi_Update.Enabled = false;
+                                tsmi_Run.Enabled = false;
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        tsmi_Del.Enabled = false;
+                        tsmi_Run.Enabled = false;
+                        tsmi_Update.Enabled = false;
+                        this.tsmi_Stop.Enabled = false;
+
                     }
                 }
             }
-            else
+            catch (Exception ex)
             {
-                if (e.Button == MouseButtons.Right)
-                {
-                    tsmi_Del.Enabled = false;
-                    tsmi_Run.Enabled = false;
-                    tsmi_Update.Enabled = false;
-                    this.tsmi_Stop.Enabled = false;
-
-                }
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void tsmi_Add_Click(object sender, EventArgs e)
         {
-            FrmTaskEdit frm = new FrmTaskEdit(_Bll);
-            frm.ShowDialog();
-            if (frm.DialogResult == DialogResult.OK)
+            try
             {
-                if (frm.Task != null)
+                FrmTaskEdit frm = new FrmTaskEdit(_Bll);
+                frm.ShowDialog();
+                if (frm.DialogResult == DialogResult.OK)
                 {
-                    _Bll.AddTask(frm.Task);
-                    this.InitTaskList();
+                    if (frm.Task != null)
+                    {
+                        _Bll.AddTask(frm.Task);
+                        this.InitTaskList();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void tsmi_Del_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems.Count > 0)
+            try
             {
-                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
-                if (entity != null)
+                if (this.listView1.SelectedItems.Count > 0)
                 {
-                    DialogResult dr = MessageBox.Show("确定要删除该任务吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dr == DialogResult.Yes)
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
                     {
-                        bool b = _Bll.DelTask(entity.ID);
-                        if (b == true)
+                        DialogResult dr = MessageBox.Show("确定要删除该任务吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == DialogResult.Yes)
                         {
-                            MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.InitTaskList();
+                            bool b = _Bll.DelTask(entity.ID);
+                            if (b == true)
+                            {
+                                MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.InitTaskList();
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void tsmi_Update_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems.Count > 0)
+            try
             {
-                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
-                if (entity != null)
+                if (this.listView1.SelectedItems.Count > 0)
                 {
-                    FrmTaskEdit frm = new FrmTaskEdit(entity, _Bll);
-                    frm.ShowDialog();
-                    if (frm.DialogResult == DialogResult.OK)
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
                     {
-                        _Bll.UpdateTask(entity);
-                        this.InitTaskList();
+                        FrmTaskEdit frm = new FrmTaskEdit(entity, _Bll);
+                        frm.ShowDialog();
+                        if (frm.DialogResult == DialogResult.OK)
+                        {
+                            _Bll.UpdateTask(entity);
+                            this.InitTaskList();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void tsmi_Log_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems.Count > 0)
+            try
             {
-                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
-                if (entity != null)
+                if (this.listView1.SelectedItems.Count > 0)
                 {
-                    FrmQueryLog frm = new FrmQueryLog(_Bll, entity.ID);
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
+                    {
+                        FrmQueryLog frm = new FrmQueryLog(_Bll, entity.ID);
+                        frm.ShowDialog();
+                    }
+                }
+                else
+                {
+                    FrmQueryLog frm = new FrmQueryLog(_Bll);
                     frm.ShowDialog();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                FrmQueryLog frm = new FrmQueryLog(_Bll);
-                frm.ShowDialog();
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -269,37 +311,51 @@ namespace Component.TimerTask.Monitor
 
         private void tsmi_Run_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems.Count > 0)
+            try
             {
-                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
-                if (entity != null)
+                if (this.listView1.SelectedItems.Count > 0)
                 {
-                    DialogResult dr = MessageBox.Show("确定要立即执行该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dr == DialogResult.Yes)
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
                     {
-                        _Bll.RunTaskImmediate(entity.ID);
-                        MessageBox.Show("执行成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.InitTaskList();
+                        DialogResult dr = MessageBox.Show("确定要立即执行该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == DialogResult.Yes)
+                        {
+                            _Bll.RunTaskImmediate(entity.ID);
+                            MessageBox.Show("执行成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.InitTaskList();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void tsmi_Stop_Click(object sender, EventArgs e)
         {
-            if (this.listView1.SelectedItems.Count > 0)
+            try
             {
-                TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
-                if (entity != null)
+                if (this.listView1.SelectedItems.Count > 0)
                 {
-                    DialogResult dr = MessageBox.Show("确定要立即停止该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dr == DialogResult.Yes)
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
                     {
-                        _Bll.StopRuningTask(entity.ID);
-                        MessageBox.Show("停止成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.InitTaskList();
+                        DialogResult dr = MessageBox.Show("确定要立即停止该任务？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == DialogResult.Yes)
+                        {
+                            _Bll.StopRuningTask(entity.ID);
+                            MessageBox.Show("停止成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.InitTaskList();
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
