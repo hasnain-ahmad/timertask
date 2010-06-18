@@ -48,6 +48,10 @@
       <Project>{A635E678-8804-49C7-9B26-E53D8C08682A}</Project>
       <Name>Component.TimerTask.TaskEngine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Utility\Component.TimerTask.Utility.csproj">
+      <Project>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</Project>
+      <Name>Component.TimerTask.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
