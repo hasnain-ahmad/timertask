@@ -1,7 +1,7 @@
 ﻿// File:    TaskEntity.cs
 // Author:  LvJinMing
 // Created: 2010年5月28日 9:26:17
-// Purpose: Definition of Enum TaskRuningState
+// Purpose: Definition of class TaskEntity
 
 using System;
 using System.Collections.Generic;

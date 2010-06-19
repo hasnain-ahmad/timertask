@@ -68,6 +68,13 @@ namespace Component.TimerTask.DAL
         /// <returns></returns>
         bool WriteLog(LogEntity paraLog);
 
+        /// <summary>
+        /// Writes the log.
+        /// </summary>
+        /// <param name="paraTaskid">The para taskid.</param>
+        /// <param name="paraTaskName">Name of the para task.</param>
+        /// <param name="paraContent">Content of the para.</param>
+        /// <param name="paraLogType">Type of the para log.</param>
         void WriteLog(Int64 paraTaskid, string paraTaskName, string paraContent, Model.Enums.LogType paraLogType);
 
         /// <summary>

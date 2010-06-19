@@ -1,4 +1,4 @@
-﻿namespace TestAssembly
+﻿namespace TestTask
 {
     partial class Form1
     {

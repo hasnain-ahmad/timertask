@@ -4,10 +4,13 @@ using System.Text;
 
 namespace Component.TimerTask.Utility
 {
+    /// <summary>
+    /// 程序集相关帮助
+    /// </summary>
     public class AssemblyHelper
     {
 
-        private static string _AssPath;
+        private static string _AssPath =string.Empty;
         /// <summary>
         /// 获取Assembly的运行路径
         /// </summary>

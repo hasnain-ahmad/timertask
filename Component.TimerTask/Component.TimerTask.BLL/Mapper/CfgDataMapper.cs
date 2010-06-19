@@ -12,12 +12,16 @@ namespace Component.TimerTask.BLL.Mapper
     /// <summary>
     /// Date: 2010/6/10
     /// Author:LvJinMing
-    /// Name:
     /// FullName:Component.TimerTask.BLL.Mapper.CfgDataMapper
     /// 数据映射器
     /// </summary>
     internal static class CfgDataMapper
     {
+        /// <summary>
+        /// Mappings the task asssembly.
+        /// </summary>
+        /// <param name="paraNode">The para node.</param>
+        /// <returns></returns>
         public static TaskAssembly MappingTaskAsssembly(XmlElement paraNode)
         {
             TaskAssembly entity = new TaskAssembly();

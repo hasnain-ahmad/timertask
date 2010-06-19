@@ -11,8 +11,6 @@ namespace Component.TimerTask.BLL
     /// </summary>
     public interface IBLLLogic : IBLLService
     {
-        //IDataAccess DataAccess { get; }
-
         /// <summary>
         /// 查询（可用的）富计划对象
         /// [外部接口不用使用，内部处理计划用]

@@ -9,7 +9,7 @@ using System.IO;
 namespace Component.TimerTask.BLL
 {
     /// <summary>
-    /// 消息解释 转换 器
+    /// 消息解释 转换器
     /// </summary>
     public class MessageParser
     {

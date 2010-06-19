@@ -27,6 +27,9 @@ namespace Component.TimerTask.TaskManager
         extern static bool ShowWindow(IntPtr hWnd, int nCmdShow);
         #endregion
 
+        /// <summary>
+        /// 定时任务管理器标题栏
+        /// </summary>
         internal const string STR_CAPTION_TITLE = "定时任务管理器";
 
         /// <summary>

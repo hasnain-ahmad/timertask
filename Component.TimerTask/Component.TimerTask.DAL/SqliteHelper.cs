@@ -41,12 +41,7 @@ namespace Component.TimerTask.DAL
             cmd.CommandType = CommandType.Text;
             cmd.CommandTimeout = 30;
             if (p != null)
-
                 cmd.Parameters.AddRange(p);
-            //{
-            //    foreach (object parm in p)
-            //        cmd.Parameters.Add(parm);
-            //}
         }
 
         /// <summary>
@@ -351,7 +346,7 @@ namespace Component.TimerTask.DAL
         {
             bool bi = true;
             string strSqlSelect = GetSelectSql(ds, strTbName);
-            SQLiteConnection cn = GetSQLiteConnection();//new SqlConnection(connSet);
+            SQLiteConnection cn = GetSQLiteConnection();
             try
             {
                 SQLiteDataAdapter da = new SQLiteDataAdapter(strSqlSelect, cn);
@@ -364,7 +359,6 @@ namespace Component.TimerTask.DAL
             }
             catch (Exception e)
             {
-                //Log.log(e);
                 strErr = e.Message;
                 bi = false;
             }
