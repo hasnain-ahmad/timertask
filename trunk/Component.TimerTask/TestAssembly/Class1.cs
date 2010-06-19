@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Component.TimerTask.TaskInterface;
 
-namespace TestAssembly
+namespace TestTask
 {
     public class Class1 : ITask
     {
@@ -14,7 +14,7 @@ namespace TestAssembly
         /// <summary>
         /// 任务执行入口
         /// </summary>
-        public override void TaskExecuteFunc()
+        public override void RunTask()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace TestAssembly
                 frm.Close();
 
                 //加上此方法确保能通知系统任务运行完成
-                base.TaskExecuteFunc();
+                base.RunTask();
             }
             catch(Exception ex) //线程执行方法需要进行异常捕获,最好是能通过委托告诉主线程进行记录
             {

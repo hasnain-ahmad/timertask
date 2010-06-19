@@ -23,8 +23,14 @@ namespace Component.TimerTask.BLL
     /// </summary>
     internal class BLLService : IBLLLogic
     {
+        /// <summary>
+        /// 定时任务管理器 进程名称
+        /// </summary>
         private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
 
+        /// <summary>
+        /// 数据访问接口
+        /// </summary>
         private DAL.IDataAccess _DataAccess = DAL.DALFactory.GetDataAccess();
 
         #region private function
@@ -59,7 +65,6 @@ namespace Component.TimerTask.BLL
                 IPEndPoint ip = SocketHelper.GetIpEndPoint();
                 socket = SocketHelper.GetSocket(ip);
 
-                //SocketHelper.Send(socket, paraContent);
                 string handshake = SocketHelper.SendMessageGetStr(socket, paraContent);
                 if (handshake == SocketHelper.HANDSHAKE)
                 {
@@ -168,7 +173,7 @@ namespace Component.TimerTask.BLL
                         catch
                         {
                             this.DelTaskComplet(id);
-                            throw;// 
+                            throw;
                         }
                     }
                     else
@@ -412,8 +417,7 @@ namespace Component.TimerTask.BLL
                 WriteLog(log);
                 return false;
             }
-            //else
-            //{
+
             string path = AssemblyHelper.GetAssemblyPath() + TIMERMANAGER_PROCESSNAME + ".exe";
             if (File.Exists(path))
             {
@@ -429,7 +433,6 @@ namespace Component.TimerTask.BLL
                 WriteLog(log);
                 return false;
             }
-            //}
         }
 
 

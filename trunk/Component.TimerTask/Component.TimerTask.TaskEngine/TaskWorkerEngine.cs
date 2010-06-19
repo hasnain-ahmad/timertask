@@ -216,7 +216,7 @@ namespace Component.TimerTask.TaskEngine
             {
                 _TaskList.Add(GetWorkingTask(_IBLLLogic.GetTask(paraTask)));
             }
-            Console.WriteLine("新增一条任务，ID：{0}，：{1}",paraTask.ID, paraTask.Name);
+            Console.WriteLine("新增一条任务 ID：{0}，：{1}",paraTask.ID, paraTask.Name);
         }
 
         public void ModifyTask(TaskEntity paraTask)
@@ -237,7 +237,7 @@ namespace Component.TimerTask.TaskEngine
                     task.Task.TaskEntity.RunTimeOutSecs = paraTask.RunTimeOutSecs;
 
                     task.RebuildTaskRunTimeList();
-                    Console.WriteLine("更新一条任务，ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
+                    Console.WriteLine("更新一条任务 ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
                 }
 
             }
@@ -252,7 +252,7 @@ namespace Component.TimerTask.TaskEngine
                 if (task != null)
                 {
                     _TaskList.Remove(task);
-                    Console.WriteLine("删除一条任务，ID：{0}", paraTaskId);
+                    Console.WriteLine("删除一条任务 ID：{0}", paraTaskId);
                 }
             }
             

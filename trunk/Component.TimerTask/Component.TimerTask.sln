@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTaskService", "TimerTaskService\TimerTaskService.csproj", "{298C631C-E904-4DD7-8DDA-BB2B18F762FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAssembly", "TestAssembly\TestAssembly.csproj", "{186834B3-E334-4DCD-BC6E-78949F3D7C55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTask", "TestAssembly\TestTask.csproj", "{186834B3-E334-4DCD-BC6E-78949F3D7C55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document", "Document\Document.csproj", "{425D3C80-B83D-4BF8-AB01-306FBF387BED}"
 EndProject

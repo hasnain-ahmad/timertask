@@ -18,7 +18,6 @@ namespace Component.TimerTask.TaskEngine
         public DateTime NextRunTime
         {
             get { return _NextRunTime; }
-            //set { _NextRunTime = value; }
         }
         /// <summary>
         /// 后续将要执行的时间点列表
@@ -154,8 +153,8 @@ namespace Component.TimerTask.TaskEngine
                         {//如果执行频率为只一次，并且还没到开始时间，并且上次执行时间离现在大于1天
                             //if (!_RunTimeList.Contains(_Task.TaskEntity.DateStart))
                             //{
-                                _RunTimeList.Enqueue(_Task.TaskEntity.DateStart);
-                                _IsTimeQueueEnd = true;
+                            _RunTimeList.Enqueue(_Task.TaskEntity.DateStart);
+                            _IsTimeQueueEnd = true;
                             //}
                         }
                     }
@@ -223,7 +222,7 @@ namespace Component.TimerTask.TaskEngine
             this.BuildTimeQueueByLastRunTime();
 
             UpdateNextRunTime();
-            
+
         }
 
         #endregion

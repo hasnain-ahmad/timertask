@@ -1,7 +1,7 @@
 ﻿// File:    IBLLService.cs
 // Author:  LvJinMing
 // Created: 2010年6月4日 15:26:17
-// Purpose: Definition of Enum TaskRuningState
+// Purpose: Definition of interface IBLLService
 
 using System;
 using System.Collections.Generic;
