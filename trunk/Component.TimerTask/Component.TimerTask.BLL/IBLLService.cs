@@ -76,7 +76,7 @@ namespace Component.TimerTask.BLL
         /// <summary>
         /// 写日志
         /// </summary>
-        /// <param name="?"></param>
+        /// <param name="paraLogEntity">The para log entity.</param>
         void WriteLog(LogEntity paraLogEntity);
 
         /// <summary>

@@ -7,8 +7,12 @@ using Component.TimerTask.Model.Enums;
 
 namespace Component.TimerTask.DAL.Mapper
 {
+
     /// <summary>
-    /// 数据映射器
+    /// Date: 2010-6-20 11:02
+    /// Author: Administrator
+    /// FullName: Component.TimerTask.DAL.Mapper.DataMapper
+    /// Class: 数据实体映射器
     /// </summary>
     internal static class DataMapper
     {

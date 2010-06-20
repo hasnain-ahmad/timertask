@@ -17,7 +17,7 @@ namespace Component.TimerTask.BLL
         /// 检查并设置任务的频率
         /// [对用户输入的信息做检验]
         /// </summary>
-        /// <param name="paraTask"></param>
+        /// <param name="paraTask">The para task.</param>
         public static void CheckAndSetTaskFrequence(ref TaskEntity paraTask)
         {
             switch (paraTask.RunSpaceType)
@@ -44,11 +44,12 @@ namespace Component.TimerTask.BLL
         /// <summary>
         /// 组装一条消息(所有接口都通过此方法组装)
         /// </summary>
-        /// <param name="paraAddedTasks"></param>
-        /// <param name="paraDeletedTasks"></param>
-        /// <param name="paraUpdateTasks"></param>
-        /// <param name="paraRunImmediateTask"></param>
-        /// <param name="paraStopTask"></param>
+        /// <param name="paraAddedTasks">The para added tasks.</param>
+        /// <param name="paraDeletedTasks">The para deleted tasks.</param>
+        /// <param name="paraUpdateTasks">The para update tasks.</param>
+        /// <param name="paraRunImmediateTask">The para run immediate task.</param>
+        /// <param name="paraRunType">Type of the para run.</param>
+        /// <param name="paraStopTask">The para stop task.</param>
         /// <returns></returns>
         public static string BuildMessage(List<TaskEntity> paraAddedTasks, List<Int64> paraDeletedTasks, List<TaskEntity> paraUpdateTasks, List<Int64> paraRunImmediateTask, List<RunTaskType> paraRunType, List<Int64> paraStopTask)
         {
@@ -146,10 +147,13 @@ namespace Component.TimerTask.BLL
         /// <summary>
         /// 翻译一条消息
         /// </summary>
-        /// <param name="paraMessage"></param>
-        /// <param name="paraAddedTasks"></param>
-        /// <param name="paraDeletedTasks"></param>
-        /// <param name="paraUpdateTasks"></param>
+        /// <param name="paraMessage">The para message.</param>
+        /// <param name="paraAddedTasks">The para added tasks.</param>
+        /// <param name="paraDeletedTasks">The para deleted tasks.</param>
+        /// <param name="paraUpdateTasks">The para update tasks.</param>
+        /// <param name="paraRunImmediateTask">The para run immediate task.</param>
+        /// <param name="paraRunType">Type of the para run.</param>
+        /// <param name="paraStopTask">The para stop task.</param>
         public static void ParseMessage(string paraMessage, out List<TaskEntity> paraAddedTasks, out List<Int64> paraDeletedTasks, out List<TaskEntity> paraUpdateTasks, out List<Int64> paraRunImmediateTask, out List<RunTaskType> paraRunType, out List<Int64> paraStopTask)
         {
             paraAddedTasks = new List<TaskEntity>();
