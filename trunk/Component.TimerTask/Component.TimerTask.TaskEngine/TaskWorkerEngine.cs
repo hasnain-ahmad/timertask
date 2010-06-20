@@ -178,7 +178,7 @@ namespace Component.TimerTask.TaskEngine
                 IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTaskId; });
                 if (task != null)
                 {
-                    task.Worker.EnforceKillWork();
+                    task.Worker.ManualStopWork();
                     return true;
                 }
                 else

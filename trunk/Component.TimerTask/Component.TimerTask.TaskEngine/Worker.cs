@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
-using System.IO;
 
 namespace Component.TimerTask.TaskEngine
 {
@@ -89,7 +89,7 @@ namespace Component.TimerTask.TaskEngine
 
         }
 
-        public virtual void EnforceKillWork()
+        public virtual void ManualStopWork()
         {
             #region 记录到日志中
             _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
