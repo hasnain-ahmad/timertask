@@ -82,7 +82,7 @@ namespace Component.TimerTask.TaskEngine
             }
         }
 
-        public override void EnforceKillWork()
+        public override void ManualStopWork()
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Component.TimerTask.TaskEngine
                 {
                     _Process.Kill();
                 }
-                base.EnforceKillWork();
+                base.ManualStopWork();
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();

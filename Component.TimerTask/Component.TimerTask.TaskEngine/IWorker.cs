@@ -16,6 +16,9 @@ namespace Component.TimerTask.TaskEngine
         /// <param name="paraRunType">被调度方式</param>
         void DoWork(RunTaskType paraRunType);
 
-        void EnforceKillWork();
+        /// <summary>
+        /// 手动停止工作
+        /// </summary>
+        void ManualStopWork();
     }
 }
