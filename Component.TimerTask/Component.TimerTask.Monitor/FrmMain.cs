@@ -241,12 +241,12 @@ namespace Component.TimerTask.Monitor
                         DialogResult dr = MessageBox.Show("确定要删除该任务吗？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (dr == DialogResult.Yes)
                         {
-                            bool b = _Bll.DelTask(entity.ID);
-                            if (b == true)
-                            {
-                                MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                this.InitTaskList();
-                            }
+                            _Bll.DelTask(entity.ID);
+                            //if (b == true)
+                            //{
+                            MessageBox.Show("删除成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.InitTaskList();
+                            //}
                         }
                     }
                 }

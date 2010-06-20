@@ -138,7 +138,7 @@ namespace Component.TimerTask.DAL
             }
         }
 
-        public bool RemoveTask(Int64 paraTaskId)
+        public void RemoveTask(Int64 paraTaskId)
         {
             try
             {
@@ -146,16 +146,16 @@ namespace Component.TimerTask.DAL
                 TaskDataSet.PL_TimerTaskRow taskRow = _DataSet.PL_TimerTask.FindByID(paraTaskId);
                 if (taskRow == null)
                 {
-                    //throw new Exception("修改任务错误：传入的任务ID非法！");
-                    return false;
+                    throw new Exception("删除任务错误：传入的任务ID非法！");
+                    //return;
                 }
                 else
                 {
                     if (taskRow.Enable == bool.FalseString)
-                        return false;
+                        return;
                     taskRow.Enable = bool.FalseString;
                     this.Save2DB();
-                    return true;
+                    return;
                 }
             }
             catch

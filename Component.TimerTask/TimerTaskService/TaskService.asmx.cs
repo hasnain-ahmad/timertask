@@ -53,9 +53,9 @@ namespace TimerTaskService
         }
 
         [WebMethod(Description = "删除定时任务")]
-        public bool DelTask(Int64 paraID)
+        public void DelTask(Int64 paraID)
         {
-            return _BLL.DelTask(paraID);
+            _BLL.DelTask(paraID);
         }
 
         [WebMethod(Description = "更新任务")]
