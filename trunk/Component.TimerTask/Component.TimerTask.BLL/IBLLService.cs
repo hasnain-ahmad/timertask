@@ -38,7 +38,7 @@ namespace Component.TimerTask.BLL
         /// </summary>
         /// <param name="paraID">计划ID</param>
         /// <returns></returns>
-        bool DelTask(Int64 paraID);
+        void DelTask(Int64 paraID);
 
         /// <summary>
         /// 更新任务

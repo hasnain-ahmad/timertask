@@ -194,7 +194,7 @@ namespace Component.TimerTask.BLL
         /// </summary>
         /// <param name="paraID"></param>
         /// <returns></returns>
-        public bool DelTask(Int64 paraID)
+        public void DelTask(Int64 paraID)
         {
             try
             {
@@ -202,7 +202,7 @@ namespace Component.TimerTask.BLL
                 string message = MessageParser.BuildMessage(null, new List<long>() { paraID }, null, null, null, null);
                 //一定要保证先发送，后保存
                 this.SendXMLSocket2Server(message);
-                return _DataAccess.RemoveTask(paraID);
+                _DataAccess.RemoveTask(paraID);
             }
             catch
             {

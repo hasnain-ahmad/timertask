@@ -59,7 +59,7 @@ namespace Component.TimerTask.DAL
         /// </summary>
         /// <param name="paraID">The para ID.</param>
         /// <returns></returns>
-        bool RemoveTask(Int64 paraID);
+        void RemoveTask(Int64 paraID);
 
         /// <summary>
         /// 彻底删除任务
