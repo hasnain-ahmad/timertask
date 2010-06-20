@@ -8,8 +8,12 @@ using Component.TimerTask.Model.Enums;
 
 namespace Component.TimerTask.DAL
 {
+
     /// <summary>
-    /// 数据访问类
+    /// Date: 2010-6-20 11:02
+    /// Author: Administrator
+    /// FullName: Component.TimerTask.DAL.DataAccess
+    /// Class: 数据访问类
     /// </summary>
     internal class DataAccess : IDataAccess
     {
@@ -258,8 +262,6 @@ namespace Component.TimerTask.DAL
             //return list;
         }
         #endregion
-
-
 
         #region IDataAccess 成员
 

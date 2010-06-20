@@ -8,8 +8,12 @@ using System.Data.Common;
 
 namespace Component.TimerTask.DAL
 {
+
     /// <summary>
-    /// SQLite帮助类
+    /// Date: 2010-6-20 10:59
+    /// Author: Administrator
+    /// FullName: Component.TimerTask.DAL.SqliteHelper
+    /// Class: SQLite帮助类
     /// </summary>
     internal static class SqliteHelper
     {

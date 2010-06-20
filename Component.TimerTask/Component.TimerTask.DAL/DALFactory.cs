@@ -11,6 +11,10 @@ namespace Component.TimerTask.DAL
     {
         private static IDataAccess _DataAccess = new DataAccess();
 
+        /// <summary>
+        /// Gets the data access.
+        /// </summary>
+        /// <returns></returns>
         public static IDataAccess GetDataAccess()
         {
             return _DataAccess;
