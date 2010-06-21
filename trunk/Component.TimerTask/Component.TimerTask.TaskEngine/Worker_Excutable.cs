@@ -79,6 +79,7 @@ namespace Component.TimerTask.TaskEngine
                 log.TaskID = _Task.Task.TaskEntity.ID;
                 log.TaskName = _Task.Task.TaskEntity.Name;
                 _BLL.WriteLog(log);
+                Console.WriteLine("执行任务发生异常：{0}", ex.Message);
             }
         }
 
