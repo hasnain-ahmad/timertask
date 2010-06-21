@@ -216,7 +216,7 @@ namespace Component.TimerTask.TaskEngine
             {
                 _TaskList.Add(GetWorkingTask(_IBLLLogic.GetTask(paraTask)));
             }
-            Console.WriteLine("新增一条任务 ID：{0}，：{1}",paraTask.ID, paraTask.Name);
+            Console.WriteLine("新增一条任务 ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
         }
 
         public void ModifyTask(TaskEntity paraTask)
