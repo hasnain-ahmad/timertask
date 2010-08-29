@@ -57,9 +57,35 @@ namespace Component.TimerTask.TaskEngine
                 if (File.Exists(destFile))
                 {
                     FileInfo fi = new FileInfo(destFile);
+                    object obj;
 
-                    object obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
-                    _WorkInterface = (ITask)obj;
+                    #region 反射加载
+                    try
+                    {
+                        obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
+                    }
+                    catch (System.Reflection.TargetInvocationException ex)   //捕获反射错误的异常
+                    {
+                        string s = "无法加载目标对象，请检查与目标对象相关联的引用是否存在。" + ex.Message;
+                        Console.WriteLine("执行任务发生异常：{0}", s);
+                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.ReflectError);
+                        return;
+                    }
+                    #endregion
+
+                    #region 转换为ITask接口
+                    if (obj is ITask)
+                    {
+                        _WorkInterface = (ITask)obj;
+                    }
+                    else
+                    {
+                        string s = "无法加载目标对象，目标对象未集成ITask接口。";
+                        Console.WriteLine("执行任务发生异常：{0}", s);
+                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TypeConvertITaskError);
+                        return;
+                    }
+                    #endregion
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
                     _WorkInterface.ExtraParaStr = _Task.Task.TaskEntity.ExtraParaStr;

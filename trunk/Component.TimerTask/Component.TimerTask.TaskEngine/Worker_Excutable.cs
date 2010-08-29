@@ -49,7 +49,17 @@ namespace Component.TimerTask.TaskEngine
                 {
                     FileInfo fi = new FileInfo(destFile);
 
-                    _Process = Process.Start(fi.FullName, _Task.Task.TaskEntity.ExtraParaStr);
+                    try
+                    {
+                        _Process = Process.Start(fi.FullName, _Task.Task.TaskEntity.ExtraParaStr);
+                    }
+                    catch   //捕获执行异常问题
+                    {
+                        string s = "无法执行目标对象，执行目标对象出现异常:" + fi.FullName;
+                        Console.WriteLine("执行任务发生异常：{0}", s);
+                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.RunExeFileError);
+                        return;
+                    }
                     _Process.EnableRaisingEvents = true;
                     _Process.Exited += new EventHandler(Process_Exited);
 
