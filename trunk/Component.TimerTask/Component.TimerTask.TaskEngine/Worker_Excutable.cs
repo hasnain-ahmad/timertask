@@ -1,9 +1,20 @@
-﻿using System;
+﻿/*******************************************************************************
+ * * 版权所有(C) LJM Info 2010
+ * * 文件名称   : Worker_Excutable.cs
+ * * 当前版本   : 1.0.0.1
+ * * 作    者   : 吕金明 (lvjm@163.com)
+ * * 设计日期   : 2010年8月29日
+ * * 内容摘要   : 执行者：可执行文件方式
+ * * 修改记录   : 
+ * * 日    期       版    本        修改人      修改摘要
+ * *
+ * ********************************************************************************/
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
-using System.IO;
 
 namespace Component.TimerTask.TaskEngine
 {
