@@ -73,7 +73,22 @@ namespace Component.TimerTask.Model.Enums
         /// <summary>
         /// 任务执行线程抛出异常
         /// </summary>
-        TaskThreadThrowException = 112
+        TaskThreadThrowException = 112,
+
+        /// <summary>
+        /// 通过反射加载目标对象时报错，有可能找不到相关引用。
+        /// </summary>
+        ReflectError = 113,
+
+        /// <summary>
+        /// 类型转换错误，目标对象未继承ITask接口
+        /// </summary>
+        TypeConvertITaskError = 114,
+
+        /// <summary>
+        /// 执行目标exe文件出现异常
+        /// </summary>
+        RunExeFileError = 115
 
     }
 }

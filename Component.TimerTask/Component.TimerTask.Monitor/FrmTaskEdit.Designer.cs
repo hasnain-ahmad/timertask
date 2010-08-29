@@ -189,7 +189,7 @@
             // 
             // dtpStart
             // 
-            this.dtpStart.CustomFormat = "yyyy-MM-dd hh:mm:ss";
+            this.dtpStart.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStart.Location = new System.Drawing.Point(117, 31);
             this.dtpStart.Name = "dtpStart";
@@ -240,7 +240,7 @@
             // 
             // dtpEnd
             // 
-            this.dtpEnd.CustomFormat = "yyyy-MM-dd hh:mm:ss";
+            this.dtpEnd.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             this.dtpEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEnd.Location = new System.Drawing.Point(117, 59);
             this.dtpEnd.Name = "dtpEnd";
