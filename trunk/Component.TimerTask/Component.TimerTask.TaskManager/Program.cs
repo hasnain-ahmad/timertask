@@ -69,6 +69,11 @@ namespace Component.TimerTask.TaskManager
                 //Console.WriteLine(System.Environment.CurrentDirectory);
                 #endregion
 
+                #region Wcf服务启动
+                TimerTaskWcfHost.WcfHost.StartWcfService();
+                Console.WriteLine("Wcf服务已经启动");
+                #endregion
+
                 try
                 {
                     int engineIdleTimeSec = 2;
