@@ -17,7 +17,7 @@ namespace Component.TimerTask.TaskEngine
     /// <summary>
     /// 正在工作的任务
     /// </summary>
-    interface IWorkingTask
+    interface IWorkingTask : IDisposable
     {
         /// <summary>
         /// 上次运行时间
