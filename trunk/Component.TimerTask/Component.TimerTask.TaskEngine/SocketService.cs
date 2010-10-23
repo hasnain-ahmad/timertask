@@ -95,14 +95,34 @@ namespace Component.TimerTask.TaskEngine
 
                     #endregion
 
+                    //用于检查从Socket接收过来的实体是否在本地有配置
+                    List<string> regestApps = _IBLLLogic.GetRegestedApp();
                     //开始更新引擎中的任务列表
                     foreach (TaskEntity entity in addedList)
                     {
-                        _Engine.AddWorkingTask(entity);
+                        if (regestApps.Contains(entity.RegestesAppName))
+                        {
+                            _Engine.AddWorkingTask(entity);
+                        }
+                        else
+                        {
+                            string s = "传入的计划尚未在本地配置：" + "\t" + entity.ToString();
+                            Console.WriteLine(s);
+                            _IBLLLogic.WriteLog(entity.ID, entity.Name, s, LogType.SocketRecieveTaskNoExist);
+                        }
                     }
                     foreach (TaskEntity entity in updateList)
                     {
-                        _Engine.ModifyTask(entity);
+                        if (regestApps.Contains(entity.RegestesAppName))
+                        {
+                            _Engine.ModifyTask(entity);
+                        }
+                        else
+                        {
+                            string s = "传入的计划尚未在本地配置：" + "\t" + entity.ToString();
+                            Console.WriteLine(s);
+                            _IBLLLogic.WriteLog(entity.ID, entity.Name, s, LogType.SocketRecieveTaskNoExist);
+                        }
                     }
                     foreach (Int64 entitt in deledList)
                     {
