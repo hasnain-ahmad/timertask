@@ -157,5 +157,24 @@ namespace Component.TimerTask.Model
             _ID = paraID;
         }
 
+        /// <summary>
+        /// 返回计划的文本描述
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return string.Format(
+                "计划ID {0},名称 {1},开始执行日期 {2},结束执行日期 {3},附加参数 {4},执行间隔 {5}秒,执行方式 {6},执行程序 {7}.",
+                this._ID,
+                this._Name,
+                this._DateStart,
+                this._DateEnd,
+                this._ExtraParaStr,
+                this._RunTimeOutSecs,
+                this._RunSpaceType,
+                this._RegestesAppName);
+            //return base.ToString();
+        }
+
     }
 }

@@ -99,7 +99,12 @@ namespace Component.TimerTask.Model.Enums
         /// <summary>
         /// 执行目标exe文件出现异常
         /// </summary>
-        RunExeFileError = 115
+        RunExeFileError = 115,
+
+        /// <summary>
+        /// 通过Socket更新引擎时不存在计划
+        /// </summary>
+        SocketRecieveTaskNoExist = 116
 
     }
 }
