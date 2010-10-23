@@ -133,6 +133,10 @@ namespace Component.TimerTask.TaskEngine
             get { return _IsRuning; }
         }
 
+        /// <summary>
+        /// 启动
+        /// </summary>
+        /// <returns></returns>
         public bool Start()
         {
             if (_SocketService == null)
@@ -169,6 +173,11 @@ namespace Component.TimerTask.TaskEngine
             return false;
         }
 
+        /// <summary>
+        /// 查询任务的执行状态
+        /// </summary>
+        /// <param name="paraTaskId"></param>
+        /// <returns></returns>
         public TaskRuningState GetTaskRuningState(Int64 paraTaskId)
         {
             lock (((ICollection)_TaskList).SyncRoot)
@@ -182,6 +191,12 @@ namespace Component.TimerTask.TaskEngine
             return TaskRuningState.Error;
         }
 
+        /// <summary>
+        /// 手动停止一个正在执行的任务
+        /// [不影响后续任务执行]
+        /// </summary>
+        /// <param name="paraTaskId"></param>
+        /// <returns></returns>
         public bool StopRuningTask(Int64 paraTaskId)
         {
             lock (((ICollection)_TaskList).SyncRoot)
@@ -199,6 +214,12 @@ namespace Component.TimerTask.TaskEngine
             }
         }
 
+        /// <summary>
+        /// 手动执行一个任务
+        /// </summary>
+        /// <param name="paraTaskId"></param>
+        /// <param name="paraRunType"></param>
+        /// <returns></returns>
         public bool ManualRunTask(Int64 paraTaskId, RunTaskType paraRunType)
         {
             lock (((ICollection)_TaskList).SyncRoot)
@@ -221,6 +242,10 @@ namespace Component.TimerTask.TaskEngine
 
         #region 维护任务列表
 
+        /// <summary>
+        /// 向引擎中添加任务
+        /// </summary>
+        /// <param name="paraTask"></param>
         public void AddWorkingTask(TaskEntity paraTask)
         {
             lock (((ICollection)_TaskList).SyncRoot)
@@ -230,6 +255,10 @@ namespace Component.TimerTask.TaskEngine
             Console.WriteLine("新增一条任务 ID：{0}，名称：{1}", paraTask.ID, paraTask.Name);
         }
 
+        /// <summary>
+        /// 修改引擎中的任务
+        /// </summary>
+        /// <param name="paraTask"></param>
         public void ModifyTask(TaskEntity paraTask)
         {
             lock (((ICollection)_TaskList).SyncRoot)
@@ -255,6 +284,10 @@ namespace Component.TimerTask.TaskEngine
             
         }
 
+        /// <summary>
+        /// 删除引擎中的任务
+        /// </summary>
+        /// <param name="paraTaskId"></param>
         public void DelTask(long paraTaskId)
         {
             lock (((ICollection)_TaskList).SyncRoot)
