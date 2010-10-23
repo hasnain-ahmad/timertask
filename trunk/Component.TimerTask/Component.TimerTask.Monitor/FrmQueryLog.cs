@@ -23,7 +23,7 @@ namespace Component.TimerTask.Monitor
 
             this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
 
-
+            this.dtp_End.Value = this.dtp_Start.Value.AddDays(1);
             _BLL = paraBll;
             _DataSet = new Component.TimerTask.DAL.TaskDataSet();
 
@@ -73,7 +73,8 @@ namespace Component.TimerTask.Monitor
             {
                 _SelectTaskID = (long)this.cbxTasks.SelectedValue;
                 DataTable dt = _BLL.GetTaskLogByTask(_SelectTaskID);
-                dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.AddDays(1).ToString() + "'";
+                dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "'";
+                _DataSet.PL_TimerTask_Log.Clear();
                 _DataSet.PL_TimerTask_Log.Merge(dt.DefaultView.ToTable());
                 this.BindGrid();
             }
