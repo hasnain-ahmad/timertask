@@ -143,6 +143,7 @@
             // 
             // cbxTasks
             // 
+            this.cbxTasks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxTasks.FormattingEnabled = true;
             this.cbxTasks.Location = new System.Drawing.Point(79, 27);
             this.cbxTasks.Name = "cbxTasks";

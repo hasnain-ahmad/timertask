@@ -73,7 +73,7 @@ namespace Component.TimerTask.Monitor
             {
                 _SelectTaskID = (long)this.cbxTasks.SelectedValue;
                 DataTable dt = _BLL.GetTaskLogByTask(_SelectTaskID);
-                dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "'";
+                dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "' And TaskID=" + this.cbxTasks.SelectedValue.ToString();
                 _DataSet.PL_TimerTask_Log.Clear();
                 _DataSet.PL_TimerTask_Log.Merge(dt.DefaultView.ToTable());
                 this.BindGrid();
