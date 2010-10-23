@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmTaskEdit));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -135,14 +134,14 @@
             // 
             this.txtParams.Location = new System.Drawing.Point(117, 199);
             this.txtParams.Name = "txtParams";
-            this.txtParams.Size = new System.Drawing.Size(124, 21);
+            this.txtParams.Size = new System.Drawing.Size(120, 21);
             this.txtParams.TabIndex = 7;
             // 
             // txt_Name
             // 
             this.txt_Name.Location = new System.Drawing.Point(117, 3);
             this.txt_Name.Name = "txt_Name";
-            this.txt_Name.Size = new System.Drawing.Size(124, 21);
+            this.txt_Name.Size = new System.Drawing.Size(172, 21);
             this.txt_Name.TabIndex = 0;
             // 
             // label8
@@ -307,7 +306,6 @@
             this.Controls.Add(this.btnCancle);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FrmTaskEdit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmQueryLog));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dtp_Start = new System.Windows.Forms.DateTimePicker();
+            this.dtp_End = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dtp_Start = new System.Windows.Forms.DateTimePicker();
-            this.dtp_End = new System.Windows.Forms.DateTimePicker();
             this.cbxTasks = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -51,7 +50,7 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -100,6 +99,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "查询范围";
             // 
+            // dtp_Start
+            // 
+            this.dtp_Start.Location = new System.Drawing.Point(229, 27);
+            this.dtp_Start.Name = "dtp_Start";
+            this.dtp_Start.Size = new System.Drawing.Size(127, 21);
+            this.dtp_Start.TabIndex = 3;
+            // 
+            // dtp_End
+            // 
+            this.dtp_End.Location = new System.Drawing.Point(369, 27);
+            this.dtp_End.Name = "dtp_End";
+            this.dtp_End.Size = new System.Drawing.Size(121, 21);
+            this.dtp_End.TabIndex = 2;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(496, 25);
@@ -128,20 +141,6 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "时间范围:";
             // 
-            // dtp_Start
-            // 
-            this.dtp_Start.Location = new System.Drawing.Point(229, 27);
-            this.dtp_Start.Name = "dtp_Start";
-            this.dtp_Start.Size = new System.Drawing.Size(127, 21);
-            this.dtp_Start.TabIndex = 3;
-            // 
-            // dtp_End
-            // 
-            this.dtp_End.Location = new System.Drawing.Point(369, 27);
-            this.dtp_End.Name = "dtp_End";
-            this.dtp_End.Size = new System.Drawing.Size(121, 21);
-            this.dtp_End.TabIndex = 2;
-            // 
             // cbxTasks
             // 
             this.cbxTasks.FormattingEnabled = true;
@@ -165,7 +164,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(580, 395);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmQueryLog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "查看日志";
