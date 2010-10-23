@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.cms_NotifyIco = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmi_Show = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,9 +50,9 @@
             this.tsmi_Log = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmi_Run = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_Stop = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.tsmi_Stop = new System.Windows.Forms.ToolStripMenuItem();
             this.cms_NotifyIco.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -65,7 +64,6 @@
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.cms_NotifyIco;
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
@@ -117,7 +115,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 3000;
+            this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // statusStrip1
@@ -189,52 +187,59 @@
             this.cms_TaskList.Name = "cms_TaskList";
             this.cms_TaskList.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.cms_TaskList.ShowImageMargin = false;
-            this.cms_TaskList.Size = new System.Drawing.Size(128, 170);
+            this.cms_TaskList.Size = new System.Drawing.Size(100, 148);
             // 
             // tsmi_Add
             // 
             this.tsmi_Add.Name = "tsmi_Add";
-            this.tsmi_Add.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Add.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Add.Text = "新增任务";
             this.tsmi_Add.Click += new System.EventHandler(this.tsmi_Add_Click);
             // 
             // tsmi_Del
             // 
             this.tsmi_Del.Name = "tsmi_Del";
-            this.tsmi_Del.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Del.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Del.Text = "删除任务";
             this.tsmi_Del.Click += new System.EventHandler(this.tsmi_Del_Click);
             // 
             // tsmi_Update
             // 
             this.tsmi_Update.Name = "tsmi_Update";
-            this.tsmi_Update.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Update.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Update.Text = "修改任务";
             this.tsmi_Update.Click += new System.EventHandler(this.tsmi_Update_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(124, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(96, 6);
             // 
             // tsmi_Log
             // 
             this.tsmi_Log.Name = "tsmi_Log";
-            this.tsmi_Log.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Log.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Log.Text = "查看日志";
             this.tsmi_Log.Click += new System.EventHandler(this.tsmi_Log_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(124, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(96, 6);
             // 
             // tsmi_Run
             // 
             this.tsmi_Run.Name = "tsmi_Run";
-            this.tsmi_Run.Size = new System.Drawing.Size(127, 22);
+            this.tsmi_Run.Size = new System.Drawing.Size(99, 22);
             this.tsmi_Run.Text = "立即执行";
             this.tsmi_Run.Click += new System.EventHandler(this.tsmi_Run_Click);
+            // 
+            // tsmi_Stop
+            // 
+            this.tsmi_Stop.Name = "tsmi_Stop";
+            this.tsmi_Stop.Size = new System.Drawing.Size(99, 22);
+            this.tsmi_Stop.Text = "立即停止";
+            this.tsmi_Stop.Click += new System.EventHandler(this.tsmi_Stop_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -265,13 +270,6 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(408, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // tsmi_Stop
-            // 
-            this.tsmi_Stop.Name = "tsmi_Stop";
-            this.tsmi_Stop.Size = new System.Drawing.Size(127, 22);
-            this.tsmi_Stop.Text = "立即停止";
-            this.tsmi_Stop.Click += new System.EventHandler(this.tsmi_Stop_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -279,7 +277,6 @@
             this.ClientSize = new System.Drawing.Size(454, 293);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.statusStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "定时任务管理-监控器";

@@ -21,7 +21,7 @@ namespace Component.TimerTask.Monitor
         {
             InitializeComponent();
 
-            
+            this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
 
 
             _BLL = paraBll;

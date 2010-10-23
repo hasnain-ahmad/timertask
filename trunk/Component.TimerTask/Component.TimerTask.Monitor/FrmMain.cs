@@ -20,6 +20,7 @@ namespace Component.TimerTask.Monitor
         public FrmMain()
         {
             InitializeComponent();
+            this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
         }
 
         #region 事件
