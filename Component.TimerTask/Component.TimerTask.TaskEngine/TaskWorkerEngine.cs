@@ -296,6 +296,7 @@ namespace Component.TimerTask.TaskEngine
                 if (task != null)
                 {
                     _TaskList.Remove(task);
+                    task.Dispose();
                     Console.WriteLine("删除一条任务 ID：{0}", paraTaskId);
                 }
             }
