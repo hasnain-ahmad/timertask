@@ -258,6 +258,7 @@ namespace Component.TimerTask.Monitor
                         this.InitTaskList();
                     }
                 }
+                frm.Dispose();
             }
             catch (Exception ex)
             {
@@ -309,6 +310,7 @@ namespace Component.TimerTask.Monitor
                             _Bll.UpdateTask(entity);
                             this.InitTaskList();
                         }
+                        frm.Dispose();
                     }
                 }
             }
@@ -329,12 +331,14 @@ namespace Component.TimerTask.Monitor
                     {
                         FrmQueryLog frm = new FrmQueryLog(_Bll, entity.ID);
                         frm.ShowDialog();
+                        frm.Dispose();
                     }
                 }
                 else
                 {
                     FrmQueryLog frm = new FrmQueryLog(_Bll);
                     frm.ShowDialog();
+                    frm.Dispose();
                 }
             }
             catch (Exception ex)
