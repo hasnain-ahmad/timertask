@@ -11,6 +11,9 @@ using Component.TimerTask.BLL;
 
 namespace Component.TimerTask.Monitor
 {
+    /// <summary>
+    /// 查看日志
+    /// </summary>
     public partial class FrmQueryLog : Form
     {
         private BLL.IBLLLogic _BLL;
@@ -39,13 +42,15 @@ namespace Component.TimerTask.Monitor
 
         private void FrmQueryLog_Load(object sender, EventArgs e)
         {
-            //this.InitControls();
             this.BindGrid();
         }
 
         private void InitControls()
         {
-            this.cbxTasks.DataSource = _BLL.GetTaskEntityList();
+            List<TaskEntity> datasource = new List<TaskEntity>();
+            datasource.Add(new TaskEntity(-1, "全部", true, DateTime.MinValue, DateTime.MaxValue, int.MaxValue, 0, null, -1, null));
+            datasource.AddRange(_BLL.GetTaskEntityList());
+            this.cbxTasks.DataSource = datasource;
             this.cbxTasks.DisplayMember = "Name";
             this.cbxTasks.ValueMember = "ID";
 
@@ -73,7 +78,14 @@ namespace Component.TimerTask.Monitor
             {
                 _SelectTaskID = (long)this.cbxTasks.SelectedValue;
                 DataTable dt = _BLL.GetTaskLogByTask(_SelectTaskID);
-                dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "' And TaskID=" + this.cbxTasks.SelectedValue.ToString();
+                if (cbxTasks.SelectedText != "全部")
+                {
+                    dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "' And TaskID=" + this.cbxTasks.SelectedValue.ToString();
+                }
+                else
+                {
+                    dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='";
+                }
                 _DataSet.PL_TimerTask_Log.Clear();
                 _DataSet.PL_TimerTask_Log.Merge(dt.DefaultView.ToTable());
                 this.BindGrid();
