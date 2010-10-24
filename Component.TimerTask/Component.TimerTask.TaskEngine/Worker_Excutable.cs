@@ -93,7 +93,6 @@ namespace Component.TimerTask.TaskEngine
                     _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
                 }
                 #endregion
-                Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
             }
             catch (Exception ex)
             {

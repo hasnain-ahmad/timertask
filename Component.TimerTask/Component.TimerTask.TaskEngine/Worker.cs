@@ -47,6 +47,8 @@ namespace Component.TimerTask.TaskEngine
         /// <param name="e"></param>
         protected void Process_Exited(object sender, EventArgs e)
         {
+            Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
+
             #region 记录到日志中
             string log = _WrkTask.Task.TaskEntity.Name + " Work Complete.";
             _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
