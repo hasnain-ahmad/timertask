@@ -63,6 +63,8 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
+                Console.WriteLine("**************************  Work Start {0}", _WrkTask.Task.TaskEntity.Name);
+
                 #region 开始工作
                 string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;
                 if (File.Exists(destFile))
@@ -124,6 +126,8 @@ namespace Component.TimerTask.TaskEngine
                 #endregion
 
                 base.DoWork(paraRunType);
+
+                Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
             }
             catch (Exception ex)
             {
