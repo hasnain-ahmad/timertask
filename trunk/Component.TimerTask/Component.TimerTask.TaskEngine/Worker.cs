@@ -25,7 +25,7 @@ namespace Component.TimerTask.TaskEngine
     internal abstract class Worker : IWorker
     {
         protected BLL.IBLLLogic _BLL;
-        protected WorkingTask _Task;
+        protected WorkingTask _WrkTask;
 
         /// <summary>
         /// 构造函数
@@ -34,7 +34,7 @@ namespace Component.TimerTask.TaskEngine
         /// <param name="paraBll"></param>
         public Worker(WorkingTask paraTask, BLL.IBLLLogic paraBll)
         {
-            _Task = paraTask;
+            _WrkTask = paraTask;
             _BLL = paraBll;
         }
 
@@ -48,12 +48,12 @@ namespace Component.TimerTask.TaskEngine
         protected void Process_Exited(object sender, EventArgs e)
         {
             #region 记录到日志中
-            string log = _Task.Task.TaskEntity.Name + " Work Complete.";
-            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
+            string log = _WrkTask.Task.TaskEntity.Name + " Work Complete.";
+            _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, log, LogType.TaskRunEnd);
             #endregion
 
             #region 更新下一步工作
-            _Task.Notify_WorkComplete();
+            _WrkTask.Notify_WorkComplete();
             #endregion
 
             GC.Collect();
@@ -72,7 +72,7 @@ namespace Component.TimerTask.TaskEngine
         {
 
             #region 记录到日志中
-            string log = _Task.Task.TaskEntity.Name + " Start Working.";
+            string log = _WrkTask.Task.TaskEntity.Name + " Start Working.";
 
             LogType logtype = LogType.TaskRunStart;
             switch (paraRunType)
@@ -88,22 +88,22 @@ namespace Component.TimerTask.TaskEngine
                 //    break;
             }
 
-            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, log, logtype);
+            _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, log, logtype);
             #endregion
 
             #region 更新下一步工作
             if (paraRunType != RunTaskType.ImmediateNoDisturb)
             {
-                _Task.Notify_WorkStarted();
+                _WrkTask.Notify_WorkStarted();
             }
             #endregion
-
+            Console.WriteLine("{0} 下次执行时间:{1}", _WrkTask.Task.TaskEntity.Name, _WrkTask.NextRunTime);
         }
 
         public virtual void ManualStopWork()
         {
             #region 记录到日志中
-            _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
+            _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, "EnforceKillWork", LogType.EnforceKillWork);
             #endregion
         }
 

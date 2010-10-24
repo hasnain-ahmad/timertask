@@ -36,9 +36,9 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
-                if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+                if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
                 {
-                    Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
+                    Thread.Sleep((int)_WrkTask.Task.TaskEntity.RunTimeOutSecs * 1000);
 
                     ITask th = (ITask)paraMonitorDest;
                     if (th != null) th.StopRuning();
@@ -48,7 +48,7 @@ namespace Component.TimerTask.TaskEngine
             catch (Exception ex)
             {
                 _BLL.WriteLog(
-                    _Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, ex.Message, LogType.StopRuningFromInterfaceError);
+                    _WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, ex.Message, LogType.StopRuningFromInterfaceError);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Component.TimerTask.TaskEngine
             try
             {
                 #region 开始工作
-                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _Task.Task.TaskAssembly.AppFile;
+                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;
                 if (File.Exists(destFile))
                 {
                     FileInfo fi = new FileInfo(destFile);
@@ -73,13 +73,13 @@ namespace Component.TimerTask.TaskEngine
                     #region 反射加载
                     try
                     {
-                        obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_Task.Task.TaskAssembly.ProtocolNameSpace + "." + _Task.Task.TaskAssembly.ProtocolClass);
+                        obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_WrkTask.Task.TaskAssembly.ProtocolNameSpace + "." + _WrkTask.Task.TaskAssembly.ProtocolClass);
                     }
                     catch (System.Reflection.TargetInvocationException ex)   //捕获反射错误的异常
                     {
                         string s = "无法加载目标对象，请检查与目标对象相关联的引用是否存在。" + ex.Message;
                         Console.WriteLine("执行任务发生异常：{0}", s);
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.ReflectError);
+                        _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.ReflectError);
                         return;
                     }
                     #endregion
@@ -93,19 +93,19 @@ namespace Component.TimerTask.TaskEngine
                     {
                         string s = "无法加载目标对象，目标对象未集成ITask接口。";
                         Console.WriteLine("执行任务发生异常：{0}", s);
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TypeConvertITaskError);
+                        _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TypeConvertITaskError);
                         return;
                     }
                     #endregion
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
-                    _WorkInterface.ExtraParaStr = _Task.Task.TaskEntity.ExtraParaStr;
+                    _WorkInterface.ExtraParaStr = _WrkTask.Task.TaskEntity.ExtraParaStr;
                     _Thread = new Thread(new ThreadStart(_WorkInterface.RunTask));
                     _Thread.IsBackground = true;
                     _Thread.Start();
 
                     #region 监控超时
-                    if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+                    if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
                     {
                         ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WorkMonitor);
                         Thread th = new Thread(threadStart);
@@ -118,7 +118,7 @@ namespace Component.TimerTask.TaskEngine
                 {
                     string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile);
                     Console.WriteLine(s);
-                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
+                    _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
                     //return;
                 }
                 #endregion
@@ -130,8 +130,8 @@ namespace Component.TimerTask.TaskEngine
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
                 log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
+                log.TaskID = _WrkTask.Task.TaskEntity.ID;
+                log.TaskName = _WrkTask.Task.TaskEntity.Name;
                 _BLL.WriteLog(log);
                 Console.WriteLine("执行任务发生异常：{0}", ex.Message);
             }
@@ -158,8 +158,8 @@ namespace Component.TimerTask.TaskEngine
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
                 log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
+                log.TaskID = _WrkTask.Task.TaskEntity.ID;
+                log.TaskName = _WrkTask.Task.TaskEntity.Name;
                 _BLL.WriteLog(log);
             }
         }

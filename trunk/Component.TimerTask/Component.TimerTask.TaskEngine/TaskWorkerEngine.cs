@@ -248,11 +248,13 @@ namespace Component.TimerTask.TaskEngine
         /// <param name="paraTask"></param>
         public void AddWorkingTask(TaskEntity paraTask)
         {
+            IWorkingTask itask = null;
             lock (((ICollection)_TaskList).SyncRoot)
             {
-                _TaskList.Add(GetWorkingTask(_IBLLLogic.GetTask(paraTask)));
+                itask = GetWorkingTask(_IBLLLogic.GetTask(paraTask));
+                _TaskList.Add(itask);
             }
-            Console.WriteLine("新增一条任务：{0}", paraTask.ToString());
+            Console.WriteLine("新增一条任务,下次执行时间为：{0}：{1}", itask.NextRunTime, paraTask.ToString());
         }
 
         /// <summary>
