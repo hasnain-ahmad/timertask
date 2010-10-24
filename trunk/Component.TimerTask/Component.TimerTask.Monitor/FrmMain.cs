@@ -92,7 +92,7 @@ namespace Component.TimerTask.Monitor
                 {
                     TaskEntity entity = (TaskEntity)item.Tag;
                     this.ttp_TaskInfo.Active = true;
-                    this.ttp_TaskInfo.Show(entity.ToString(), this.listView1, e.X + 2, e.Y + 2);
+                    this.ttp_TaskInfo.Show(entity.ToString(), this.listView1, e.X + 5, e.Y + 7);
                     this._lastShowTipItem = item;
                 }
             }
