@@ -67,7 +67,7 @@ namespace Component.TimerTask.Monitor
             this.dataGridView1.Columns["LogContent"].HeaderText = "日志内容";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnQuery_Click(object sender, EventArgs e)
         {
             if (this.cbxTasks.SelectedValue != null)
             {

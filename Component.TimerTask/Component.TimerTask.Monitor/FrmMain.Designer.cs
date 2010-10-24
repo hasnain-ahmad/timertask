@@ -53,6 +53,7 @@
             this.tsmi_Stop = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.ttp_TaskInfo = new System.Windows.Forms.ToolTip(this.components);
             this.cms_NotifyIco.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -161,7 +162,9 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseMove);
             this.listView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
+            this.listView1.MouseLeave += new System.EventHandler(this.listView1_MouseLeave);
             // 
             // colName
             // 
@@ -270,6 +273,15 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(408, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // ttp_TaskInfo
+            // 
+            this.ttp_TaskInfo.AutoPopDelay = 5000;
+            this.ttp_TaskInfo.InitialDelay = 50;
+            this.ttp_TaskInfo.ReshowDelay = 100;
+            this.ttp_TaskInfo.ShowAlways = true;
+            this.ttp_TaskInfo.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.ttp_TaskInfo.ToolTipTitle = "计划信息";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -322,6 +334,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Run;
         private System.Windows.Forms.ToolStripMenuItem tsmi_Stop;
+        private System.Windows.Forms.ToolTip ttp_TaskInfo;
     }
 }
 
