@@ -61,7 +61,7 @@ namespace Component.TimerTask.TaskManager
                 CloseBtn();
                 Console.CancelKeyPress += new ConsoleCancelEventHandler(Console_CancelKeyPress);
                 //Console.Beep();
-                Console.WriteLine("定时任务管理器已经启动...");
+                Console.WriteLine("{0} 定时任务管理器已经启动...", DateTime.Now);
 
                 //设置当前路径为DLL所在路径(如果不用这句话那么如果可执行程序的启动路径就是Web的跟目录)
                 //Console.WriteLine(System.Environment.CurrentDirectory);
