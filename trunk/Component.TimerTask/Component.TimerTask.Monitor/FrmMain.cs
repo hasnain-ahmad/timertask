@@ -113,6 +113,9 @@ namespace Component.TimerTask.Monitor
         {
             try
             {
+                //如果界面被隐藏了，则没必要刷新界面
+                if (this.Visible == false) return;
+
                 if (false == _Bll.IsTaskManagerAlive())
                 {//没有启动
                     this.lbl_State.Text = ProcessState.没有启动.ToString();
