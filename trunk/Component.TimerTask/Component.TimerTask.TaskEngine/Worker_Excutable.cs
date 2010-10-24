@@ -52,6 +52,8 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
+                Console.WriteLine("**************************  Work Start {0}", _WrkTask.Task.TaskEntity.Name);
+
                 base.DoWork(paraRunType);
 
                 #region 开始工作
@@ -91,6 +93,7 @@ namespace Component.TimerTask.TaskEngine
                     _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
                 }
                 #endregion
+                Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
             }
             catch (Exception ex)
             {
