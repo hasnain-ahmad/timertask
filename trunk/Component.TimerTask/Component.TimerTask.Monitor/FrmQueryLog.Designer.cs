@@ -34,7 +34,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dtp_Start = new System.Windows.Forms.DateTimePicker();
             this.dtp_End = new System.Windows.Forms.DateTimePicker();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnQuery = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbxTasks = new System.Windows.Forms.ComboBox();
@@ -86,7 +86,7 @@
             // 
             this.groupBox1.Controls.Add(this.dtp_Start);
             this.groupBox1.Controls.Add(this.dtp_End);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnQuery);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cbxTasks);
@@ -113,15 +113,15 @@
             this.dtp_End.Size = new System.Drawing.Size(121, 21);
             this.dtp_End.TabIndex = 2;
             // 
-            // button1
+            // btnQuery
             // 
-            this.button1.Location = new System.Drawing.Point(496, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(62, 25);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "查询";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnQuery.Location = new System.Drawing.Point(496, 25);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(62, 25);
+            this.btnQuery.TabIndex = 6;
+            this.btnQuery.Text = "查询";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
             // label3
             // 
@@ -184,7 +184,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbxTasks;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker dtp_Start;

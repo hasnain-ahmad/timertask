@@ -170,7 +170,7 @@ namespace Component.TimerTask.Model
                 this._DateStart,
                 this._DateEnd,
                 this._ExtraParaStr,
-                this._RunTimeOutSecs,
+                this._RunSpaceTime,
                 this._RunSpaceType,
                 this._RegestesAppName);
             //return base.ToString();

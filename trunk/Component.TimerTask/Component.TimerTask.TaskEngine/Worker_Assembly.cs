@@ -116,10 +116,10 @@ namespace Component.TimerTask.TaskEngine
                 }
                 else
                 {
-                    string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile); ;
+                    string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile);
                     Console.WriteLine(s);
                     _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
-                    return;
+                    //return;
                 }
                 #endregion
 

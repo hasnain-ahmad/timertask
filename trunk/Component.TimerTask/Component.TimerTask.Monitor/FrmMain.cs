@@ -15,12 +15,14 @@ namespace Component.TimerTask.Monitor
     public partial class FrmMain : Form
     {
         private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
-        IBLLLogic _Bll = BLlFactory.GetBllLogic();
+        private IBLLLogic _Bll = BLlFactory.GetBllLogic();
+        private ListViewItem _lastShowTipItem = null;
 
         public FrmMain()
         {
             InitializeComponent();
             this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
+            this.notifyIcon1.Icon = this.Icon;
         }
 
         #region 事件
@@ -71,6 +73,36 @@ namespace Component.TimerTask.Monitor
                 this.tsmi_Hide.Visible = false;
             }
         }
+
+        /// <summary>
+        /// 鼠标移动时，显示提示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView1_MouseMove(object sender, MouseEventArgs e)
+        {
+            ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
+            if (item != null)
+            {
+                //如果已经呈现，不用重复呈现
+                if (this.ttp_TaskInfo.Active && item == this._lastShowTipItem)
+                {
+                }
+                else
+                {
+                    TaskEntity entity = (TaskEntity)item.Tag;
+                    this.ttp_TaskInfo.Active = true;
+                    this.ttp_TaskInfo.Show(entity.ToString(), this.listView1, e.X + 2, e.Y + 2);
+                    this._lastShowTipItem = item;
+                }
+            }
+        }
+
+        private void listView1_MouseLeave(object sender, EventArgs e)
+        {
+            this.ttp_TaskInfo.Active = false;
+        }
+
 
         private void tsmi_Hide_Click(object sender, EventArgs e)
         {
@@ -361,5 +393,8 @@ namespace Component.TimerTask.Monitor
         }
 
         #endregion
+
+       
+        
     }
 }
