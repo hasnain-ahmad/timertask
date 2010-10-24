@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Component.TimerTask.Monitor
 {
@@ -14,18 +15,25 @@ namespace Component.TimerTask.Monitor
         static void Main()
         {
             #region 互斥
-            System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERTASK_MONITOR");
-            if (!mutex.WaitOne(0, false))  //请求互斥的所有权
-            {
-                mutex.Close();
-                mutex = null;
-            }
-            if (mutex == null)
+            Process currentP = Process.GetCurrentProcess();
+            if (Process.GetProcessesByName(currentP.ProcessName).Length > 1)
             {
                 MessageBox.Show("监控器已经启动", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Exit();
                 return;
-                //Environment.Exit(0);
             }
+            //System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TTASK_MONITOR");
+            //if (!mutex.WaitOne(0, false))  //请求互斥的所有权
+            //{
+            //    mutex.Close();
+            //    mutex = null;
+            //}
+            //if (mutex == null)
+            //{
+            //    MessageBox.Show("监控器已经启动", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    Application.Exit();
+            //    return;
+            //}
             #endregion
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

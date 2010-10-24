@@ -26,7 +26,8 @@ namespace Component.TimerTask.Monitor
 
             this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
 
-            this.dtp_End.Value = this.dtp_Start.Value.AddDays(1);
+            this.dtp_Start.Value = DateTime.Now.Date;
+            this.dtp_End.Value = this.dtp_Start.Value.AddDays(2).AddSeconds(-1);
             _BLL = paraBll;
             _DataSet = new Component.TimerTask.DAL.TaskDataSet();
 

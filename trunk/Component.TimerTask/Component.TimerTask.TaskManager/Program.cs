@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Component.TimerTask.TaskEngine;
+using System.Diagnostics;
 
 namespace Component.TimerTask.TaskManager
 {
@@ -41,19 +42,26 @@ namespace Component.TimerTask.TaskManager
             try
             {
                 #region 互斥
-                System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERMANAGER");
-                if (!mutex.WaitOne(0, false))  //请求互斥的所有权
-                {
-                    mutex.Close();
-                    mutex = null;
-                }
-                if (mutex == null)
+                Process currentP = Process.GetCurrentProcess();
+                if (Process.GetProcessesByName(currentP.ProcessName).Length > 1)
                 {
                     Console.WriteLine("已经有一个实例启动");
                     Thread.Sleep(5000);
                     return;
-                    //Environment.Exit(0);
                 }
+                //System.Threading.Mutex mutex = new System.Threading.Mutex(false, "SINGLE_INSTANCE_MUTEX_TIMERMANAGER");
+                //if (!mutex.WaitOne(0, false))  //请求互斥的所有权
+                //{
+                //    mutex.Close();
+                //    mutex = null;
+                //}
+                //if (mutex == null)
+                //{
+                //    Console.WriteLine("已经有一个实例启动");
+                //    Thread.Sleep(5000);
+                //    return;
+                //    //Environment.Exit(0);
+                //}
                 #endregion
 
                 #region Prepare
@@ -109,10 +117,10 @@ namespace Component.TimerTask.TaskManager
                     Console.WriteLine("程序异常：" + ex.Message);
                 }
 
-                #region 程序运行结束，可以释放锁
-                mutex.Close();
-                mutex = null;
-                #endregion
+                //#region 程序运行结束，可以释放锁
+                //mutex.Close();
+                //mutex = null;
+                //#endregion
 
                 Console.WriteLine("程序结束,互斥锁已经释放。");
 
