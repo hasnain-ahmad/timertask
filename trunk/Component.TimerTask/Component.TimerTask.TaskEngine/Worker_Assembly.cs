@@ -126,8 +126,6 @@ namespace Component.TimerTask.TaskEngine
                 #endregion
 
                 base.DoWork(paraRunType);
-
-                Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
             }
             catch (Exception ex)
             {
