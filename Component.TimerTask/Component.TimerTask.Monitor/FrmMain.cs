@@ -157,10 +157,10 @@ namespace Component.TimerTask.Monitor
                 this.listView1.Items.Add(lvi);
             }
             if (this.listView1.Items.Count > 0)
-
                 this.listView1.Items[selected].Selected = true;
             this.listView1.EndUpdate();
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private TaskState GetTaskState(TaskEntity paraTask)
