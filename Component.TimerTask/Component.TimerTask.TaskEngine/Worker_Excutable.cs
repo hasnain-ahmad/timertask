@@ -32,9 +32,9 @@ namespace Component.TimerTask.TaskEngine
 
         private void WorkMonitor(object paraMonitorDest)
         {
-            if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+            if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
             {
-                Thread.Sleep((int)_Task.Task.TaskEntity.RunTimeOutSecs * 1000);
+                Thread.Sleep((int)_WrkTask.Task.TaskEntity.RunTimeOutSecs * 1000);
 
                 Process p = (Process)paraMonitorDest;
                 if (p != null && !p.HasExited) p.Kill();
@@ -55,27 +55,27 @@ namespace Component.TimerTask.TaskEngine
                 base.DoWork(paraRunType);
 
                 #region 开始工作
-                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _Task.Task.TaskAssembly.AppFile;
+                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;
                 if (File.Exists(destFile))
                 {
                     FileInfo fi = new FileInfo(destFile);
 
                     try
                     {
-                        _Process = Process.Start(fi.FullName, _Task.Task.TaskEntity.ExtraParaStr);
+                        _Process = Process.Start(fi.FullName, _WrkTask.Task.TaskEntity.ExtraParaStr);
                     }
                     catch   //捕获执行异常问题
                     {
                         string s = "无法执行目标对象，执行目标对象出现异常:" + fi.FullName;
                         Console.WriteLine("执行任务发生异常：{0}", s);
-                        _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.RunExeFileError);
+                        _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.RunExeFileError);
                         return;
                     }
                     _Process.EnableRaisingEvents = true;
                     _Process.Exited += new EventHandler(Process_Exited);
 
                     #region 监控超时
-                    if (_Task.Task.TaskEntity.RunTimeOutSecs > 0)
+                    if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
                     {
                         ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WorkMonitor);
                         Thread th = new Thread(threadStart);
@@ -88,7 +88,7 @@ namespace Component.TimerTask.TaskEngine
                 {
                     string s = string.Format("目标位置不存在文件,无法执行该任务({0})", destFile); ;
                     Console.WriteLine(s);
-                    _BLL.WriteLog(_Task.Task.TaskEntity.ID, _Task.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
+                    _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TaskConfigAssemblyFileNotFind);
                 }
                 #endregion
             }
@@ -97,8 +97,8 @@ namespace Component.TimerTask.TaskEngine
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
                 log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
+                log.TaskID = _WrkTask.Task.TaskEntity.ID;
+                log.TaskName = _WrkTask.Task.TaskEntity.Name;
                 _BLL.WriteLog(log);
                 Console.WriteLine("执行任务发生异常：{0}", ex.Message);
             }
@@ -122,8 +122,8 @@ namespace Component.TimerTask.TaskEngine
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
                 log.LogType = LogType.EnforceKillWorkError;
-                log.TaskID = _Task.Task.TaskEntity.ID;
-                log.TaskName = _Task.Task.TaskEntity.Name;
+                log.TaskID = _WrkTask.Task.TaskEntity.ID;
+                log.TaskName = _WrkTask.Task.TaskEntity.Name;
                 _BLL.WriteLog(log);
             }
         }
