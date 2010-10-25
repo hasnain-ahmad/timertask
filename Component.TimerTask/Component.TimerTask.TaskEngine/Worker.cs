@@ -57,6 +57,7 @@ namespace Component.TimerTask.TaskEngine
             #region 更新下一步工作
             _WrkTask.Notify_WorkComplete();
             #endregion
+            Console.WriteLine("{0} 下次执行时间:{1}", _WrkTask.Task.TaskEntity.Name, _WrkTask.NextRunTime);
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -99,7 +100,7 @@ namespace Component.TimerTask.TaskEngine
                 _WrkTask.Notify_WorkStarted();
             }
             #endregion
-            Console.WriteLine("{0} 下次执行时间:{1}", _WrkTask.Task.TaskEntity.Name, _WrkTask.NextRunTime);
+            
         }
 
         public virtual void ManualStopWork()
