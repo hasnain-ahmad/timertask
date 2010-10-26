@@ -116,9 +116,6 @@ namespace Component.TimerTask.Monitor
         {
             try
             {
-                //如果界面被隐藏了，则没必要刷新界面
-                if (this.Visible == false) return;
-
                 if (false == _Bll.IsTaskManagerAlive())
                 {//没有启动
                     this.lbl_State.Text = ProcessState.没有启动.ToString();
@@ -146,6 +143,9 @@ namespace Component.TimerTask.Monitor
 
         private void InitTaskList()
         {
+            //如果界面被隐藏了，则没必要刷新界面
+            if (this.Visible == false) return;
+
             int selected = this.listView1.SelectedIndices.Count > 0 ? this.listView1.SelectedIndices[0] : 0;
             this.listView1.BeginUpdate();
             this.listView1.Items.Clear();
