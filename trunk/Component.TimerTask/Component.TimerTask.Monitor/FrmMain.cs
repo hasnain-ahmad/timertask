@@ -47,12 +47,15 @@ namespace Component.TimerTask.Monitor
 
         private void notifyIcon1_DoubleClick(object sender, EventArgs e)
         {
-            this.Visible = true;
+            //this.Visible = true;
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
         private void tsmi_Show_Click(object sender, EventArgs e)
         {
             this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
         /// <summary>
