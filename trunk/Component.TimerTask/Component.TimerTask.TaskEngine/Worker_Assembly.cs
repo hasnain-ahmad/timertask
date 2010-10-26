@@ -63,7 +63,7 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
-                Console.WriteLine("**************************  Work Start {0}", _WrkTask.Task.TaskEntity.Name);
+                Console.WriteLine("**************************  Work Start   {0} {1}", _WrkTask.Task.TaskEntity.Name, DateTime.Now);
 
                 #region 开始工作
                 string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;

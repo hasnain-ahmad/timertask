@@ -47,7 +47,7 @@ namespace Component.TimerTask.TaskEngine
         /// <param name="e"></param>
         protected void Process_Exited(object sender, EventArgs e)
         {
-            Console.WriteLine("**************************  Work End {0}", _WrkTask.Task.TaskEntity.Name);
+            
 
             #region 记录到日志中
             string log = _WrkTask.Task.TaskEntity.Name + " Work Complete.";
@@ -57,7 +57,9 @@ namespace Component.TimerTask.TaskEngine
             #region 更新下一步工作
             _WrkTask.Notify_WorkComplete();
             #endregion
+
             Console.WriteLine("{0} 下次执行时间:{1}", _WrkTask.Task.TaskEntity.Name, _WrkTask.NextRunTime);
+            Console.WriteLine("**************************  Work End {0} {1}", _WrkTask.Task.TaskEntity.Name, DateTime.Now);
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
