@@ -59,7 +59,7 @@ namespace Component.TimerTask.TaskEngine
             #endregion
 
             Console.WriteLine("{0} 下次执行时间:{1}", _WrkTask.Task.TaskEntity.Name, _WrkTask.NextRunTime);
-            Console.WriteLine("**************************  Work End {0} {1}", _WrkTask.Task.TaskEntity.Name, DateTime.Now);
+            Console.WriteLine("**************************  Work End   {0} {1}", _WrkTask.Task.TaskEntity.Name, DateTime.Now);
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
