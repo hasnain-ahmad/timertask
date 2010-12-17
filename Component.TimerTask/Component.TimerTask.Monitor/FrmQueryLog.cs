@@ -24,7 +24,7 @@ namespace Component.TimerTask.Monitor
         {
             InitializeComponent();
 
-            this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
+            //this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
 
             this.dtp_Start.Value = DateTime.Now.Date;
             this.dtp_End.Value = this.dtp_Start.Value.AddDays(2).AddSeconds(-1);

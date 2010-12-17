@@ -21,7 +21,7 @@ namespace Component.TimerTask.Monitor
         public FrmMain()
         {
             InitializeComponent();
-            this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
+            //this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
             this.notifyIcon1.Icon = this.Icon;
         }
 
