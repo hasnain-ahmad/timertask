@@ -88,7 +88,7 @@ namespace Component.TimerTask.BLL
                 log.LogType = LogType.SocketClientSendError;
                 log.TaskID = -1;
                 WriteLog(log);
-                throw new Exception("计划数据通过Socket同步到定时任务管理器失败",ex);
+                throw new Exception("计划数据通过Socket同步到定时任务管理器失败", ex);
             }
             finally
             {
