@@ -18,6 +18,7 @@ using System.Threading;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using Component.TimerTask.Utility;
+using Component.TimerTask.BLL;
 
 namespace Component.TimerTask.TaskEngine
 {
@@ -50,8 +51,12 @@ namespace Component.TimerTask.TaskEngine
         /// </summary>
         private void ThreadFuncEngine()
         {
+            IBLLEngineRescue ibllEngineRescue = BLlFactory.GetBLLEngineRes();
             while (true)
             {
+                //发送心跳数据
+                ibllEngineRescue.WriteHeart();
+
                 //开始循环处理任务
                 Thread.Sleep(_IdleSpanInMSecs * 1000);
                 lock (((ICollection)_TaskList).SyncRoot)

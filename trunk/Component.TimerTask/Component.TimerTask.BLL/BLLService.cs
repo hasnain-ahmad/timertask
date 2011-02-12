@@ -21,6 +21,7 @@ using Component.TimerTask.DAL;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using Component.TimerTask.Utility;
+using Component.TimerTask.Config;
 
 namespace Component.TimerTask.BLL
 {
@@ -29,10 +30,10 @@ namespace Component.TimerTask.BLL
     /// </summary>
     internal class BLLService : IBLLLogic
     {
-        /// <summary>
-        /// 定时任务管理器 进程名称
-        /// </summary>
-        private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
+        ///// <summary>
+        ///// 定时任务管理器 进程名称
+        ///// </summary>
+        //private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
 
         /// <summary>
         /// 数据访问接口
@@ -349,7 +350,7 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public bool IsTaskManagerAlive()
         {
-            Process[] arr = Process.GetProcessesByName(TIMERMANAGER_PROCESSNAME);
+            Process[] arr = Process.GetProcessesByName(StaticConfig.STR_ENGINE_PROCESS_NAME);
             if (arr.Length > 0)
             {
                 return true;
@@ -413,7 +414,7 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public bool StartTaskManager()
         {
-            Process[] arr = Process.GetProcessesByName("Component.TimerTask.TaskManager");
+            Process[] arr = Process.GetProcessesByName(StaticConfig.STR_ENGINE_PROCESS_NAME);
             if (arr.Length > 0)
             {
                 LogEntity log = new LogEntity();
@@ -424,7 +425,7 @@ namespace Component.TimerTask.BLL
                 return false;
             }
 
-            string path = AssemblyHelper.GetAssemblyPath() + TIMERMANAGER_PROCESSNAME + ".exe";
+            string path = AssemblyHelper.GetAssemblyPath() + StaticConfig.STR_ENGINE_PROCESS_NAME + ".exe";
             if (File.Exists(path))
             {
                 Process.Start(path);

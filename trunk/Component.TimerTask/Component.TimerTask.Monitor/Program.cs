@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Component.TimerTask.Utility;
 
 namespace Component.TimerTask.Monitor
 {
@@ -15,8 +16,7 @@ namespace Component.TimerTask.Monitor
         static void Main()
         {
             #region 互斥
-            Process currentP = Process.GetCurrentProcess();
-            if (Process.GetProcessesByName(currentP.ProcessName).Length > 1)
+            if (ProcessHelper.IsCurrentProcessHasLoaded())
             {
                 MessageBox.Show("监控器已经启动", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Exit();

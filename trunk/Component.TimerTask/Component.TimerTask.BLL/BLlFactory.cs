@@ -22,6 +22,32 @@ namespace Component.TimerTask.BLL
     {
         private static BLLService _bll;
         private static readonly object objlock = new object();
+
+        private static IBLLEngineRescue _IbllEngineRes = null;
+        private static readonly object objLockEngionRes = new object();
+
+        /// <summary>
+        /// 获取引擎营救接口
+        /// </summary>
+        /// <returns></returns>
+        public static IBLLEngineRescue GetBLLEngineRes()
+        {
+            if (_IbllEngineRes == null)
+            {
+                lock (objLockEngionRes)
+                {
+                    if (_IbllEngineRes == null)
+                    {
+                        lock (objLockEngionRes)
+                        {
+                            _IbllEngineRes = new BLLEngineRescue();
+                        }
+                    }
+                }
+            }
+            return _IbllEngineRes;
+        }
+
         /// <summary>
         /// 获取业务逻辑服务接口
         /// </summary>

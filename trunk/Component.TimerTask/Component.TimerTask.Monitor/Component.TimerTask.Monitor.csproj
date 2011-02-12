@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -111,6 +111,10 @@
       <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
       <Name>Component.TimerTask.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Config\Component.TimerTask.Config.csproj">
+      <Project>{0FE91122-470E-4CD8-80F2-C1BDD11B67E6}</Project>
+      <Name>Component.TimerTask.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Component.TimerTask.DAL\Component.TimerTask.DAL.csproj">
       <Project>{3EC8EB3D-40F2-4FE3-A394-0900996A535E}</Project>
       <Name>Component.TimerTask.DAL</Name>
@@ -122,6 +126,10 @@
     <ProjectReference Include="..\Component.TimerTask.TaskManager\Component.TimerTask.TaskManager.csproj">
       <Project>{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}</Project>
       <Name>Component.TimerTask.TaskManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Component.TimerTask.Utility\Component.TimerTask.Utility.csproj">
+      <Project>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</Project>
+      <Name>Component.TimerTask.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
