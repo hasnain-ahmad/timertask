@@ -25,5 +25,10 @@ namespace Component.TimerTask.Config
         /// 是否需要启动Wcf服务（Wcf服务可以提供远程的定时任务管理） True/False
         /// </summary>
         public static readonly bool IsNeedWcf = bool.Parse(ConfigurationManager.AppSettings["IsNeedWcf"]);
+
+        /// <summary>
+        /// 引擎进程名称
+        /// </summary>
+        public static readonly string STR_ENGINE_PROCESS_NAME = "Component.TimerTask.TaskManager";
     }
 }

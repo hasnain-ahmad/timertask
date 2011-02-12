@@ -9,14 +9,26 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Component.TimerTask.BLL;
 using Component.TimerTask.Model;
+using System.Threading;
+using Component.TimerTask.Config;
+using Component.TimerTask.Utility;
 
 namespace Component.TimerTask.Monitor
 {
     public partial class FrmMain : Form
     {
-        private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
+        //private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
         private IBLLLogic _Bll = BLlFactory.GetBllLogic();
         private ListViewItem _lastShowTipItem = null;
+
+        ///// <summary>
+        ///// 进程，引擎监控器
+        ///// </summary>
+        //private Thread _ThEngionCoreMonitor = null;
+        /// <summary>
+        /// 窗体是否正在关闭
+        /// </summary>
+        private bool _FormClosing = false;
 
         public FrmMain()
         {
@@ -30,10 +42,31 @@ namespace Component.TimerTask.Monitor
         {
             this.notifyIcon1.Text = this.Text;
             this.timer1.Start();
+
+            //启动心跳监视器
+            Thread thEngionCoreMonitor = new Thread(new ThreadStart(BLlFactory.GetBLLEngineRes().StartRecieveHeartData));
+            thEngionCoreMonitor.IsBackground = true;
+            thEngionCoreMonitor.Start();
+        }
+
+        /// <summary>
+        /// 监视是否需要营救引擎
+        /// </summary>
+        private void ThreadDelegeteMonitor()
+        {
+            if (!this._FormClosing)
+            {
+                Thread.Sleep(StaticConfig.TimerTaskEngineIdelSec);
+                if (BLlFactory.GetBLLEngineRes().IsNotRecievedLongTime(StaticConfig.TimerTaskEngineIdelSec * 10))
+                {
+                    ProcessHelper.KillProcess(StaticConfig.STR_ENGINE_PROCESS_NAME);
+                }
+            }
         }
 
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
+            _FormClosing = true;
             this.notifyIcon1.Visible = false;
             this.notifyIcon1.Dispose();
         }

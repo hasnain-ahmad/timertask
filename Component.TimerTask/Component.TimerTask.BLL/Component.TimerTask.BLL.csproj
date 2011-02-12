@@ -32,13 +32,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AppModule.InterProcessComm, Version=1.0.0.39045, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AppModule.InterProcessComm.dll</HintPath>
+    </Reference>
+    <Reference Include="AppModule.NamedPipes, Version=1.0.1.39045, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AppModule.NamedPipes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLLEngineRescue.cs" />
     <Compile Include="BLLService.cs" />
     <Compile Include="BLlFactory.cs" />
+    <Compile Include="IBLLEngineRescue.cs" />
     <Compile Include="IBLLLogic.cs" />
     <Compile Include="IBLLService.cs" />
     <Compile Include="Mapper\CfgDataMapper.cs" />
@@ -52,6 +62,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Component.TimerTask.Config\Component.TimerTask.Config.csproj">
+      <Project>{0FE91122-470E-4CD8-80F2-C1BDD11B67E6}</Project>
+      <Name>Component.TimerTask.Config</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Component.TimerTask.DAL\Component.TimerTask.DAL.csproj">
       <Project>{3EC8EB3D-40F2-4FE3-A394-0900996A535E}</Project>
       <Name>Component.TimerTask.DAL</Name>
