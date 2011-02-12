@@ -78,8 +78,16 @@ namespace Component.TimerTask.TaskManager
                 #endregion
 
                 #region Wcf服务启动
-                TimerTaskWcfHost.WcfHost.StartWcfService();
-                Console.WriteLine("Wcf服务已经启动");
+                bool isNeedWcf = bool.Parse(System.Configuration.ConfigurationSettings.AppSettings["IsNeedWcf"]);
+                if (isNeedWcf)
+                {
+                    TimerTaskWcfHost.WcfHost.StartWcfService();
+                    Console.WriteLine("Wcf服务已经启动");
+                }
+                else
+                {
+                    Console.WriteLine("Wcf服务未配置");
+                }
                 #endregion
 
                 try
