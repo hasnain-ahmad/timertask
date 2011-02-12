@@ -5,14 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{90A10606-198C-4E57-9EF5-F7B2C9FB1FB7}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{0FE91122-470E-4CD8-80F2-C1BDD11B67E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Component.TimerTask.TaskManager</RootNamespace>
-    <AssemblyName>Component.TimerTask.TaskManager</AssemblyName>
+    <RootNamespace>Component.TimerTask.Config</RootNamespace>
+    <AssemblyName>Component.TimerTask.Config</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <StartupObject>Component.TimerTask.TaskManager.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,33 +32,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Component.TimerTask.Config\Component.TimerTask.Config.csproj">
-      <Project>{0FE91122-470E-4CD8-80F2-C1BDD11B67E6}</Project>
-      <Name>Component.TimerTask.Config</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Component.TimerTask.TaskEngine\Component.TimerTask.TaskEngine.csproj">
-      <Project>{A635E678-8804-49C7-9B26-E53D8C08682A}</Project>
-      <Name>Component.TimerTask.TaskEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Component.TimerTask.Utility\Component.TimerTask.Utility.csproj">
-      <Project>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</Project>
-      <Name>Component.TimerTask.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TimerTaskWcfHost\TimerTaskWcfHost.csproj">
-      <Project>{FCA62CFD-4437-4619-896C-C2AB80F72BD9}</Project>
-      <Name>TimerTaskWcfHost</Name>
-    </ProjectReference>
+    <Compile Include="StaticConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

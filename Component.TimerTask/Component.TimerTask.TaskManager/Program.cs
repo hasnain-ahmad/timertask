@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Component.TimerTask.TaskEngine;
 using System.Diagnostics;
+using Component.TimerTask.Config;
 
 namespace Component.TimerTask.TaskManager
 {
@@ -78,7 +79,7 @@ namespace Component.TimerTask.TaskManager
                 #endregion
 
                 #region Wcf服务启动
-                bool isNeedWcf = bool.Parse(System.Configuration.ConfigurationSettings.AppSettings["IsNeedWcf"]);
+                bool isNeedWcf = StaticConfig.IsNeedWcf;
                 if (isNeedWcf)
                 {
                     TimerTaskWcfHost.WcfHost.StartWcfService();
@@ -93,23 +94,23 @@ namespace Component.TimerTask.TaskManager
                 try
                 {
                     int engineIdleTimeSec = 2;
-                    if (!string.IsNullOrEmpty(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"]))
-                    {
-                        int tmp;
-                        if (int.TryParse(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"], out tmp))
-                        {
-                            engineIdleTimeSec = tmp;
-                            Console.WriteLine("定时任务管理器空闲时间间隔已经被配置为{0}秒。", tmp);
-                        }
-                        else
-                        {
-                            Console.WriteLine("配置定时任务管理器空闲时间间隔有误，将按照默认配置进行处理。");
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
-                    }
+                    //if (!string.IsNullOrEmpty(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"]))
+                    //{
+                    //int tmp;
+                    //if (int.TryParse(System.Configuration.ConfigurationSettings.AppSettings["TimerTaskEngineIdelSec"], out tmp))
+                    //{
+                    engineIdleTimeSec = StaticConfig.TimerTaskEngineIdelSec;
+                    Console.WriteLine("定时任务管理器空闲时间间隔已经被配置为{0}秒。", engineIdleTimeSec);
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("配置定时任务管理器空闲时间间隔有误，将按照默认配置进行处理。");
+                    //}
+                    //}
+                    //else
+                    //{
+                    //    Console.WriteLine("未找到定时任务管理器空闲时间间隔配置，将按照默认配置进行处理。");
+                    //}
                     //开始启动定时任务管理引擎
                     ITaskWorkerEngine taskEngine = TaskEngineFactory.GetTaskEngine(engineIdleTimeSec);
                     taskEngine.Start();
@@ -123,6 +124,10 @@ namespace Component.TimerTask.TaskManager
                 catch (Exception ex)
                 {
                     Console.WriteLine("程序异常：" + ex.Message);
+                    if (ex.InnerException != null)
+                    {
+                        Console.WriteLine("  内在异常：" + ex.InnerException.Message);
+                    }
                 }
 
                 //#region 程序运行结束，可以释放锁
@@ -136,7 +141,7 @@ namespace Component.TimerTask.TaskManager
                 //发布后去掉下面这句
                 //Console.Read();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Thread.Sleep(5000);
