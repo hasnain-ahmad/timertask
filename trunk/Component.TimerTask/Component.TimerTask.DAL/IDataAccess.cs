@@ -134,5 +134,24 @@ namespace Component.TimerTask.DAL
         /// <returns></returns>
         bool Save2DB();
 
+
+        #region 心跳相关
+
+        /// <summary>
+        /// 写心跳时间
+        /// </summary>
+        void WriteHeartDate();
+
+        /// <summary>
+        /// 读心跳时间
+        /// </summary>
+        /// <returns></returns>
+        DateTime ReadHeartDate();
+
+        /// <summary>
+        /// 初始化心跳表，插入一条记录
+        /// </summary>
+        void InitHeartTable();
+        #endregion
     }
 }

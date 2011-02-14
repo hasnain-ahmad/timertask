@@ -104,7 +104,12 @@ namespace Component.TimerTask.Model.Enums
         /// <summary>
         /// 通过Socket更新引擎时不存在计划
         /// </summary>
-        SocketRecieveTaskNoExist = 116
+        SocketRecieveTaskNoExist = 116,
+
+        /// <summary>
+        /// 引擎停止，营救
+        /// </summary>
+        EngineRescue=117
 
     }
 }

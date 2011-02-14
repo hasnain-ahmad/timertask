@@ -25,5 +25,6 @@ namespace Component.TimerTask.BLL
         /// <param name="timeOutSeconds">超时时间（超过多长时间算超时）</param>
         /// <returns></returns>
         bool IsNotRecievedLongTime(int timeOutSeconds);
+
     }
 }

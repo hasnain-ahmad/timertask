@@ -32,20 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AppModule.InterProcessComm, Version=1.0.0.39045, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AppModule.InterProcessComm.dll</HintPath>
-    </Reference>
-    <Reference Include="AppModule.NamedPipes, Version=1.0.1.39045, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AppModule.NamedPipes.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLEngineRescue.cs" />
+    <Compile Include="BLLEngineRescue_DB.cs" />
     <Compile Include="BLLService.cs" />
     <Compile Include="BLlFactory.cs" />
     <Compile Include="IBLLEngineRescue.cs" />

@@ -45,6 +45,13 @@ namespace Component.TimerTask.DAL
 [LogType] NVARCHAR2(50)  NULL,
 [LogContent] NVARCHAR2(500)  NULL
 );";
+
+        /// <summary>
+        /// 接收心跳数据的表
+        /// </summary>
+        public static readonly string INIT_DB_SQL_CREATETABLE_HEART = @"CREATE TABLE [PL_TimerTask_Heart] (
+[LogDate] DATE  NULL
+);";
         public static readonly string DB_SQL_SYSTABS = @"select tbl_name from sqlite_master";
         public static readonly string DB_SQL_SYSTABS_TBCOUNT = @"select COUNT(*) from sqlite_master";
 
