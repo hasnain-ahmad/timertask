@@ -201,7 +201,7 @@ namespace Component.TimerTask.Monitor
                     this.tsmi_Add.Enabled = false;
                     this.tsmi_Del.Enabled = false;
                     this.tsmi_Run.Enabled = false;
-                    this.tsmi_Update.Enabled = false;
+                    this.tsmi_Update.Enabled = this.tsmi_ShowInfo.Enabled = false;
                     this.tsmi_Stop.Enabled = false;
                 }
                 else
@@ -209,7 +209,7 @@ namespace Component.TimerTask.Monitor
                     this.tsmi_Add.Enabled = true;
                     this.tsmi_Del.Enabled = true;
                     this.tsmi_Run.Enabled = true;
-                    this.tsmi_Update.Enabled = true;
+                    this.tsmi_Update.Enabled = this.tsmi_ShowInfo.Enabled = true;
                     this.tsmi_Stop.Enabled = true;
                 }
 
@@ -224,7 +224,7 @@ namespace Component.TimerTask.Monitor
                         tsmi_Run.Enabled = true;
                         tsmi_Del.Enabled = true;
                         tsmi_Add.Enabled = true;
-                        tsmi_Update.Enabled = true;
+                        tsmi_Update.Enabled = this.tsmi_ShowInfo.Enabled = true;
                         TaskEntity entity = (TaskEntity)item.Tag;
                         TaskState s = (TaskState)Enum.Parse(typeof(TaskState), item.SubItems[1].Text);
                         switch (s)
@@ -238,7 +238,7 @@ namespace Component.TimerTask.Monitor
                                 break;
                             case TaskState.已删除:
                                 tsmi_Del.Enabled = false;
-                                tsmi_Update.Enabled = false;
+                                tsmi_Update.Enabled = this.tsmi_ShowInfo.Enabled = false;
                                 tsmi_Run.Enabled = false;
                                 break;
                         }
@@ -250,7 +250,7 @@ namespace Component.TimerTask.Monitor
                     {
                         tsmi_Del.Enabled = false;
                         tsmi_Run.Enabled = false;
-                        tsmi_Update.Enabled = false;
+                        tsmi_Update.Enabled = this.tsmi_ShowInfo.Enabled = false;
                         this.tsmi_Stop.Enabled = false;
 
                     }
@@ -303,6 +303,33 @@ namespace Component.TimerTask.Monitor
                             this.InitTaskList();
                             //}
                         }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void tsmi_ShowInfo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.listView1.SelectedItems.Count > 0)
+                {
+                    TaskEntity entity = (TaskEntity)this.listView1.SelectedItems[0].Tag;
+                    if (entity != null)
+                    {
+                        FrmTaskEdit frm = new FrmTaskEdit(entity, _Bll);
+                        frm.IsReadOnly = true;
+                        frm.ShowDialog();
+                        //if (frm.DialogResult == DialogResult.OK)
+                        //{
+                        //    _Bll.UpdateTask(entity);
+                        //    this.InitTaskList();
+                        //}
+                        frm.Dispose();
                     }
                 }
             }
@@ -432,6 +459,8 @@ namespace Component.TimerTask.Monitor
                 this.ShowInTaskbar = false;
             }
         }
+
+       
 
        
 
