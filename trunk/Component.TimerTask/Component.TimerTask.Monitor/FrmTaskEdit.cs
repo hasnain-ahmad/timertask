@@ -24,6 +24,16 @@ namespace Component.TimerTask.Monitor
             get { return _Task; }
         }
 
+        private bool _IsReadOnly;
+        /// <summary>
+        /// 是否只读
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return _IsReadOnly; }
+            set { _IsReadOnly = value; }
+        }
+
         private IBLLLogic _BLL;
 
 
@@ -69,6 +79,13 @@ namespace Component.TimerTask.Monitor
             this.cbx_Frequnce.Text = _Task.RunSpaceType.ToString();
             this.nud_OutTime.Value = _Task.RunTimeOutSecs;
             this.nud_SpaceTime.Value = _Task.RunSpaceTime;
+
+            if (this._IsReadOnly)
+            {
+                this.txt_Name.ReadOnly = this.txtParams.ReadOnly = this.nud_OutTime.ReadOnly = this.nud_SpaceTime.ReadOnly = true;
+                this.dtpStart.Enabled = this.dtpEnd.Enabled = this.cbx_Apps.Enabled = this.cbx_Frequnce.Enabled = false;
+                
+            }
         }
 
         private void cbx_Frequnce_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,6 +127,9 @@ namespace Component.TimerTask.Monitor
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+
+            if (this._IsReadOnly) return;
+
             if (string.IsNullOrEmpty(this.txt_Name.Text.Trim()))
             {
                 MessageBox.Show("名称不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -120,6 +140,13 @@ namespace Component.TimerTask.Monitor
             {
                 MessageBox.Show("计划程序不能为空", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.cbx_Apps.Focus();
+                return;
+            }
+            //注意：之前允许不设置超时小于0为不限制执行时间，后来发现运行时间长了后程序会慢慢阻死，所以加上此限制
+            if (((long)this.nud_OutTime.Value) <= 0)
+            {
+                MessageBox.Show("设置超时时间必须大于0秒", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.nud_OutTime.Focus();
                 return;
             }
 
