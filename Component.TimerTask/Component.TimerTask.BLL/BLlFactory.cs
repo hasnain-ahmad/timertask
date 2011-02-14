@@ -40,7 +40,7 @@ namespace Component.TimerTask.BLL
                     {
                         lock (objLockEngionRes)
                         {
-                            _IbllEngineRes = new BLLEngineRescue();
+                            _IbllEngineRes = new BLLEngineRescue_DB();
                         }
                     }
                 }

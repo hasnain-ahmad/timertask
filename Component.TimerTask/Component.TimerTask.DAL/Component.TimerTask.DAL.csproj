@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3EC8EB3D-40F2-4FE3-A394-0900996A535E}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -69,9 +69,6 @@
     <None Include="TaskDataSet.xss">
       <DependentUpon>TaskDataSet.xsd</DependentUpon>
     </None>
-    <Content Include="timertaskdb.db3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Component.TimerTask.Model\Component.TimerTask.Model.csproj">

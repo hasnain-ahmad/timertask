@@ -66,6 +66,9 @@ namespace Component.TimerTask.DAL
             {
                 SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_TASK);
                 SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_LOG);
+
+                SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_HEART);
+                this.InitHeartTable();
             }
         }
 
@@ -289,6 +292,38 @@ namespace Component.TimerTask.DAL
             }
             else
                 return null;
+        }
+
+        #endregion
+
+        #region 心跳相关
+
+
+        public void WriteHeartDate()
+        {
+            //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            string sql = string.Format("UPDATE PL_TimerTask_Heart SET LogDate = '{0}'", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            SqliteHelper.ExecuteNonQuery(sql);
+        }
+
+        public DateTime ReadHeartDate()
+        {
+            string sql = "SELECT * FROM PL_TimerTask_Heart";
+            DataRow dr = SqliteHelper.ExecuteDataRow(sql);
+            if (dr == null)
+            {
+                return DateTime.MinValue;
+            }
+            else
+            {
+                return DateTime.Parse(dr[0].ToString());
+            }
+        }
+
+        public void InitHeartTable()
+        {
+            string sql = string.Format("INSERT INTO PL_TimerTask_Heart(LogDate) VALUES('{0}')", DateTime.MinValue.ToString("yyyy-MM-dd hh:mm:ss"));
+            SqliteHelper.ExecuteNonQuery(sql);
         }
 
         #endregion
