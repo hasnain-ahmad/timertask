@@ -20,10 +20,9 @@ namespace TestTask
             {
                 frm = new Form1();
                 frm.Show();
-                Console.WriteLine("Task Closed By Self");
                 Application.DoEvents();
-                Thread.Sleep(5000);
-
+                Thread.Sleep(20000);
+                Console.WriteLine("任务执行完，自己结束");
                 frm.Close();
 
                 //加上此方法确保能通知系统任务运行完成
@@ -37,7 +36,7 @@ namespace TestTask
 
         public override void StopRuning()
         {
-            Console.WriteLine("This Task OutDate Killed");
+            Console.WriteLine("手动结束掉");
             //通过设置标记为来是上面的任务执行方法结束
             //frm.Dispose();
             

@@ -40,8 +40,21 @@ namespace Component.TimerTask.TaskEngine
                 {
                     Thread.Sleep((int)_WrkTask.Task.TaskEntity.RunTimeOutSecs * 1000);
 
-                    ITask th = (ITask)paraMonitorDest;
-                    if (th != null) th.StopRuning();
+                    //先通过任务接口结束
+                    this._WorkInterface.StopRuning();
+
+                    //如果还没有结束，则结束线程
+                    Thread th = (Thread)paraMonitorDest;
+                    //Console.WriteLine(th.ThreadState.ToString());
+                    if (th != null && th.ThreadState != System.Threading.ThreadState.Aborted)
+                    {
+                        try
+                        {
+                            th.Abort();
+                        }
+                        catch { }
+                    }
+
                     GC.Collect();
                     GC.WaitForFullGCComplete();
                 }
@@ -104,7 +117,8 @@ namespace Component.TimerTask.TaskEngine
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
                     _WorkInterface.ExtraParaStr = _WrkTask.Task.TaskEntity.ExtraParaStr;
-                    _Thread4Work = new Thread(new ThreadStart(_WorkInterface.RunTask));
+                    Thread thWork = new Thread(new ThreadStart(_WorkInterface.RunTask));
+                    _Thread4Work = thWork;
                     _Thread4Work.IsBackground = true;
                     _Thread4Work.Start();
 
@@ -114,7 +128,8 @@ namespace Component.TimerTask.TaskEngine
                         ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WorkMonitor);
                         Thread th = new Thread(threadStart);
                         th.IsBackground = true;
-                        th.Start(_WorkInterface);
+                        th.Start(thWork);
+                        //th.Start(_WorkInterface);
                     }
                     #endregion
                 }
@@ -145,14 +160,20 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
-                if (_Thread4Work != null && _Thread4Work.ThreadState == System.Threading.ThreadState.Running)
+                if (_WorkInterface != null)
                 {
-                    if (_WorkInterface != null)
-                    {
-                        _WorkInterface.StopRuning();
-                    }
+                    _WorkInterface.StopRuning();
                 }
-                base.ManualStopWork();
+
+                if (_Thread4Work != null && _Thread4Work.ThreadState != System.Threading.ThreadState.Aborted)
+                {
+                    try
+                    {
+                        _Thread4Work.Abort();
+                    }
+                    catch { }
+                }
+                //base.ManualStopWork();
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
