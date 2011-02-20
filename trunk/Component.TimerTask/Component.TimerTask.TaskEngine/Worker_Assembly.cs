@@ -94,9 +94,10 @@ namespace Component.TimerTask.TaskEngine
                     }
                     else
                     {
-                        string s = "无法加载目标对象，目标对象未集成ITask接口。";
+                        string s = "无法加载目标对象，目标对象未继承ITask接口。";
                         Console.WriteLine("执行任务发生异常：{0}", s);
                         _BLL.WriteLog(_WrkTask.Task.TaskEntity.ID, _WrkTask.Task.TaskEntity.Name, s, LogType.TypeConvertITaskError);
+                        base.DoWork(paraRunType);
                         return;
                     }
                     #endregion
