@@ -24,7 +24,7 @@ namespace Component.TimerTask.TaskEngine
     /// </summary>
     class Worker_Assembly : Worker
     {
-        private Thread _Thread;
+        private Thread _Thread4Work;
         private ITask _WorkInterface;
 
         public Worker_Assembly(WorkingTask paraTask, BLL.IBLLLogic paraBll)
@@ -103,9 +103,9 @@ namespace Component.TimerTask.TaskEngine
 
                     _WorkInterface.ThreadCompleteFunc = Process_Exited;
                     _WorkInterface.ExtraParaStr = _WrkTask.Task.TaskEntity.ExtraParaStr;
-                    _Thread = new Thread(new ThreadStart(_WorkInterface.RunTask));
-                    _Thread.IsBackground = true;
-                    _Thread.Start();
+                    _Thread4Work = new Thread(new ThreadStart(_WorkInterface.RunTask));
+                    _Thread4Work.IsBackground = true;
+                    _Thread4Work.Start();
 
                     #region 监控超时
                     if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
@@ -144,7 +144,7 @@ namespace Component.TimerTask.TaskEngine
         {
             try
             {
-                if (_Thread != null && _Thread.ThreadState == System.Threading.ThreadState.Running)
+                if (_Thread4Work != null && _Thread4Work.ThreadState == System.Threading.ThreadState.Running)
                 {
                     if (_WorkInterface != null)
                     {
