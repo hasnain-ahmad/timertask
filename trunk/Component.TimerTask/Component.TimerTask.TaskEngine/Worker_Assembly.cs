@@ -42,7 +42,8 @@ namespace Component.TimerTask.TaskEngine
 
                     ITask th = (ITask)paraMonitorDest;
                     if (th != null) th.StopRuning();
-
+                    GC.Collect();
+                    GC.WaitForFullGCComplete();
                 }
             }
             catch (Exception ex)

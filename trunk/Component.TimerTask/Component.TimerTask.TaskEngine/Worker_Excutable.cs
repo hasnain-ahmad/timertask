@@ -38,7 +38,7 @@ namespace Component.TimerTask.TaskEngine
 
                 Process p = (Process)paraMonitorDest;
                 if (p != null && !p.HasExited) p.Kill();
-
+                p = null;
             }
         }
 
