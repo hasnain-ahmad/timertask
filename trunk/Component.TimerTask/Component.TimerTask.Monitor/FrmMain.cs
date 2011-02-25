@@ -53,6 +53,7 @@ namespace Component.TimerTask.Monitor
             //this.Visible = true;
             this.Show();
             this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
         }
 
         private void tsmi_Show_Click(object sender, EventArgs e)

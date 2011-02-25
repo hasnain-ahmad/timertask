@@ -24,8 +24,6 @@ namespace Component.TimerTask.Monitor
         {
             InitializeComponent();
 
-            //this.Icon = Component.TimerTask.Monitor.Properties.Resources.kworldclock;
-
             this.dtp_Start.Value = DateTime.Now.Date;
             this.dtp_End.Value = this.dtp_Start.Value.AddDays(2).AddSeconds(-1);
             _BLL = paraBll;
@@ -38,12 +36,14 @@ namespace Component.TimerTask.Monitor
             this(paraBll)
         {
             _SelectTaskID = paraTaskId;
-            _DataSet.PL_TimerTask_Log.Merge(_BLL.GetTaskLogByTask(_SelectTaskID));
+            //_DataSet.PL_TimerTask_Log.Merge(_BLL.GetTaskLogByTask(_SelectTaskID));
         }
 
         private void FrmQueryLog_Load(object sender, EventArgs e)
         {
             this.BindGrid();
+
+            this.btnQuery_Click(null, null);
         }
 
         private void InitControls()
@@ -78,14 +78,15 @@ namespace Component.TimerTask.Monitor
             if (this.cbxTasks.SelectedValue != null)
             {
                 _SelectTaskID = (long)this.cbxTasks.SelectedValue;
-                DataTable dt = _BLL.GetTaskLogByTask(_SelectTaskID);
-                if (cbxTasks.SelectedText != "全部")
+                DataTable dt;
+                if (_SelectTaskID == -1)
                 {
-                    dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "' And TaskID=" + this.cbxTasks.SelectedValue.ToString();
+                    dt = _BLL.GetTaskLogByDate(this.dtp_Start.Value.Date, this.dtp_End.Value.Date);
                 }
                 else
                 {
-                    dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='";
+                    dt = _BLL.GetTaskLogByTask(_SelectTaskID);
+                    dt.DefaultView.RowFilter = "LogDate>='" + this.dtp_Start.Value.Date.ToString() + "' And LogDate<='" + this.dtp_End.Value.Date.ToString() + "'";
                 }
                 _DataSet.PL_TimerTask_Log.Clear();
                 _DataSet.PL_TimerTask_Log.Merge(dt.DefaultView.ToTable());
