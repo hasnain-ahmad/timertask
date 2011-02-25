@@ -261,10 +261,9 @@ namespace Component.TimerTask.DAL
 
         public DataTable GetLog(Int64 paraTaskId)
         {
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName;
-            SQLiteParameter p = new SQLiteParameter("@TaskIDColumn", paraTaskId);
-            p.DbType = DbType.Int64;
-            DataTable dt = SqliteHelper.ExecuteDataset(sql, p).Tables[0];
+
+            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " + _DataSet.PL_TimerTask_Log.TaskIDColumn.ColumnName + "=" + paraTaskId.ToString();
+            DataTable dt = SqliteHelper.ExecuteDataset(sql).Tables[0];
             //TaskDataSet.PL_TimerTask_LogDataTable table = new TaskDataSet.PL_TimerTask_LogDataTable(dt);
 
             return dt;
