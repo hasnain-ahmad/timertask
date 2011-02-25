@@ -16,6 +16,8 @@ using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using System.IO;
 using Component.TimerTask.TaskInterface;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace Component.TimerTask.TaskEngine
 {
@@ -89,7 +91,17 @@ namespace Component.TimerTask.TaskEngine
                     #region 反射加载
                     try
                     {
-                        obj = System.Reflection.Assembly.LoadFrom(fi.FullName).CreateInstance(_WrkTask.Task.TaskAssembly.ProtocolNameSpace + "." + _WrkTask.Task.TaskAssembly.ProtocolClass);
+                        Assembly abl;
+                        List<Assembly> assmlys = new List<Assembly>();
+                        assmlys.AddRange(AppDomain.CurrentDomain.GetAssemblies());
+                        abl = assmlys.Find(delegate(Assembly aa) { return aa.FullName.Equals(fi.FullName); });
+                        assmlys = null;
+                        if (abl == null)
+                        {
+                            abl = System.Reflection.Assembly.LoadFrom(fi.FullName);
+                        }
+
+                        obj = abl.CreateInstance(_WrkTask.Task.TaskAssembly.ProtocolNameSpace + "." + _WrkTask.Task.TaskAssembly.ProtocolClass);
                     }
                     catch (System.Reflection.TargetInvocationException ex)   //捕获反射错误的异常
                     {

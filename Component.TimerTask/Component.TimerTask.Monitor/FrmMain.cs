@@ -88,7 +88,7 @@ namespace Component.TimerTask.Monitor
         /// <param name="e"></param>
         private void listView1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (!this.Focused) return;
+            //if (!this.Focused) return;
             ListViewItem item = this.listView1.GetItemAt(e.X, e.Y);
             if (item != null)
             {
