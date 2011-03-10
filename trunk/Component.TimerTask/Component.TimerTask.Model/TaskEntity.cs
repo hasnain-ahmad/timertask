@@ -164,7 +164,7 @@ namespace Component.TimerTask.Model
         public override string ToString()
         {
             return string.Format(
-                "计划ID {0},名称 {1},开始执行日期 {2},结束执行日期 {3},附加参数 {4},执行间隔 {5}秒,执行方式 {6},执行程序 {7}.",
+                "计划ID {0},名称 {1},开始执行日期 {2},结束执行日期 {3},附加参数 {4},执行间隔 {5}秒,执行方式 {6},执行程序 {7},运行参数 {8}.",
                 this._ID,
                 this._Name,
                 this._DateStart,
@@ -172,7 +172,8 @@ namespace Component.TimerTask.Model
                 this._ExtraParaStr,
                 this._RunSpaceTime,
                 this._RunSpaceType,
-                this._RegestesAppName);
+                this._RegestesAppName,
+            this._ExtraParaStr);
             //return base.ToString();
         }
 
