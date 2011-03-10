@@ -79,6 +79,7 @@ namespace Component.TimerTask.Monitor
             this.cbx_Frequnce.Text = _Task.RunSpaceType.ToString();
             this.nud_OutTime.Value = _Task.RunTimeOutSecs;
             this.nud_SpaceTime.Value = _Task.RunSpaceTime;
+            this.txtParams.Text = _Task.ExtraParaStr;
 
             if (this._IsReadOnly)
             {
@@ -159,7 +160,7 @@ namespace Component.TimerTask.Monitor
             _Task.Enable = true;
             _Task.DateStart = this.dtpStart.Value;
             _Task.DateEnd = this.dtpEnd.Value;
-
+            //_Task.ExtraParaStr = this.txtParams.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
