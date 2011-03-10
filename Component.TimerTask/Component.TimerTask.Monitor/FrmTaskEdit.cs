@@ -64,6 +64,7 @@ namespace Component.TimerTask.Monitor
             if (_Task == null)
             {
                 _Task = new TaskEntity();
+                this.Text = "新增任务";
             }
             this.InitControls();
         }
@@ -84,7 +85,7 @@ namespace Component.TimerTask.Monitor
             {
                 this.txt_Name.ReadOnly = this.txtParams.ReadOnly = this.nud_OutTime.ReadOnly = this.nud_SpaceTime.ReadOnly = true;
                 this.dtpStart.Enabled = this.dtpEnd.Enabled = this.cbx_Apps.Enabled = this.cbx_Frequnce.Enabled = false;
-                
+                this.Text = "查看任务";
             }
         }
 
