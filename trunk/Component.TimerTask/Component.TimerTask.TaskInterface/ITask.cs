@@ -45,14 +45,23 @@ namespace Component.TimerTask.TaskInterface
 
         #endregion
 
-        #region Virtual Methed
+        #region Normal Methed
 
         /// <summary>
         /// 具体执行任务的方法
         /// <remarks>重写该方法后，请在方法后面调用base.RunTask()；否则线程任务执行结束事件无法通知管理引擎</remarks>
         /// </summary>
-        public virtual void RunTask()
+        public void RunTask()
         {
+            try
+            {
+                this.StartRuning();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("调用的任务线程中出现异常：" + ex.Message);
+            }
+
             if (_ThreadCompleteFunc != null)
             {
                 _ThreadCompleteFunc.Invoke(this, null);
@@ -66,6 +75,11 @@ namespace Component.TimerTask.TaskInterface
         /// 停止正在执行的任务
         /// </summary>
         public abstract void StopRuning();
+
+        /// <summary>
+        /// 开始执行任务
+        /// </summary>
+        public abstract void StartRuning();
 
         #endregion
 
