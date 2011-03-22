@@ -127,7 +127,7 @@ namespace Component.TimerTask.TaskEngine
                     }
                     #endregion
 
-                    _WorkInterface.ThreadCompleteFunc = Process_Exited;
+                    _WorkInterface.OnFuncComplete = new WaitCallback(Process_Exited);
                     _WorkInterface.ExtraParaStr = _WrkTask.Task.TaskEntity.ExtraParaStr;
                     Thread thWork = new Thread(new ThreadStart(_WorkInterface.RunTask));
                     _Thread4Work = thWork;

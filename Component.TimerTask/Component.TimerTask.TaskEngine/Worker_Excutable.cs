@@ -74,8 +74,7 @@ namespace Component.TimerTask.TaskEngine
                         return;
                     }
                     _Process.EnableRaisingEvents = true;
-                    _Process.Exited += new EventHandler(Process_Exited);
-
+                    _Process.Exited += new EventHandler(_Process_Exited);
                     #region 监控超时
                     if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
                     {
@@ -105,6 +104,11 @@ namespace Component.TimerTask.TaskEngine
                 _BLL.WriteLog(log);
                 Console.WriteLine("执行任务发生异常：{0}", ex.Message);
             }
+        }
+
+        private void _Process_Exited(object sender, EventArgs e)
+        {
+            base.Process_Exited(null);
         }
 
         public override void ManualStopWork()
