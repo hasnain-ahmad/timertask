@@ -33,7 +33,7 @@ namespace Component.TimerTask.TaskEngine
 
         private BLL.IBLLLogic _IBLLLogic;
 
-        private Thread _EngineThread;
+        //private Thread _EngineThread;
 
         /// <summary>
         /// Construction Function
@@ -49,7 +49,7 @@ namespace Component.TimerTask.TaskEngine
         /// <summary>
         /// 引擎线程函数
         /// </summary>
-        private void ThreadFuncEngine()
+        private void ThreadFuncEngine(object state)
         {
             IBLLEngineRescue ibllEngineRescue = BLlFactory.GetBLLEngineRes();
             while (true)
@@ -158,9 +158,10 @@ namespace Component.TimerTask.TaskEngine
                 Console.WriteLine("加载任务队列" + _TaskList.Count + "条");
 
                 //启动线程
-                _EngineThread = new Thread(new ThreadStart(ThreadFuncEngine));
-                _EngineThread.IsBackground = true;
-                _EngineThread.Start();
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadFuncEngine));
+                //_EngineThread = new Thread(new ThreadStart(ThreadFuncEngine));
+                //_EngineThread.IsBackground = true;
+                //_EngineThread.Start();
 
                 _IsRuning = true;
 

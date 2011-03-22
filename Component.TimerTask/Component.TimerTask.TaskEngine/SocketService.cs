@@ -47,15 +47,16 @@ namespace Component.TimerTask.TaskEngine
         public void StartListen(IPEndPoint paraPoint)
         {
             _Socket = SocketHelper.GetSocketListen(paraPoint);
-            Thread thread = new Thread(new ThreadStart(ThreadFuncRecieve));
-            thread.IsBackground = true;
-            thread.Start();
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.ThreadFuncRecieve));
+            //Thread thread = new Thread(new ThreadStart(ThreadFuncRecieve));
+            //thread.IsBackground = true;
+            //thread.Start();
         }
 
         /// <summary>
         /// 循环监听函数
         /// </summary>
-        private void ThreadFuncRecieve()
+        private void ThreadFuncRecieve(object state)
         {
             while (true)
             {
