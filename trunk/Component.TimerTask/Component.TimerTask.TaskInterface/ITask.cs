@@ -14,10 +14,10 @@ using System;
 
 namespace Component.TimerTask.TaskInterface
 {
-    /// <summary>
-    /// 线程结束的通知委托
-    /// </summary>
-    public delegate void DEL_TaskComplete(object sender, EventArgs e);
+    ///// <summary>
+    ///// 线程结束的通知委托
+    ///// </summary>
+    //public delegate void DEL_TaskComplete(object sender, EventArgs e);
 
     /// <summary>
     /// 定时任务要实现的接口
@@ -27,14 +27,15 @@ namespace Component.TimerTask.TaskInterface
 
         #region Normal
 
-        private DEL_TaskComplete _ThreadCompleteFunc;
+        //private DEL_TaskComplete _ThreadCompleteFunc;
+        private System.Threading.WaitCallback _OnFuncComplete = null;
         /// <summary>
         /// 通知外部事件，线程执行结束
         /// </summary>
         /// <value>The thread complete func.</value>
-        public DEL_TaskComplete ThreadCompleteFunc
+        public System.Threading.WaitCallback OnFuncComplete
         {
-            set { _ThreadCompleteFunc = value; }
+            set { _OnFuncComplete = value; }
         }
 
         /// <summary>
@@ -62,9 +63,10 @@ namespace Component.TimerTask.TaskInterface
                 Console.WriteLine("调用的任务线程中出现异常：" + ex.Message);
             }
 
-            if (_ThreadCompleteFunc != null)
+            if (_OnFuncComplete != null)
             {
-                _ThreadCompleteFunc.Invoke(this, null);
+                System.Threading.ThreadPool.QueueUserWorkItem(this._OnFuncComplete);
+                //_ThreadCompleteFunc.Invoke(this, null);
             }
         }
 
