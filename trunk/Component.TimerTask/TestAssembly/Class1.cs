@@ -11,28 +11,6 @@ namespace TestTask
     {
         System.Windows.Forms.Form frm;
 
-        /// <summary>
-        /// 任务执行入口
-        /// </summary>
-        public override void RunTask()
-        {
-            try
-            {
-                frm = new Form1();
-                frm.Show();
-                Application.DoEvents();
-                Thread.Sleep(20000);
-                Console.WriteLine("任务执行完，自己结束");
-                frm.Close();
-
-                //加上此方法确保能通知系统任务运行完成
-                base.RunTask();
-            }
-            catch(Exception ex) //线程执行方法需要进行异常捕获,最好是能通过委托告诉主线程进行记录
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
 
         public override void StopRuning()
         {
@@ -40,6 +18,16 @@ namespace TestTask
             //通过设置标记为来是上面的任务执行方法结束
             //frm.Dispose();
             
+        }
+
+        public override void StartRuning()
+        {
+            frm = new Form1();
+            frm.Show();
+            Application.DoEvents();
+            Thread.Sleep(20000);
+            Console.WriteLine("任务执行完，自己结束");
+            frm.Close();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Component.TimerTask.TaskEngine
         {
         }
 
-        private void WorkMonitor(object paraMonitorDest)
+        private void ThreadWorkMonitor(object paraMonitorDest)
         {
             if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
             {
@@ -79,10 +79,11 @@ namespace Component.TimerTask.TaskEngine
                     #region 监控超时
                     if (_WrkTask.Task.TaskEntity.RunTimeOutSecs > 0)
                     {
-                        ParameterizedThreadStart threadStart = new ParameterizedThreadStart(WorkMonitor);
-                        Thread th = new Thread(threadStart);
-                        th.IsBackground = true;
-                        th.Start(_Process);
+                        //ParameterizedThreadStart threadStart = new ParameterizedThreadStart(ThreadWorkMonitor);
+                        //Thread th = new Thread(threadStart);
+                        //th.IsBackground = true;
+                        //th.Start(_Process);
+                        ThreadPool.QueueUserWorkItem(new WaitCallback(ThreadWorkMonitor), _Process);
                     }
                     #endregion
                 }

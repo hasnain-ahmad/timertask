@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 using Component.TimerTask.BLL;
-using Component.TimerTask.Model;
-using System.Threading;
 using Component.TimerTask.Config;
-using Component.TimerTask.Utility;
+using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
+using Component.TimerTask.Utility;
 
 namespace Component.TimerTask.Monitor
 {
