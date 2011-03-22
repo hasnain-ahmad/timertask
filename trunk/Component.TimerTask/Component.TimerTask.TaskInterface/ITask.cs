@@ -7,17 +7,13 @@
  * * 内容摘要   : 线程结束的通知委托
  * * 修改记录   : 
  * * 日    期       版    本        修改人      修改摘要
- * *
+ * * 2011/3/22      V2.1            吕金明      修改之前不太合理的需要用户写trycatch的逻辑，修改完成回调由线程池完成
  * ********************************************************************************/
 using System;
 
 
 namespace Component.TimerTask.TaskInterface
 {
-    ///// <summary>
-    ///// 线程结束的通知委托
-    ///// </summary>
-    //public delegate void DEL_TaskComplete(object sender, EventArgs e);
 
     /// <summary>
     /// 定时任务要实现的接口
@@ -27,11 +23,11 @@ namespace Component.TimerTask.TaskInterface
 
         #region Normal
 
-        //private DEL_TaskComplete _ThreadCompleteFunc;
         private System.Threading.WaitCallback _OnFuncComplete = null;
         /// <summary>
         /// 通知外部事件，线程执行结束
         /// </summary>
+        /// <remarks>调度引擎本身调用，其它部件调用无效</remarks>
         /// <value>The thread complete func.</value>
         public System.Threading.WaitCallback OnFuncComplete
         {
@@ -66,7 +62,6 @@ namespace Component.TimerTask.TaskInterface
             if (_OnFuncComplete != null)
             {
                 System.Threading.ThreadPool.QueueUserWorkItem(this._OnFuncComplete);
-                //_ThreadCompleteFunc.Invoke(this, null);
             }
         }
 
