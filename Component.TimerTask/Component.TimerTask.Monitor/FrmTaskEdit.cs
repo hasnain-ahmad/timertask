@@ -101,7 +101,7 @@ namespace Component.TimerTask.Monitor
             }
             if (this.cbx_Frequnce.Text == Model.Enums.TaskFrequence.Once.ToString())
             {
-                this.nud_SpaceTime.Value = 0;
+                this.nud_SpaceTime.Value = 1;
             }
             if (this.cbx_Frequnce.Text == Model.Enums.TaskFrequence.Day.ToString())
             {
