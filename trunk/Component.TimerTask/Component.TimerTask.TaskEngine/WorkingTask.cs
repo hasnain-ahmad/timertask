@@ -159,15 +159,15 @@ namespace Component.TimerTask.TaskEngine
                 DateTime dtNow = DateTime.Now;
                 if (_Task.TaskEntity.RunSpaceType == TaskFrequence.Once)
                 {
-                    if (_Task.TaskEntity.DateStart < dtNow && _LastRunTime < dtNow.AddDays(-1))
+                    if (_Task.TaskEntity.DateStart >= dtNow)
                     {
-                        {//如果执行频率为只一次，并且还没到开始时间，并且上次执行时间离现在大于1天
-                            //if (!_RunTimeList.Contains(_Task.TaskEntity.DateStart))
-                            //{
-                            _RunTimeList.Enqueue(_Task.TaskEntity.DateStart);
-                            _IsTimeQueueEnd = true;
-                            //}
-                        }
+                        //{//如果执行频率为只一次，并且还没到开始时间，并且上次执行时间离现在大于1天
+                        //if (!_RunTimeList.Contains(_Task.TaskEntity.DateStart))
+                        //{
+                        _RunTimeList.Enqueue(_Task.TaskEntity.DateStart);
+                        _IsTimeQueueEnd = true;
+                        //}
+                        //}
                     }
                     return;
                 }
