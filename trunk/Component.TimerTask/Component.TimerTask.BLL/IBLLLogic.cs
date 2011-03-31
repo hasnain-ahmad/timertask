@@ -18,7 +18,7 @@ using Component.TimerTask.Model;
 namespace Component.TimerTask.BLL
 {
     /// <summary>
-    /// 附带其它逻辑的业务逻辑接口
+    /// 附带其它逻辑的业务逻辑接口[包含外部操作接口和内部维护接口的Facade]
     /// </summary>
     public interface IBLLLogic : IBLLService
     {
