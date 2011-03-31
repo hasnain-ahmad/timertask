@@ -57,5 +57,10 @@ namespace Component.TimerTask.Config
         /// 引擎进程名称
         /// </summary>
         public static string STR_ENGINE_PROCESS_NAME = "Component.TimerTask.TaskManager";
+
+        /// <summary>
+        /// 注册应用程序的XML文件名称
+        /// </summary>
+        public static string REGEST_APP_CFG_FILE = "RegistedApps.xml";
     }
 }

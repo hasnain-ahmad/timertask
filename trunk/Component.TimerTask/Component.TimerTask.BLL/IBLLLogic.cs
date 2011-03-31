@@ -65,10 +65,5 @@ namespace Component.TimerTask.BLL
         /// <param name="paraLogType">Type of the para log.</param>
         void WriteLog(Int64 paraTaskid, string paraTaskName, string paraContent, Model.Enums.LogType paraLogType);
 
-        //void AddTask2DB(TaskEntity paraTask);
-
-        //void UpdateTask2DB(TaskEntity paraTask);
-
-        //void DeleteTask2DB(Int64 paraTaskID);
     }
 }
