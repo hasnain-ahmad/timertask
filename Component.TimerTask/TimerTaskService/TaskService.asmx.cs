@@ -33,7 +33,7 @@ namespace TimerTaskService
     [ToolboxItem(false)]
     public class TaskService : System.Web.Services.WebService, IBLLService
     {
-        private static IBLLService _BLL = BLlFactory.GetBLL();
+        private static IBLLService _BLL = BLLFactory.GetBLL();
 
         [WebMethod]
         public string HelloWorld()
