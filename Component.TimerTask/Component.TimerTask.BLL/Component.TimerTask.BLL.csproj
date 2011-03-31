@@ -40,7 +40,6 @@
   <ItemGroup>
     <Compile Include="BLLEngineRescue_DB.cs" />
     <Compile Include="BLLService.cs" />
-    <Compile Include="BLlFactory.cs" />
     <Compile Include="IBLLEngineRescue.cs" />
     <Compile Include="IBLLLogic.cs" />
     <Compile Include="IBLLService.cs" />

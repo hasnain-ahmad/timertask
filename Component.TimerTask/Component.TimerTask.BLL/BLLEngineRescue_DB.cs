@@ -15,7 +15,10 @@ using System.Text;
 
 namespace Component.TimerTask.BLL
 {
-    class BLLEngineRescue_DB : IBLLEngineRescue
+    /// <summary>
+    /// 引擎营救接口
+    /// </summary>
+    internal class BLLEngineRescue_DB : IBLLEngineRescue
     {
 
         private DAL.IDataAccess _DA = DAL.DALFactory.GetDataAccess();
@@ -26,16 +29,27 @@ namespace Component.TimerTask.BLL
 
         #region IBLLEngineRescue 成员
 
+        /// <summary>
+        /// 发送心跳数据
+        /// </summary>
         public void WriteHeart()
         {
             _DA.WriteHeartDate();
         }
 
+        /// <summary>
+        /// 开始接收心跳数据
+        /// </summary>
         public void StartRecieveHeartData()
         {
             //do nothing
         }
 
+        /// <summary>
+        /// 是否长时间未接受到数据
+        /// </summary>
+        /// <param name="timeOutSeconds">超时时间（超过多长时间算超时）</param>
+        /// <returns></returns>
         public bool IsNotRecievedLongTime(int timeOutSeconds)
         {
             this._LastRecieveDate = _DA.ReadHeartDate();
