@@ -141,6 +141,7 @@ namespace Component.TimerTask.TaskEngine
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message + "\n" + ex.StackTrace);
                     LogEntity log = new LogEntity();
                     log.LogContent = ex.Message;
                     log.LogType = Component.TimerTask.Model.Enums.LogType.SocketServerRecievveError;

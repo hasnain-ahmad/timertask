@@ -44,6 +44,7 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="DBStructureInfo.cs" />
     <Compile Include="DALFactory.cs" />
+    <Compile Include="DBUtility\SQLiteHelper.cs" />
     <Compile Include="IDataAccess.cs" />
     <Compile Include="Mapper\DataMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
