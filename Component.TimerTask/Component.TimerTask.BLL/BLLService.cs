@@ -26,7 +26,7 @@ using Component.TimerTask.Config;
 namespace Component.TimerTask.BLL
 {
     /// <summary>
-    /// 外部接口实现类
+    /// 业务逻辑实现类【包括 IBLLLogic 和 IBLLService】
     /// </summary>
     internal class BLLService : IBLLLogic
     {

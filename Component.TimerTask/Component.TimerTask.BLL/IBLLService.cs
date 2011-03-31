@@ -19,7 +19,7 @@ using Component.TimerTask.Model.Enums;
 namespace Component.TimerTask.BLL
 {
     /// <summary>
-    /// 业务逻辑接口
+    /// 业务逻辑接口[外部操作接口的Facade]
     /// <remarks>WebService相关接口都在这个接口中</remarks>
     /// </summary>
     public interface IBLLService
