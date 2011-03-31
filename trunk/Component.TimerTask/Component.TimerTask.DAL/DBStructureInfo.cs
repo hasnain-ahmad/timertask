@@ -11,9 +11,9 @@
  * ********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Component.TimerTask.Utility;
-using System.IO;
 
 namespace Component.TimerTask.DAL
 {
@@ -22,38 +22,53 @@ namespace Component.TimerTask.DAL
     /// </summary>
     class DBStructureInfo
     {
+        /// <summary>
+        /// 数据库连接串-计划任务库
+        /// </summary>
         public static string ConnectionString = string.Format("Data Source={0}", Path.Combine(AssemblyHelper.GetAssemblyPath(), "timertaskdb.db3"));
+
+        /// <summary>
+        /// 数据库连接串-日志库
+        /// </summary>
         public static string ConnectionString_log = string.Format("Data Source={0}", Path.Combine(AssemblyHelper.GetAssemblyPath(), "timertaskdb_log.db3"));
 
+        /// <summary>
+        /// 初始化SQL-创建计划表
+        /// </summary>
         public static readonly string INIT_DB_SQL_CREATETABLE_TASK = @"CREATE TABLE [PL_TimerTask] (
-[ID] INTEGER  PRIMARY KEY NOT NULL,
-[Name] NVARCHAR2(50)  NOT NULL,
-[TaskAppName] NVARCHAR2(50)  NOT NULL,
-[Enable] Char(5)  NOT NULL,
-[CreateDate] DATE  NULL,
-[DateStart] DATE  NOT NULL,
-[DateEnd] DATE  NOT NULL,
-[RunSpaceTimeSecs] INTEGER  NOT NULL,
-[RunSpaceType] NVARCHAR2(50)  NULL,
-[ExtraParaStr] NVARCHAR2(200)  NULL,
-[RunTimeOutSecs] INTEGER
-);";
+            [ID] INTEGER  PRIMARY KEY NOT NULL,
+            [Name] NVARCHAR2(50)  NOT NULL,
+            [TaskAppName] NVARCHAR2(50)  NOT NULL,
+            [Enable] Char(5)  NOT NULL,
+            [CreateDate] DATE  NULL,
+            [DateStart] DATE  NOT NULL,
+            [DateEnd] DATE  NOT NULL,
+            [RunSpaceTimeSecs] INTEGER  NOT NULL,
+            [RunSpaceType] NVARCHAR2(50)  NULL,
+            [ExtraParaStr] NVARCHAR2(200)  NULL,
+            [RunTimeOutSecs] INTEGER
+            );";
 
+
+        /// <summary>
+        /// 初始化SQL-创建日志表
+        /// </summary>
         public static readonly string INIT_DB_SQL_CREATETABLE_LOG = @"CREATE TABLE [PL_TimerTask_Log] (
-[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-[LogDate] DATE  NULL,
-[TaskID] INTEGER  NULL,
-[TaskName] NVARCHAR2(50)  NULL,
-[LogType] NVARCHAR2(50)  NULL,
-[LogContent] NVARCHAR2(500)  NULL
-);";
+            [ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+            [LogDate] DATE  NULL,
+            [TaskID] INTEGER  NULL,
+            [TaskName] NVARCHAR2(50)  NULL,
+            [LogType] NVARCHAR2(50)  NULL,
+            [LogContent] NVARCHAR2(500)  NULL
+            );";
 
         /// <summary>
         /// 接收心跳数据的表
         /// </summary>
         public static readonly string INIT_DB_SQL_CREATETABLE_HEART = @"CREATE TABLE [PL_TimerTask_Heart] (
-[LogDate] DATE  NULL
-);";
+            [LogDate] DATE  NULL
+            );";
+
         public static readonly string DB_SQL_SYSTABS = @"select tbl_name from sqlite_master";
         public static readonly string DB_SQL_SYSTABS_TBCOUNT = @"select COUNT(*) from sqlite_master";
 

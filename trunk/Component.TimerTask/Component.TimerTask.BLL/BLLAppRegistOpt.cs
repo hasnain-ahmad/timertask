@@ -1,9 +1,20 @@
-﻿using System;
+﻿/*******************************************************************************
+ * * 版权所有(C) LJM Info 2011
+ * * 文件名称   : BLLAppRegistOpt.cs
+ * * 当前版本   : 1.0.0.1
+ * * 作    者   : 吕金明 (lvjm@163.com)
+ * * 设计日期   : 2011年3月31日
+ * * 内容摘要   : 操作注册应用程序文件的接口
+ * * 修改记录   : 
+ * * 日    期       版    本        修改人      修改摘要
+ * 
+ * ********************************************************************************/
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Component.TimerTask.Model;
 using System.Xml;
 using Component.TimerTask.Config;
+using Component.TimerTask.Model;
 using Component.TimerTask.Utility;
 
 namespace Component.TimerTask.BLL
