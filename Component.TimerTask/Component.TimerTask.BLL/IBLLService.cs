@@ -31,7 +31,7 @@ namespace Component.TimerTask.BLL
         /// <param name="paraName">计划名称</param>
         /// <param name="paraDateStart">第一次执行时间</param>
         /// <param name="paraDateEnd">执行结束日期</param>
-        /// <param name="paraAppName">添加任务对应的程序名称(在RegestedApps.xml中配置的名称)</param>
+        /// <param name="paraAppName">添加任务对应的程序名称(在RegistedApps.xml中配置的名称)</param>
         /// <param name="paraRunSpaceTimeSecs">周期数（秒）</param>
         /// <param name="paraRunSpaceType">周期类型（便于存储和下次查看）</param>
         /// <param name="paraExtraStr">The para extra STR.</param>

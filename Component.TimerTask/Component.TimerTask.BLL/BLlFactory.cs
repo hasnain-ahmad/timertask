@@ -25,6 +25,7 @@ namespace Component.TimerTask.BLL
 
         private static IBLLEngineRescue _IbllEngineRes = null;
         private static readonly object objLockEngionRes = new object();
+        private static IBLLAppRegistOpt _IbllRegistApp = null;
 
         /// <summary>
         /// 获取引擎营救接口
@@ -90,6 +91,28 @@ namespace Component.TimerTask.BLL
                 }
             }
             return _bll;
+        }
+
+        /// <summary>
+        /// 获取业务逻辑服务接口
+        /// </summary>
+        /// <returns></returns>
+        public static IBLLAppRegistOpt GetBllRegistApp()
+        {
+            if (_IbllRegistApp == null)
+            {
+                lock (objlock)
+                {
+                    if (_IbllRegistApp == null)
+                    {
+                        lock (objlock)
+                        {
+                            _IbllRegistApp = new BLLAppRegistOpt();
+                        }
+                    }
+                }
+            }
+            return _IbllRegistApp;
         }
     }
 }

@@ -30,11 +30,6 @@ namespace Component.TimerTask.BLL
     /// </summary>
     internal class BLLService : IBLLLogic
     {
-        ///// <summary>
-        ///// 定时任务管理器 进程名称
-        ///// </summary>
-        //private const string TIMERMANAGER_PROCESSNAME = "Component.TimerTask.TaskManager";
-
         /// <summary>
         /// 数据访问接口
         /// </summary>
@@ -45,9 +40,9 @@ namespace Component.TimerTask.BLL
         /// Gets the regested apps.
         /// </summary>
         /// <returns></returns>
-        private List<TaskAssembly> GetRegestedApps()
+        private List<TaskAssembly> GetRegistedApps()
         {
-            return RegestAppCfgHelper.GetAllApps();
+            return BLLFactory.GetBllRegistApp().GetAllApps();
         }
 
         /// <summary>
@@ -142,10 +137,10 @@ namespace Component.TimerTask.BLL
         {
             try
             {
-                TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
+                TaskAssembly assembly = BLLFactory.GetBllRegistApp().GetRegestedApp(paraAppName);
                 if (assembly == null)
                 {
-                    throw new Exception(string.Format("添加的计划的程序(RegestesAppName){0}尚未在配置文件(RegestedApps.xml)中注册", paraAppName));
+                    throw new Exception(string.Format("添加的计划的程序(RegestesAppName){0}尚未在配置文件(RegistedApps.xml)中注册", paraAppName));
                 }
                 else
                 {
@@ -260,10 +255,10 @@ namespace Component.TimerTask.BLL
         {
             try
             {
-                TaskAssembly assembly = RegestAppCfgHelper.GetRegestedApp(paraAppName);
+                TaskAssembly assembly = BLLFactory.GetBllRegistApp().GetRegestedApp(paraAppName);
                 if (assembly == null)
                 {
-                    throw new Exception(string.Format("更新的计划的程序(RegestesAppName){0}尚未在配置文件(RegestedApps.xml)中注册", paraAppName));
+                    throw new Exception(string.Format("更新的计划的程序(RegestesAppName){0}尚未在配置文件(RegistedApps.xml)中注册", paraAppName));
                 }
                 else
                 {
@@ -368,7 +363,7 @@ namespace Component.TimerTask.BLL
         public List<string> GetRegestedApp()
         {
             List<string> sc = new List<string>();
-            foreach (TaskAssembly ass in GetRegestedApps())
+            foreach (TaskAssembly ass in GetRegistedApps())
             {
                 sc.Add(ass.UserName);
             }
@@ -452,7 +447,7 @@ namespace Component.TimerTask.BLL
         public List<Task> GetTaskList()
         {
             List<TaskEntity> entitylist = this.GetTaskEntityList().FindAll(delegate(TaskEntity entity) { return entity.Enable == true; });
-            List<TaskAssembly> assList = this.GetRegestedApps();
+            List<TaskAssembly> assList = this.GetRegistedApps();
 
             List<Task> list = new List<Task>();
             foreach (TaskEntity t in entitylist)
@@ -502,7 +497,7 @@ namespace Component.TimerTask.BLL
         /// <returns></returns>
         public Task GetTask(TaskEntity paraEntity)
         {
-            List<TaskAssembly> assList = this.GetRegestedApps();
+            List<TaskAssembly> assList = this.GetRegistedApps();
 
             List<Task> list = new List<Task>();
             TaskAssembly assembly = assList.Find(delegate(TaskAssembly a) { return a.UserName == paraEntity.RegestesAppName; });
