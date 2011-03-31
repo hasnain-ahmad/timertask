@@ -149,7 +149,7 @@ namespace Component.TimerTask.TaskEngine
         /// <summary>
         /// 根据上次运行时间构建时间队列
         /// <remarks>暂定一次构建100个</remarks>
-        /// <see cref="这个算法写了很长时间"/>
+        /// <see cref="这个算法写了很长时间,应该改为策略模式"/>
         /// </summary>
         /// <returns></returns>
         private void BuildTimeQueueByLastRunTime()
@@ -173,15 +173,18 @@ namespace Component.TimerTask.TaskEngine
                 }
                 else if (_Task.TaskEntity.RunSpaceType == TaskFrequence.Month)
                 {
-                    DateTime dtBuildStart = _LastRunTime.AddMonths(1);
-                    if (_Task.TaskEntity.DateStart > _LastRunTime) dtBuildStart = _Task.TaskEntity.DateStart;
+                    DateTime dtBuildStart = _Task.TaskEntity.DateStart;
+                    while (dtBuildStart < dtNow) dtBuildStart = dtBuildStart.AddMonths(1);
                     int i = 0;
                     while (i < 100)//构建100个
                     {
-                        DateTime dtThis = dtBuildStart.AddMonths(i);
+                        DateTime dtThis = dtBuildStart.AddMonths(1 * i);
                         if (dtThis <= _Task.TaskEntity.DateEnd)
                         {
-                            _RunTimeList.Enqueue(dtThis);
+                            if (!_RunTimeList.Contains(dtThis))
+                            {
+                                _RunTimeList.Enqueue(dtThis);
+                            }
                         }
                         else
                         {
@@ -191,6 +194,25 @@ namespace Component.TimerTask.TaskEngine
                         i++;
                     }
                     return;
+                    ////
+                    //DateTime dtBuildStart = _LastRunTime.AddMonths(1);
+                    //if (_Task.TaskEntity.DateStart > _LastRunTime) dtBuildStart = _Task.TaskEntity.DateStart;
+                    //int i = 0;
+                    //while (i < 100)//构建100个
+                    //{
+                    //    DateTime dtThis = dtBuildStart.AddMonths(i);
+                    //    if (dtThis <= _Task.TaskEntity.DateEnd)
+                    //    {
+                    //        _RunTimeList.Enqueue(dtThis);
+                    //    }
+                    //    else
+                    //    {
+                    //        _IsTimeQueueEnd = true;
+                    //        break;
+                    //    }
+                    //    i++;
+                    //}
+                    //return;
                 }
                 else
                 {
@@ -234,6 +256,7 @@ namespace Component.TimerTask.TaskEngine
 
             _IsTimeQueueEnd = false;
             _RunTimeList.Clear();
+
             this.BuildTimeQueueByLastRunTime();
 
             UpdateNextRunTime();
