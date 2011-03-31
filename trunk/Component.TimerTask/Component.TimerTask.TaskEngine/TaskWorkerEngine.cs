@@ -238,6 +238,7 @@ namespace Component.TimerTask.TaskEngine
                 }
                 else
                 {
+                    Console.WriteLine("任务列表中不存在ID为：{0}的任务。", paraTaskId);
                     return false;
                 }
             }
