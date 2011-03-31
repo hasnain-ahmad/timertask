@@ -33,7 +33,7 @@ namespace TimerTaskService
             }
             catch(Exception ex)
             {
-                IBLLService bll = BLlFactory.GetBLL();
+                IBLLService bll = BLLFactory.GetBLL();
                 LogEntity log = new LogEntity();
                 log.LogContent = ex.Message;
                 //log.LogDate = DateTime.Now;
