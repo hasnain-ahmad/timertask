@@ -40,7 +40,7 @@ namespace Component.TimerTask.TaskEngine
         /// </summary>
         public TaskWorkerEngine(int paraIdleSecs)
         {
-            _IBLLLogic = BLL.BLlFactory.GetBllLogic();
+            _IBLLLogic = BLL.BLLFactory.GetBllLogic();
             _IdleSpanInMSecs = paraIdleSecs;
         }
 
@@ -51,7 +51,7 @@ namespace Component.TimerTask.TaskEngine
         /// </summary>
         private void ThreadFuncEngine(object state)
         {
-            IBLLEngineRescue ibllEngineRescue = BLlFactory.GetBLLEngineRes();
+            IBLLEngineRescue ibllEngineRescue = BLLFactory.GetBLLEngineRes();
             while (true)
             {
                 //发送心跳数据
