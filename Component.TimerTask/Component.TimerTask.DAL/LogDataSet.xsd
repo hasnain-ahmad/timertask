@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="LogDataSet" targetNamespace="http://tempuri.org/LogDataSet.xsd" xmlns:mstns="http://tempuri.org/LogDataSet.xsd" xmlns="http://tempuri.org/LogDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="LogDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="LogDataSet" msprop:Generator_UserDSName="LogDataSet" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="PL_TimerTask_Log" msprop:Generator_UserTableName="PL_TimerTask_Log" msprop:Generator_RowDeletedName="PL_TimerTask_LogRowDeleted" msprop:Generator_TableClassName="PL_TimerTask_LogDataTable" msprop:Generator_RowChangedName="PL_TimerTask_LogRowChanged" msprop:Generator_RowClassName="PL_TimerTask_LogRow" msprop:Generator_RowChangingName="PL_TimerTask_LogRowChanging" msprop:Generator_RowEvArgName="PL_TimerTask_LogRowChangeEvent" msprop:Generator_RowEvHandlerName="PL_TimerTask_LogRowChangeEventHandler" msprop:Generator_TablePropName="PL_TimerTask_Log" msprop:Generator_TableVarName="tablePL_TimerTask_Log" msprop:Generator_RowDeletingName="PL_TimerTask_LogRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" msdata:AutoIncrement="true" msdata:Caption="序号" msprop:Generator_UserColumnName="ID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInTable="IDColumn" type="xs:long" />
+              <xs:element name="LogDate" msdata:Caption="记录时间" msprop:Generator_UserColumnName="LogDate" msprop:Generator_ColumnPropNameInRow="LogDate" msprop:Generator_ColumnVarNameInTable="columnLogDate" msprop:Generator_ColumnPropNameInTable="LogDateColumn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="TaskID" msdata:Caption="计划号" msprop:Generator_UserColumnName="TaskID" msprop:Generator_ColumnPropNameInRow="TaskID" msprop:Generator_ColumnVarNameInTable="columnTaskID" msprop:Generator_ColumnPropNameInTable="TaskIDColumn" type="xs:long" minOccurs="0" />
+              <xs:element name="TaskName" msdata:Caption="计划名称" msprop:Generator_UserColumnName="TaskName" msprop:Generator_ColumnPropNameInRow="TaskName" msprop:Generator_ColumnVarNameInTable="columnTaskName" msprop:Generator_ColumnPropNameInTable="TaskNameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="LogType" msdata:Caption="日志类型" msprop:Generator_UserColumnName="LogType" msprop:Generator_ColumnPropNameInRow="LogType" msprop:Generator_ColumnVarNameInTable="columnLogType" msprop:Generator_ColumnPropNameInTable="LogTypeColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="LogContent" msdata:Caption="日志内容" msprop:Generator_UserColumnName="LogContent" msprop:Generator_ColumnPropNameInRow="LogContent" msprop:Generator_ColumnVarNameInTable="columnLogContent" msprop:Generator_ColumnPropNameInTable="LogContentColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:PL_TimerTask_Log" />
+      <xs:field xpath="mstns:ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

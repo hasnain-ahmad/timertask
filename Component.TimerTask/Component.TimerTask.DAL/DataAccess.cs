@@ -29,6 +29,7 @@ namespace Component.TimerTask.DAL
     internal class DataAccess : IDataAccess
     {
         private TaskDataSet _DataSet;
+        private DataAccess_Log _Log = new DataAccess_Log();
 
         /// <summary>
         /// 构造函数
@@ -48,8 +49,6 @@ namespace Component.TimerTask.DAL
             {
                 string sql = "SELECT MAX(ID) + 1 FROM {0}";
                 _DataSet.PL_TimerTask.IDColumn.AutoIncrementSeed = int.Parse("0" + SqliteHelper.ExecuteScalar(string.Format(sql, _DataSet.PL_TimerTask.TableName)).ToString());
-
-                _DataSet.PL_TimerTask_Log.IDColumn.AutoIncrementSeed = int.Parse("0" + SqliteHelper.ExecuteScalar(string.Format(sql, _DataSet.PL_TimerTask_Log.TableName)).ToString());
             }
             catch
             {
@@ -204,10 +203,7 @@ namespace Component.TimerTask.DAL
 
         public bool WriteLog(LogEntity paraLog)
         {
-            TaskDataSet.PL_TimerTask_LogRow logRow = _DataSet.PL_TimerTask_Log.NewPL_TimerTask_LogRow();
-            Mapper.DataMapper.ReserMappingLogEntity(paraLog, ref logRow);
-            _DataSet.PL_TimerTask_Log.AddPL_TimerTask_LogRow(logRow);
-            return Save2DB();
+            return _Log.WriteLog(paraLog);
         }
         public void WriteLog(long paraTaskid, string paraTaskName, string paraContent, Component.TimerTask.Model.Enums.LogType paraLogType)
         {
@@ -223,8 +219,9 @@ namespace Component.TimerTask.DAL
         public bool Save2DB()
         {
             string s = string.Empty;
-            return SqliteHelper.SaveDataSet(_DataSet, _DataSet.PL_TimerTask.TableName, ref s) |
-               SqliteHelper.SaveDataSet(_DataSet, _DataSet.PL_TimerTask_Log.TableName, ref s);
+            return SqliteHelper.SaveDataSet(_DataSet, _DataSet.PL_TimerTask.TableName, ref s);
+            //|
+            //   SqliteHelper.SaveDataSet(_DataSet, _DataSet.PL_TimerTask_Log.TableName, ref s);
         }
 
         #endregion
@@ -234,36 +231,31 @@ namespace Component.TimerTask.DAL
 
         public DataTable GetLog(string paraRegestedAppName)
         {
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " +
-                _DataSet.PL_TimerTask_Log.TaskIDColumn.ColumnName + " IN ( SELECT " +
+            string sql = "SELECT " +
                 _DataSet.PL_TimerTask.IDColumn.ColumnName + " FROM " + _DataSet.PL_TimerTask.TableName + " WHERE " +
-                _DataSet.PL_TimerTask.TaskAppNameColumn.ColumnName + "='" + paraRegestedAppName + "')";
+                _DataSet.PL_TimerTask.TaskAppNameColumn.ColumnName + "='" + paraRegestedAppName + "'";
             DataTable dt = SqliteHelper.ExecuteDataset(sql).Tables[0];
-            return dt;
+            List<string> taskIds = new List<string>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                taskIds.Add(dr[_DataSet.PL_TimerTask.IDColumn.ColumnName].ToString());
+            }
+            return _Log.GetLog(taskIds);
         }
 
         public DataTable GetLog(DateTime paraDateStart, DateTime paraDateEnd)
         {
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " +
-                _DataSet.PL_TimerTask_Log.LogDateColumn.ColumnName + ">=datetime('{0}')" + " AND " +
-                _DataSet.PL_TimerTask_Log.LogDateColumn.ColumnName + "<=datetime('{1}')";
-            DataTable dt = SqliteHelper.ExecuteDataset(string.Format(sql, paraDateStart.ToString("s"), paraDateEnd.ToString("s"))).Tables[0];
-
-            return dt;
+            return _Log.GetLog(paraDateStart, paraDateEnd);
         }
 
         public System.Data.DataSet GetAllLog()
         {
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName;
-            return SqliteHelper.ExecuteDataset(sql);
+            return _Log.GetAllLog();
         }
 
         public DataTable GetLog(Int64 paraTaskId)
         {
-
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " + _DataSet.PL_TimerTask_Log.TaskIDColumn.ColumnName + "=" + paraTaskId.ToString();
-            DataTable dt = SqliteHelper.ExecuteDataset(sql).Tables[0];
-            return dt;
+            return _Log.GetLog(paraTaskId);
         }
         #endregion
 
@@ -272,16 +264,7 @@ namespace Component.TimerTask.DAL
 
         public LogEntity GetLog_LatestRun(long paraTaskId, LogType paraLogType)
         {
-            string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " + " ID=( SELECT MAX(ID) FROM " +
-                _DataSet.PL_TimerTask_Log.TableName + " WHERE " + _DataSet.PL_TimerTask_Log.LogTypeColumn.ColumnName + "='" + paraLogType.ToString() + "')";
-            DataTable dt = SqliteHelper.ExecuteDataset(sql).Tables[0];
-            TaskDataSet.PL_TimerTask_LogDataTable table = new TaskDataSet.PL_TimerTask_LogDataTable(dt);
-            if (table.Rows.Count > 0)
-            {
-                return Mapper.DataMapper.MappingLogEntity((TaskDataSet.PL_TimerTask_LogRow)table.Rows[0]);
-            }
-            else
-                return null;
+            return _Log.GetLog_LatestRun(paraTaskId, paraLogType);
         }
 
         #endregion

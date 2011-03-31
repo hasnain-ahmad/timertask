@@ -57,7 +57,7 @@ namespace Component.TimerTask.DAL.Mapper
             paraRow.TaskAppName = paraTaskEntity.RegestesAppName;
         }
 
-        public static LogEntity MappingLogEntity(TaskDataSet.PL_TimerTask_LogRow paraDr)
+        public static LogEntity MappingLogEntity(LogDataSet.PL_TimerTask_LogRow paraDr)
         {
             return new LogEntity(
                 paraDr.ID,
@@ -69,7 +69,7 @@ namespace Component.TimerTask.DAL.Mapper
                 );
         }
 
-        public static void ReserMappingLogEntity(LogEntity paraLog, ref TaskDataSet.PL_TimerTask_LogRow paraLogRow)
+        public static void ReserMappingLogEntity(LogEntity paraLog, ref LogDataSet.PL_TimerTask_LogRow paraLogRow)
         {
             paraLogRow.LogDate = paraLog.LogDate;
             paraLogRow.LogType = paraLog.LogType.ToString();

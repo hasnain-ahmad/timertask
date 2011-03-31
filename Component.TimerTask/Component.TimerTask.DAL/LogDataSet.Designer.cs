@@ -21,16 +21,16 @@ namespace Component.TimerTask.DAL {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("TaskDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("LogDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class TaskDataSet : global::System.Data.DataSet {
+    public partial class LogDataSet : global::System.Data.DataSet {
         
-        private PL_TimerTaskDataTable tablePL_TimerTask;
+        private PL_TimerTask_LogDataTable tablePL_TimerTask_Log;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public TaskDataSet() {
+        public LogDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -40,7 +40,7 @@ namespace Component.TimerTask.DAL {
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        protected TaskDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected LogDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -53,8 +53,8 @@ namespace Component.TimerTask.DAL {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["PL_TimerTask"] != null)) {
-                    base.Tables.Add(new PL_TimerTaskDataTable(ds.Tables["PL_TimerTask"]));
+                if ((ds.Tables["PL_TimerTask_Log"] != null)) {
+                    base.Tables.Add(new PL_TimerTask_LogDataTable(ds.Tables["PL_TimerTask_Log"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -77,9 +77,9 @@ namespace Component.TimerTask.DAL {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public PL_TimerTaskDataTable PL_TimerTask {
+        public PL_TimerTask_LogDataTable PL_TimerTask_Log {
             get {
-                return this.tablePL_TimerTask;
+                return this.tablePL_TimerTask_Log;
             }
         }
         
@@ -120,7 +120,7 @@ namespace Component.TimerTask.DAL {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public override global::System.Data.DataSet Clone() {
-            TaskDataSet cln = ((TaskDataSet)(base.Clone()));
+            LogDataSet cln = ((LogDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -142,8 +142,8 @@ namespace Component.TimerTask.DAL {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["PL_TimerTask"] != null)) {
-                    base.Tables.Add(new PL_TimerTaskDataTable(ds.Tables["PL_TimerTask"]));
+                if ((ds.Tables["PL_TimerTask_Log"] != null)) {
+                    base.Tables.Add(new PL_TimerTask_LogDataTable(ds.Tables["PL_TimerTask_Log"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -175,27 +175,27 @@ namespace Component.TimerTask.DAL {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         internal void InitVars(bool initTable) {
-            this.tablePL_TimerTask = ((PL_TimerTaskDataTable)(base.Tables["PL_TimerTask"]));
+            this.tablePL_TimerTask_Log = ((PL_TimerTask_LogDataTable)(base.Tables["PL_TimerTask_Log"]));
             if ((initTable == true)) {
-                if ((this.tablePL_TimerTask != null)) {
-                    this.tablePL_TimerTask.InitVars();
+                if ((this.tablePL_TimerTask_Log != null)) {
+                    this.tablePL_TimerTask_Log.InitVars();
                 }
             }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitClass() {
-            this.DataSetName = "TaskDataSet";
+            this.DataSetName = "LogDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/TaskDataSet.xsd";
+            this.Namespace = "http://tempuri.org/LogDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tablePL_TimerTask = new PL_TimerTaskDataTable();
-            base.Tables.Add(this.tablePL_TimerTask);
+            this.tablePL_TimerTask_Log = new PL_TimerTask_LogDataTable();
+            base.Tables.Add(this.tablePL_TimerTask_Log);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        private bool ShouldSerializePL_TimerTask() {
+        private bool ShouldSerializePL_TimerTask_Log() {
             return false;
         }
         
@@ -208,7 +208,7 @@ namespace Component.TimerTask.DAL {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            TaskDataSet ds = new TaskDataSet();
+            LogDataSet ds = new LogDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -252,7 +252,7 @@ namespace Component.TimerTask.DAL {
             return type;
         }
         
-        public delegate void PL_TimerTaskRowChangeEventHandler(object sender, PL_TimerTaskRowChangeEvent e);
+        public delegate void PL_TimerTask_LogRowChangeEventHandler(object sender, PL_TimerTask_LogRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -260,40 +260,30 @@ namespace Component.TimerTask.DAL {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class PL_TimerTaskDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
+        public partial class PL_TimerTask_LogDataTable : global::System.Data.DataTable, global::System.Collections.IEnumerable {
             
             private global::System.Data.DataColumn columnID;
             
-            private global::System.Data.DataColumn columnName;
+            private global::System.Data.DataColumn columnLogDate;
             
-            private global::System.Data.DataColumn columnTaskAppName;
+            private global::System.Data.DataColumn columnTaskID;
             
-            private global::System.Data.DataColumn columnEnable;
+            private global::System.Data.DataColumn columnTaskName;
             
-            private global::System.Data.DataColumn columnCreateDate;
+            private global::System.Data.DataColumn columnLogType;
             
-            private global::System.Data.DataColumn columnDateStart;
-            
-            private global::System.Data.DataColumn columnDateEnd;
-            
-            private global::System.Data.DataColumn columnRunSpaceTimeSecs;
-            
-            private global::System.Data.DataColumn columnRunSpaceType;
-            
-            private global::System.Data.DataColumn columnExtraParaStr;
-            
-            private global::System.Data.DataColumn columnRunTimeOutSecs;
+            private global::System.Data.DataColumn columnLogContent;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskDataTable() {
-                this.TableName = "PL_TimerTask";
+            public PL_TimerTask_LogDataTable() {
+                this.TableName = "PL_TimerTask_Log";
                 this.BeginInit();
                 this.InitClass();
                 this.EndInit();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PL_TimerTaskDataTable(global::System.Data.DataTable table) {
+            internal PL_TimerTask_LogDataTable(global::System.Data.DataTable table) {
                 this.TableName = table.TableName;
                 if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
                     this.CaseSensitive = table.CaseSensitive;
@@ -309,7 +299,7 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            protected PL_TimerTaskDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+            protected PL_TimerTask_LogDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
             }
@@ -322,72 +312,37 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn NameColumn {
+            public global::System.Data.DataColumn LogDateColumn {
                 get {
-                    return this.columnName;
+                    return this.columnLogDate;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn TaskAppNameColumn {
+            public global::System.Data.DataColumn TaskIDColumn {
                 get {
-                    return this.columnTaskAppName;
+                    return this.columnTaskID;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn EnableColumn {
+            public global::System.Data.DataColumn TaskNameColumn {
                 get {
-                    return this.columnEnable;
+                    return this.columnTaskName;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn CreateDateColumn {
+            public global::System.Data.DataColumn LogTypeColumn {
                 get {
-                    return this.columnCreateDate;
+                    return this.columnLogType;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn DateStartColumn {
+            public global::System.Data.DataColumn LogContentColumn {
                 get {
-                    return this.columnDateStart;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn DateEndColumn {
-                get {
-                    return this.columnDateEnd;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RunSpaceTimeSecsColumn {
-                get {
-                    return this.columnRunSpaceTimeSecs;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RunSpaceTypeColumn {
-                get {
-                    return this.columnRunSpaceType;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn ExtraParaStrColumn {
-                get {
-                    return this.columnExtraParaStr;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public global::System.Data.DataColumn RunTimeOutSecsColumn {
-                get {
-                    return this.columnRunTimeOutSecs;
+                    return this.columnLogContent;
                 }
             }
             
@@ -400,48 +355,43 @@ namespace Component.TimerTask.DAL {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow this[int index] {
+            public PL_TimerTask_LogRow this[int index] {
                 get {
-                    return ((PL_TimerTaskRow)(this.Rows[index]));
+                    return ((PL_TimerTask_LogRow)(this.Rows[index]));
                 }
             }
             
-            public event PL_TimerTaskRowChangeEventHandler PL_TimerTaskRowChanging;
+            public event PL_TimerTask_LogRowChangeEventHandler PL_TimerTask_LogRowChanging;
             
-            public event PL_TimerTaskRowChangeEventHandler PL_TimerTaskRowChanged;
+            public event PL_TimerTask_LogRowChangeEventHandler PL_TimerTask_LogRowChanged;
             
-            public event PL_TimerTaskRowChangeEventHandler PL_TimerTaskRowDeleting;
+            public event PL_TimerTask_LogRowChangeEventHandler PL_TimerTask_LogRowDeleting;
             
-            public event PL_TimerTaskRowChangeEventHandler PL_TimerTaskRowDeleted;
+            public event PL_TimerTask_LogRowChangeEventHandler PL_TimerTask_LogRowDeleted;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void AddPL_TimerTaskRow(PL_TimerTaskRow row) {
+            public void AddPL_TimerTask_LogRow(PL_TimerTask_LogRow row) {
                 this.Rows.Add(row);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow AddPL_TimerTaskRow(string Name, string TaskAppName, string Enable, System.DateTime CreateDate, System.DateTime DateStart, System.DateTime DateEnd, long RunSpaceTimeSecs, string RunSpaceType, string ExtraParaStr, long RunTimeOutSecs) {
-                PL_TimerTaskRow rowPL_TimerTaskRow = ((PL_TimerTaskRow)(this.NewRow()));
+            public PL_TimerTask_LogRow AddPL_TimerTask_LogRow(System.DateTime LogDate, long TaskID, string TaskName, string LogType, string LogContent) {
+                PL_TimerTask_LogRow rowPL_TimerTask_LogRow = ((PL_TimerTask_LogRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Name,
-                        TaskAppName,
-                        Enable,
-                        CreateDate,
-                        DateStart,
-                        DateEnd,
-                        RunSpaceTimeSecs,
-                        RunSpaceType,
-                        ExtraParaStr,
-                        RunTimeOutSecs};
-                rowPL_TimerTaskRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowPL_TimerTaskRow);
-                return rowPL_TimerTaskRow;
+                        LogDate,
+                        TaskID,
+                        TaskName,
+                        LogType,
+                        LogContent};
+                rowPL_TimerTask_LogRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowPL_TimerTask_LogRow);
+                return rowPL_TimerTask_LogRow;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow FindByID(long ID) {
-                return ((PL_TimerTaskRow)(this.Rows.Find(new object[] {
+            public PL_TimerTask_LogRow FindByID(long ID) {
+                return ((PL_TimerTask_LogRow)(this.Rows.Find(new object[] {
                             ID})));
             }
             
@@ -452,128 +402,102 @@ namespace Component.TimerTask.DAL {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public override global::System.Data.DataTable Clone() {
-                PL_TimerTaskDataTable cln = ((PL_TimerTaskDataTable)(base.Clone()));
+                PL_TimerTask_LogDataTable cln = ((PL_TimerTask_LogDataTable)(base.Clone()));
                 cln.InitVars();
                 return cln;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataTable CreateInstance() {
-                return new PL_TimerTaskDataTable();
+                return new PL_TimerTask_LogDataTable();
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             internal void InitVars() {
                 this.columnID = base.Columns["ID"];
-                this.columnName = base.Columns["Name"];
-                this.columnTaskAppName = base.Columns["TaskAppName"];
-                this.columnEnable = base.Columns["Enable"];
-                this.columnCreateDate = base.Columns["CreateDate"];
-                this.columnDateStart = base.Columns["DateStart"];
-                this.columnDateEnd = base.Columns["DateEnd"];
-                this.columnRunSpaceTimeSecs = base.Columns["RunSpaceTimeSecs"];
-                this.columnRunSpaceType = base.Columns["RunSpaceType"];
-                this.columnExtraParaStr = base.Columns["ExtraParaStr"];
-                this.columnRunTimeOutSecs = base.Columns["RunTimeOutSecs"];
+                this.columnLogDate = base.Columns["LogDate"];
+                this.columnTaskID = base.Columns["TaskID"];
+                this.columnTaskName = base.Columns["TaskName"];
+                this.columnLogType = base.Columns["LogType"];
+                this.columnLogContent = base.Columns["LogContent"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             private void InitClass() {
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnName = new global::System.Data.DataColumn("Name", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnName);
-                this.columnTaskAppName = new global::System.Data.DataColumn("TaskAppName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTaskAppName);
-                this.columnEnable = new global::System.Data.DataColumn("Enable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnEnable);
-                this.columnCreateDate = new global::System.Data.DataColumn("CreateDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnCreateDate);
-                this.columnDateStart = new global::System.Data.DataColumn("DateStart", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateStart);
-                this.columnDateEnd = new global::System.Data.DataColumn("DateEnd", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDateEnd);
-                this.columnRunSpaceTimeSecs = new global::System.Data.DataColumn("RunSpaceTimeSecs", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRunSpaceTimeSecs);
-                this.columnRunSpaceType = new global::System.Data.DataColumn("RunSpaceType", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRunSpaceType);
-                this.columnExtraParaStr = new global::System.Data.DataColumn("ExtraParaStr", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnExtraParaStr);
-                this.columnRunTimeOutSecs = new global::System.Data.DataColumn("RunTimeOutSecs", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnRunTimeOutSecs);
+                this.columnLogDate = new global::System.Data.DataColumn("LogDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLogDate);
+                this.columnTaskID = new global::System.Data.DataColumn("TaskID", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTaskID);
+                this.columnTaskName = new global::System.Data.DataColumn("TaskName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTaskName);
+                this.columnLogType = new global::System.Data.DataColumn("LogType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLogType);
+                this.columnLogContent = new global::System.Data.DataColumn("LogContent", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLogContent);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID}, true));
                 this.columnID.AutoIncrement = true;
                 this.columnID.AllowDBNull = false;
                 this.columnID.Unique = true;
                 this.columnID.Caption = "序号";
-                this.columnName.AllowDBNull = false;
-                this.columnName.Caption = "名称";
-                this.columnTaskAppName.AllowDBNull = false;
-                this.columnTaskAppName.Caption = "程序名称";
-                this.columnEnable.AllowDBNull = false;
-                this.columnEnable.Caption = "是否可用";
-                this.columnCreateDate.Caption = "创建日期";
-                this.columnDateStart.AllowDBNull = false;
-                this.columnDateStart.Caption = "计划开始时间";
-                this.columnDateEnd.AllowDBNull = false;
-                this.columnDateEnd.Caption = "计划结束时间";
-                this.columnRunSpaceTimeSecs.AllowDBNull = false;
-                this.columnRunSpaceTimeSecs.Caption = "运行间隔";
-                this.columnRunSpaceType.Caption = "计划间隔频率";
-                this.columnExtraParaStr.Caption = "运行参数";
-                this.columnRunTimeOutSecs.Caption = "超时时间";
+                this.columnLogDate.Caption = "记录时间";
+                this.columnTaskID.Caption = "计划号";
+                this.columnTaskName.Caption = "计划名称";
+                this.columnLogType.Caption = "日志类型";
+                this.columnLogContent.Caption = "日志内容";
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow NewPL_TimerTaskRow() {
-                return ((PL_TimerTaskRow)(this.NewRow()));
+            public PL_TimerTask_LogRow NewPL_TimerTask_LogRow() {
+                return ((PL_TimerTask_LogRow)(this.NewRow()));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new PL_TimerTaskRow(builder);
+                return new PL_TimerTask_LogRow(builder);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override global::System.Type GetRowType() {
-                return typeof(PL_TimerTaskRow);
+                return typeof(PL_TimerTask_LogRow);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanged(e);
-                if ((this.PL_TimerTaskRowChanged != null)) {
-                    this.PL_TimerTaskRowChanged(this, new PL_TimerTaskRowChangeEvent(((PL_TimerTaskRow)(e.Row)), e.Action));
+                if ((this.PL_TimerTask_LogRowChanged != null)) {
+                    this.PL_TimerTask_LogRowChanged(this, new PL_TimerTask_LogRowChangeEvent(((PL_TimerTask_LogRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowChanging(e);
-                if ((this.PL_TimerTaskRowChanging != null)) {
-                    this.PL_TimerTaskRowChanging(this, new PL_TimerTaskRowChangeEvent(((PL_TimerTaskRow)(e.Row)), e.Action));
+                if ((this.PL_TimerTask_LogRowChanging != null)) {
+                    this.PL_TimerTask_LogRowChanging(this, new PL_TimerTask_LogRowChangeEvent(((PL_TimerTask_LogRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleted(e);
-                if ((this.PL_TimerTaskRowDeleted != null)) {
-                    this.PL_TimerTaskRowDeleted(this, new PL_TimerTaskRowChangeEvent(((PL_TimerTaskRow)(e.Row)), e.Action));
+                if ((this.PL_TimerTask_LogRowDeleted != null)) {
+                    this.PL_TimerTask_LogRowDeleted(this, new PL_TimerTask_LogRowChangeEvent(((PL_TimerTask_LogRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
                 base.OnRowDeleting(e);
-                if ((this.PL_TimerTaskRowDeleting != null)) {
-                    this.PL_TimerTaskRowDeleting(this, new PL_TimerTaskRowChangeEvent(((PL_TimerTaskRow)(e.Row)), e.Action));
+                if ((this.PL_TimerTask_LogRowDeleting != null)) {
+                    this.PL_TimerTask_LogRowDeleting(this, new PL_TimerTask_LogRowChangeEvent(((PL_TimerTask_LogRow)(e.Row)), e.Action));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void RemovePL_TimerTaskRow(PL_TimerTaskRow row) {
+            public void RemovePL_TimerTask_LogRow(PL_TimerTask_LogRow row) {
                 this.Rows.Remove(row);
             }
             
@@ -581,7 +505,7 @@ namespace Component.TimerTask.DAL {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                TaskDataSet ds = new TaskDataSet();
+                LogDataSet ds = new LogDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -599,7 +523,7 @@ namespace Component.TimerTask.DAL {
                 type.Attributes.Add(attribute1);
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "PL_TimerTaskDataTable";
+                attribute2.FixedValue = "PL_TimerTask_LogDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -644,184 +568,149 @@ namespace Component.TimerTask.DAL {
         ///Represents strongly named DataRow class.
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public partial class PL_TimerTaskRow : global::System.Data.DataRow {
+        public partial class PL_TimerTask_LogRow : global::System.Data.DataRow {
             
-            private PL_TimerTaskDataTable tablePL_TimerTask;
+            private PL_TimerTask_LogDataTable tablePL_TimerTask_Log;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            internal PL_TimerTaskRow(global::System.Data.DataRowBuilder rb) : 
+            internal PL_TimerTask_LogRow(global::System.Data.DataRowBuilder rb) : 
                     base(rb) {
-                this.tablePL_TimerTask = ((PL_TimerTaskDataTable)(this.Table));
+                this.tablePL_TimerTask_Log = ((PL_TimerTask_LogDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public long ID {
                 get {
-                    return ((long)(this[this.tablePL_TimerTask.IDColumn]));
+                    return ((long)(this[this.tablePL_TimerTask_Log.IDColumn]));
                 }
                 set {
-                    this[this.tablePL_TimerTask.IDColumn] = value;
+                    this[this.tablePL_TimerTask_Log.IDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Name {
-                get {
-                    return ((string)(this[this.tablePL_TimerTask.NameColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.NameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string TaskAppName {
-                get {
-                    return ((string)(this[this.tablePL_TimerTask.TaskAppNameColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.TaskAppNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string Enable {
-                get {
-                    return ((string)(this[this.tablePL_TimerTask.EnableColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.EnableColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime CreateDate {
+            public System.DateTime LogDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tablePL_TimerTask.CreateDateColumn]));
+                        return ((global::System.DateTime)(this[this.tablePL_TimerTask_Log.LogDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask”中列“CreateDate”的值为 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask_Log”中列“LogDate”的值为 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tablePL_TimerTask.CreateDateColumn] = value;
+                    this[this.tablePL_TimerTask_Log.LogDateColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateStart {
-                get {
-                    return ((global::System.DateTime)(this[this.tablePL_TimerTask.DateStartColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.DateStartColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public System.DateTime DateEnd {
-                get {
-                    return ((global::System.DateTime)(this[this.tablePL_TimerTask.DateEndColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.DateEndColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long RunSpaceTimeSecs {
-                get {
-                    return ((long)(this[this.tablePL_TimerTask.RunSpaceTimeSecsColumn]));
-                }
-                set {
-                    this[this.tablePL_TimerTask.RunSpaceTimeSecsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string RunSpaceType {
+            public long TaskID {
                 get {
                     try {
-                        return ((string)(this[this.tablePL_TimerTask.RunSpaceTypeColumn]));
+                        return ((long)(this[this.tablePL_TimerTask_Log.TaskIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask”中列“RunSpaceType”的值为 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask_Log”中列“TaskID”的值为 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tablePL_TimerTask.RunSpaceTypeColumn] = value;
+                    this[this.tablePL_TimerTask_Log.TaskIDColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public string ExtraParaStr {
+            public string TaskName {
                 get {
                     try {
-                        return ((string)(this[this.tablePL_TimerTask.ExtraParaStrColumn]));
+                        return ((string)(this[this.tablePL_TimerTask_Log.TaskNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask”中列“ExtraParaStr”的值为 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask_Log”中列“TaskName”的值为 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tablePL_TimerTask.ExtraParaStrColumn] = value;
+                    this[this.tablePL_TimerTask_Log.TaskNameColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public long RunTimeOutSecs {
+            public string LogType {
                 get {
                     try {
-                        return ((long)(this[this.tablePL_TimerTask.RunTimeOutSecsColumn]));
+                        return ((string)(this[this.tablePL_TimerTask_Log.LogTypeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask”中列“RunTimeOutSecs”的值为 DBNull。", e);
+                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask_Log”中列“LogType”的值为 DBNull。", e);
                     }
                 }
                 set {
-                    this[this.tablePL_TimerTask.RunTimeOutSecsColumn] = value;
+                    this[this.tablePL_TimerTask_Log.LogTypeColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsCreateDateNull() {
-                return this.IsNull(this.tablePL_TimerTask.CreateDateColumn);
+            public string LogContent {
+                get {
+                    try {
+                        return ((string)(this[this.tablePL_TimerTask_Log.LogContentColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("表“PL_TimerTask_Log”中列“LogContent”的值为 DBNull。", e);
+                    }
+                }
+                set {
+                    this[this.tablePL_TimerTask_Log.LogContentColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetCreateDateNull() {
-                this[this.tablePL_TimerTask.CreateDateColumn] = global::System.Convert.DBNull;
+            public bool IsLogDateNull() {
+                return this.IsNull(this.tablePL_TimerTask_Log.LogDateColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRunSpaceTypeNull() {
-                return this.IsNull(this.tablePL_TimerTask.RunSpaceTypeColumn);
+            public void SetLogDateNull() {
+                this[this.tablePL_TimerTask_Log.LogDateColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRunSpaceTypeNull() {
-                this[this.tablePL_TimerTask.RunSpaceTypeColumn] = global::System.Convert.DBNull;
+            public bool IsTaskIDNull() {
+                return this.IsNull(this.tablePL_TimerTask_Log.TaskIDColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsExtraParaStrNull() {
-                return this.IsNull(this.tablePL_TimerTask.ExtraParaStrColumn);
+            public void SetTaskIDNull() {
+                this[this.tablePL_TimerTask_Log.TaskIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetExtraParaStrNull() {
-                this[this.tablePL_TimerTask.ExtraParaStrColumn] = global::System.Convert.DBNull;
+            public bool IsTaskNameNull() {
+                return this.IsNull(this.tablePL_TimerTask_Log.TaskNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public bool IsRunTimeOutSecsNull() {
-                return this.IsNull(this.tablePL_TimerTask.RunTimeOutSecsColumn);
+            public void SetTaskNameNull() {
+                this[this.tablePL_TimerTask_Log.TaskNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public void SetRunTimeOutSecsNull() {
-                this[this.tablePL_TimerTask.RunTimeOutSecsColumn] = global::System.Convert.DBNull;
+            public bool IsLogTypeNull() {
+                return this.IsNull(this.tablePL_TimerTask_Log.LogTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLogTypeNull() {
+                this[this.tablePL_TimerTask_Log.LogTypeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsLogContentNull() {
+                return this.IsNull(this.tablePL_TimerTask_Log.LogContentColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetLogContentNull() {
+                this[this.tablePL_TimerTask_Log.LogContentColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -829,20 +718,20 @@ namespace Component.TimerTask.DAL {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "2.0.0.0")]
-        public class PL_TimerTaskRowChangeEvent : global::System.EventArgs {
+        public class PL_TimerTask_LogRowChangeEvent : global::System.EventArgs {
             
-            private PL_TimerTaskRow eventRow;
+            private PL_TimerTask_LogRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRowChangeEvent(PL_TimerTaskRow row, global::System.Data.DataRowAction action) {
+            public PL_TimerTask_LogRowChangeEvent(PL_TimerTask_LogRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public PL_TimerTaskRow Row {
+            public PL_TimerTask_LogRow Row {
                 get {
                     return this.eventRow;
                 }
