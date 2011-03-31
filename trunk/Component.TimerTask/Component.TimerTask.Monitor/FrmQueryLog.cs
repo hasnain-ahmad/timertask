@@ -16,7 +16,7 @@ namespace Component.TimerTask.Monitor
     public partial class FrmQueryLog : Form
     {
         private BLL.IBLLLogic _BLL;
-        private DAL.TaskDataSet _DataSet;
+        private DAL.LogDataSet _DataSet;
         private long _SelectTaskID;
 
         public FrmQueryLog(BLL.IBLLLogic paraBll)
@@ -26,7 +26,7 @@ namespace Component.TimerTask.Monitor
             this.dtp_Start.Value = DateTime.Now.Date;
             this.dtp_End.Value = this.dtp_Start.Value.AddDays(2).AddSeconds(-1);
             _BLL = paraBll;
-            _DataSet = new Component.TimerTask.DAL.TaskDataSet();
+            _DataSet = new Component.TimerTask.DAL.LogDataSet();
 
             InitControls();
         }

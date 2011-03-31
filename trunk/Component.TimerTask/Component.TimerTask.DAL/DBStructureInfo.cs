@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Component.TimerTask.Utility;
+using System.IO;
 
 namespace Component.TimerTask.DAL
 {
@@ -21,7 +22,8 @@ namespace Component.TimerTask.DAL
     /// </summary>
     class DBStructureInfo
     {
-        public static string ConnectionString = string.Format( "Data Source={0}\\timertaskdb.db3",AssemblyHelper.GetAssemblyPath());
+        public static string ConnectionString = string.Format("Data Source={0}", Path.Combine(AssemblyHelper.GetAssemblyPath(), "timertaskdb.db3"));
+        public static string ConnectionString_log = string.Format("Data Source={0}", Path.Combine(AssemblyHelper.GetAssemblyPath(), "timertaskdb_log.db3"));
 
         public static readonly string INIT_DB_SQL_CREATETABLE_TASK = @"CREATE TABLE [PL_TimerTask] (
 [ID] INTEGER  PRIMARY KEY NOT NULL,
@@ -38,7 +40,7 @@ namespace Component.TimerTask.DAL
 );";
 
         public static readonly string INIT_DB_SQL_CREATETABLE_LOG = @"CREATE TABLE [PL_TimerTask_Log] (
-[ID] INTEGER  NOT NULL PRIMARY KEY,
+[ID] INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
 [LogDate] DATE  NULL,
 [TaskID] INTEGER  NULL,
 [TaskName] NVARCHAR2(50)  NULL,

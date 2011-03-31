@@ -471,6 +471,12 @@ namespace Component.TimerTask.DAL.DBUtility
                         parm.Value = (int)paramList[j];
                         coll.Add(parm);
                         break;
+                    case ("System.Int64"):
+                        parm.DbType = DbType.Int64;
+                        parm.ParameterName = paramNames[j];
+                        parm.Value = (Int64)paramList[j];
+                        coll.Add(parm);
+                        break;
 
                     case ("System.Boolean"):
                         parm.DbType = DbType.Boolean;
