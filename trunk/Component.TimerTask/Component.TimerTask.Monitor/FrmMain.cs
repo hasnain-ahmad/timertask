@@ -16,7 +16,7 @@ namespace Component.TimerTask.Monitor
 {
     public partial class FrmMain : Form
     {
-        private IBLLLogic _Bll = BLlFactory.GetBllLogic();
+        private IBLLLogic _Bll = BLLFactory.GetBllLogic();
         private ListViewItem _lastShowTipItem = null;
 
         public FrmMain()
@@ -137,7 +137,7 @@ namespace Component.TimerTask.Monitor
                     this.lbl_State.Text = ProcessState.已经启动.ToString();
 
                     //监视是否需要营救引擎
-                    if (BLlFactory.GetBLLEngineRes().IsNotRecievedLongTime(StaticConfig.TimerTaskEngineIdelSec * 10))
+                    if (BLLFactory.GetBLLEngineRes().IsNotRecievedLongTime(StaticConfig.TimerTaskEngineIdelSec * 10))
                     {
                         ProcessHelper.KillProcess(StaticConfig.STR_ENGINE_PROCESS_NAME);
 
@@ -145,7 +145,7 @@ namespace Component.TimerTask.Monitor
                         log.LogContent = "Engine Heart Time Out,Killed";
                         log.LogType = LogType.EngineRescue;
                         log.TaskID = -1;
-                        BLlFactory.GetBLL().WriteLog(log);
+                        BLLFactory.GetBLL().WriteLog(log);
                     }
                 }
                 InitTaskList();

@@ -47,6 +47,7 @@
     <Compile Include="MessageParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegestAppCfgHelper.cs" />
+    <Compile Include="BLLFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="RegestedApps.xml">

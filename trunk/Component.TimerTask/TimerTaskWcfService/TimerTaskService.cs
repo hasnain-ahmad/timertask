@@ -14,7 +14,7 @@ namespace TimerTaskWcfService
     // 注意: 如果更改此处的类名“IService1”，也必须更新 App.config 中对“IService1”的引用。
     public class TimerTaskService : ITimerTaskService
     {
-        private static IBLLService _BLL = BLlFactory.GetBLL();
+        private static IBLLService _BLL = BLLFactory.GetBLL();
 
         #region Microsoft Demo
         //public string GetData(int value)
