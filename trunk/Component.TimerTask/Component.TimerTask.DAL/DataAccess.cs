@@ -248,9 +248,8 @@ namespace Component.TimerTask.DAL
                 _DataSet.PL_TimerTask_Log.LogDateColumn.ColumnName + ">=datetime('{0}')" + " AND " +
                 _DataSet.PL_TimerTask_Log.LogDateColumn.ColumnName + "<=datetime('{1}')";
             DataTable dt = SqliteHelper.ExecuteDataset(string.Format(sql, paraDateStart.ToString("s"), paraDateEnd.ToString("s"))).Tables[0];
-            //TaskDataSet.PL_TimerTask_LogDataTable table = new TaskDataSet.PL_TimerTask_LogDataTable(dt);
 
-            return dt;// table;
+            return dt;
         }
 
         public System.Data.DataSet GetAllLog()
@@ -264,15 +263,7 @@ namespace Component.TimerTask.DAL
 
             string sql = "SELECT * FROM " + _DataSet.PL_TimerTask_Log.TableName + " WHERE " + _DataSet.PL_TimerTask_Log.TaskIDColumn.ColumnName + "=" + paraTaskId.ToString();
             DataTable dt = SqliteHelper.ExecuteDataset(sql).Tables[0];
-            //TaskDataSet.PL_TimerTask_LogDataTable table = new TaskDataSet.PL_TimerTask_LogDataTable(dt);
-
             return dt;
-            //List<LogEntity> list = new List<LogEntity>();
-            //foreach (TaskDataSet.PL_TimerTask_LogRow row in table.Rows)
-            //{
-            //    list.Add(Mapper.DataMapper.MappingLogEntity(row));
-            //}
-            //return list;
         }
         #endregion
 
@@ -300,7 +291,6 @@ namespace Component.TimerTask.DAL
 
         public void WriteHeartDate()
         {
-            //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             string sql = string.Format("UPDATE PL_TimerTask_Heart SET LogDate = '{0}'", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             SqliteHelper.ExecuteNonQuery(sql);
         }
