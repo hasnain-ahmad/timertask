@@ -38,13 +38,13 @@ namespace Component.TimerTask.BLL.Mapper
             TaskAssembly entity = new TaskAssembly();
             entity.AppFile = paraNode.GetAttribute("dll");
             FileInfo fi = new FileInfo(entity.AppFile);
-            if (fi.Extension.ToLower() == ".exe")
+            if (fi.Extension.ToLower() == ".dll")
             {
-                entity.AssemblyType = AssemblyType.Exe;
+                entity.AssemblyType = AssemblyType.Dll;
             }
             else
             {
-                entity.AssemblyType = AssemblyType.Dll;
+                entity.AssemblyType = AssemblyType.Exe;
             }
             entity.ProtocolClass = paraNode.GetAttribute("class");
             entity.ProtocolNameSpace = paraNode.GetAttribute("namespace");
