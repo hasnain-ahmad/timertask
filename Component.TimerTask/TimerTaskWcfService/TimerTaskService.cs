@@ -9,7 +9,7 @@ using System.Data;
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 
-namespace TimerTaskWcfService
+namespace Component.TimerTask.WcfService
 {
     // 注意: 如果更改此处的类名“IService1”，也必须更新 App.config 中对“IService1”的引用。
     public class TimerTaskService : ITimerTaskService

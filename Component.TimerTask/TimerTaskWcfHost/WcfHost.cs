@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ServiceModel;
 
-namespace TimerTaskWcfHost
+namespace Component.TimerTask.WcfHost
 {
     /// <summary>
     /// Wcf宿主类
@@ -17,7 +17,7 @@ namespace TimerTaskWcfHost
         /// </summary>
         public static void StartWcfService()
         {
-            _host = new ServiceHost(typeof(TimerTaskWcfService.TimerTaskService));
+            _host = new ServiceHost(typeof(Component.TimerTask.WcfService.TimerTaskService));
             _host.Open();
         }
     }

@@ -23,9 +23,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Utility
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Monitor", "Component.TimerTask.Monitor\Component.TimerTask.Monitor.csproj", "{3FC68A9F-EE48-4982-8B1F-284D2187BEBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTaskWcfService", "TimerTaskWcfService\TimerTaskWcfService.csproj", "{93DD24C1-26DF-490E-8177-A3D8C4B3C246}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.WcfService", "TimerTaskWcfService\Component.TimerTask.WcfService.csproj", "{93DD24C1-26DF-490E-8177-A3D8C4B3C246}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerTaskWcfHost", "TimerTaskWcfHost\TimerTaskWcfHost.csproj", "{FCA62CFD-4437-4619-896C-C2AB80F72BD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.WcfHost", "TimerTaskWcfHost\Component.TimerTask.WcfHost.csproj", "{FCA62CFD-4437-4619-896C-C2AB80F72BD9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Component.TimerTask.Config", "Component.TimerTask.Config\Component.TimerTask.Config.csproj", "{0FE91122-470E-4CD8-80F2-C1BDD11B67E6}"
 EndProject
