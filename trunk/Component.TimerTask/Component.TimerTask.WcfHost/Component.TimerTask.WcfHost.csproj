@@ -58,7 +58,7 @@
       <Project>{217ED413-046C-49AF-A1BE-AA65D09D6F29}</Project>
       <Name>Component.TimerTask.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimerTaskWcfService\Component.TimerTask.WcfService.csproj">
+    <ProjectReference Include="..\Component.TimerTask.WcfService\Component.TimerTask.WcfService.csproj">
       <Project>{93DD24C1-26DF-490E-8177-A3D8C4B3C246}</Project>
       <Name>Component.TimerTask.WcfService</Name>
     </ProjectReference>
