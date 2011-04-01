@@ -275,18 +275,23 @@ namespace Component.TimerTask.TaskEngine
                 IWorkingTask task = _TaskList.Find(delegate(IWorkingTask wt) { return wt.Task.TaskEntity.ID == paraTask.ID; });
                 if (task != null)
                 {
-                    task.Task.TaskEntity.Name = paraTask.Name;
-                    task.Task.TaskEntity.DateEnd = paraTask.DateEnd;
-                    task.Task.TaskEntity.DateStart = paraTask.DateStart;
-                    task.Task.TaskEntity.Enable = paraTask.Enable;
-                    task.Task.TaskEntity.ExtraParaStr = paraTask.ExtraParaStr;
-                    task.Task.TaskEntity.RegestesAppName = paraTask.RegestesAppName;
-                    task.Task.TaskEntity.RunSpaceTime = paraTask.RunSpaceTime;
-                    task.Task.TaskEntity.RunSpaceType = paraTask.RunSpaceType;
-                    task.Task.TaskEntity.RunTimeOutSecs = paraTask.RunTimeOutSecs;
+                    task.UpdateTask(paraTask);
+                    //task.Task.TaskEntity.Name = paraTask.Name;
+                    //task.Task.TaskEntity.DateEnd = paraTask.DateEnd;
+                    //task.Task.TaskEntity.DateStart = paraTask.DateStart;
+                    //task.Task.TaskEntity.Enable = paraTask.Enable;
+                    //task.Task.TaskEntity.ExtraParaStr = paraTask.ExtraParaStr;
+                    //task.Task.TaskEntity.RegestesAppName = paraTask.RegestesAppName;
+                    //task.Task.TaskEntity.RunSpaceTime = paraTask.RunSpaceTime;
+                    //task.Task.TaskEntity.RunSpaceType = paraTask.RunSpaceType;
+                    //task.Task.TaskEntity.RunTimeOutSecs = paraTask.RunTimeOutSecs;
 
-                    task.RebuildTaskRunTimeList();
+                    //task.RebuildTaskRunTimeList();
                     Console.WriteLine("更新一条任务：{0}", paraTask.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("需要更新的任务在任务列表中没有({0})", paraTask.ToString());
                 }
 
             }

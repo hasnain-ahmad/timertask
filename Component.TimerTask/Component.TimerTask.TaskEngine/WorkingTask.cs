@@ -145,6 +145,7 @@ namespace Component.TimerTask.TaskEngine
             }
         }
 
+        #region Private Function
 
         /// <summary>
         /// 根据上次运行时间构建时间队列
@@ -194,25 +195,6 @@ namespace Component.TimerTask.TaskEngine
                         i++;
                     }
                     return;
-                    ////
-                    //DateTime dtBuildStart = _LastRunTime.AddMonths(1);
-                    //if (_Task.TaskEntity.DateStart > _LastRunTime) dtBuildStart = _Task.TaskEntity.DateStart;
-                    //int i = 0;
-                    //while (i < 100)//构建100个
-                    //{
-                    //    DateTime dtThis = dtBuildStart.AddMonths(i);
-                    //    if (dtThis <= _Task.TaskEntity.DateEnd)
-                    //    {
-                    //        _RunTimeList.Enqueue(dtThis);
-                    //    }
-                    //    else
-                    //    {
-                    //        _IsTimeQueueEnd = true;
-                    //        break;
-                    //    }
-                    //    i++;
-                    //}
-                    //return;
                 }
                 else
                 {
@@ -242,14 +224,14 @@ namespace Component.TimerTask.TaskEngine
             }
         }
 
-        #region IWorkingTask 成员
+        
 
 
         /// <summary>
         /// 重构构建任务执行的时间列表
         /// [对任务有更新的时候重新构建]
         /// </summary>
-        public void RebuildTaskRunTimeList()
+        private void RebuildTaskRunTimeList()
         {
             //因为是更新，所以需要重新设置状态，后面再去计算
             _RunState = TaskRuningState.Waite;
@@ -263,7 +245,7 @@ namespace Component.TimerTask.TaskEngine
 
         }
 
-        #endregion
+        
 
         /// <summary>
         /// 更新下次执行时间
@@ -281,9 +263,33 @@ namespace Component.TimerTask.TaskEngine
             }
         }
 
-        #region IDisposable 成员
+        #endregion
+
+        #region UpdateTask
 
 
+        /// <summary>
+        /// 更新任务属性
+        /// </summary>
+        /// <param name="taskEntity">The task entity.</param>
+        public void UpdateTask(TaskEntity taskEntity)
+        {
+            this._Task.TaskEntity.Name = taskEntity.Name;
+            this._Task.TaskEntity.DateEnd = taskEntity.DateEnd;
+            this._Task.TaskEntity.DateStart = taskEntity.DateStart;
+            this._Task.TaskEntity.Enable = taskEntity.Enable;
+            this._Task.TaskEntity.ExtraParaStr = taskEntity.ExtraParaStr;
+            this._Task.TaskEntity.RegestesAppName = taskEntity.RegestesAppName;
+            this._Task.TaskEntity.RunSpaceTime = taskEntity.RunSpaceTime;
+            this._Task.TaskEntity.RunSpaceType = taskEntity.RunSpaceType;
+            this._Task.TaskEntity.RunTimeOutSecs = taskEntity.RunTimeOutSecs;
+
+            this.RebuildTaskRunTimeList();
+        }
+
+        #endregion
+
+        #region IDisposeble
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
         /// <see cref="WorkingTask"/> is reclaimed by garbage collection.
@@ -345,7 +351,6 @@ namespace Component.TimerTask.TaskEngine
             //因为我们不希望垃圾回收器再次终结对象，因此需要从终结列表中去除该对象。
             GC.SuppressFinalize(this);
         }
-
         #endregion
     }
 }
