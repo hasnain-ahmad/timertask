@@ -58,9 +58,9 @@
       <Project>{960D1AF7-C3D4-494F-8E03-DB98AC428A19}</Project>
       <Name>Component.TimerTask.Utility</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimerTaskWcfHost\TimerTaskWcfHost.csproj">
+    <ProjectReference Include="..\TimerTaskWcfHost\Component.TimerTask.WcfHost.csproj">
       <Project>{FCA62CFD-4437-4619-896C-C2AB80F72BD9}</Project>
-      <Name>TimerTaskWcfHost</Name>
+      <Name>Component.TimerTask.WcfHost</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

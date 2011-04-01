@@ -82,7 +82,7 @@ namespace Component.TimerTask.TaskManager
                 bool isNeedWcf = StaticConfig.IsNeedWcf;
                 if (isNeedWcf)
                 {
-                    TimerTaskWcfHost.WcfHost.StartWcfService();
+                    Component.TimerTask.WcfHost.WcfHost.StartWcfService();
                     Console.WriteLine("Wcf服务已经启动");
                 }
                 else
