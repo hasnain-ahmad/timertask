@@ -25,37 +25,43 @@ namespace Component.TimerTask.TaskEngine
         DateTime LastRunTime { get; }
 
         /// <summary>
-        /// Gets the next run time.
+        /// 下次运行时间
         /// </summary>
         /// <value>The next run time.</value>
         DateTime NextRunTime { get; }
+        
         /// <summary>
-        /// Notify_s the work complete.
+        /// 通知-任务完成
         /// </summary>
         void Notify_WorkComplete();
+        
         /// <summary>
-        /// Notify_s the work started.
+        /// 通知-任务开始
         /// </summary>
         void Notify_WorkStarted();
+        
         /// <summary>
-        /// Gets the state of the run.
+        /// 任务运行状态
         /// </summary>
         /// <value>The state of the run.</value>
         TaskRuningState RunState { get; }
+        
         /// <summary>
-        /// Gets the task.
+        /// Task
         /// </summary>
         /// <value>The task.</value>
         Task Task { get; }
+        
         /// <summary>
-        /// Gets the worker.
+        /// 工作者
         /// </summary>
         /// <value>The worker.</value>
         IWorker Worker { get; }
+        
         /// <summary>
-        /// 重构构建任务执行的时间列表
-        /// [对任务有更新的时候重新构建]
+        /// 更新任务属性
         /// </summary>
-        void RebuildTaskRunTimeList();
+        /// <param name="taskEntity">The task entity.</param>
+        void UpdateTask(TaskEntity taskEntity);
     }
 }
