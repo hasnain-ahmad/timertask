@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 
@@ -86,16 +87,7 @@ namespace Component.TimerTask.TaskEngine
             _Task = task;
 
             #region 根据任务的不同构造不同的任务执行者
-            if (_Task.TaskAssembly.AssemblyType == AssemblyType.Exe)
-            {
-                _Worker = new Worker_Excutable(this, parabll);
-            }
-            else if (_Task.TaskAssembly.AssemblyType == AssemblyType.Dll)
-            {
-                _Worker = new Worker_Assembly(this, parabll);
-            }
-            else
-                throw new Exception("尚未定义的工作类型,AssemblyType:" + _Task.TaskAssembly.AssemblyType.ToString());
+            this._Worker = Factory.GetWorker(this, parabll, _Task.TaskAssembly.AssemblyType);
             #endregion
 
             _LastRunTime = paraLastRunDate;

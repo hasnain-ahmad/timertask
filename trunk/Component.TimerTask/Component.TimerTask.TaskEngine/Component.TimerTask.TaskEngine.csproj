@@ -37,16 +37,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factory.cs" />
     <Compile Include="ITaskWorkerEngine.cs" />
     <Compile Include="IWorker.cs" />
     <Compile Include="IWorkingTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocketService.cs" />
-    <Compile Include="TaskEngineFactory.cs" />
     <Compile Include="TaskWorkerEngine.cs" />
     <Compile Include="Worker.cs" />
-    <Compile Include="Worker_Assembly.cs" />
-    <Compile Include="Worker_Excutable.cs" />
+    <Compile Include="Workers\Worker_Assembly.cs" />
+    <Compile Include="Workers\Worker_Excutable.cs" />
     <Compile Include="WorkingTask.cs" />
   </ItemGroup>
   <ItemGroup>
