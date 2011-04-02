@@ -38,6 +38,10 @@ namespace Component.TimerTask.TaskEngine
         /// <returns></returns>
         bool Start();
 
+        /// <summary>
+        /// Stops this instance.
+        /// </summary>
+        /// <returns></returns>
         bool Stop();
 
         /// <summary>
