@@ -10,16 +10,17 @@
  * *
  * ********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading;
+
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
-using System.IO;
 using Component.TimerTask.TaskInterface;
-using System.Reflection;
-using System.Collections.Generic;
 
-namespace Component.TimerTask.TaskEngine
+namespace Component.TimerTask.TaskEngine.Workers
 {
     /// <summary>
     /// 执行者：动态库方式

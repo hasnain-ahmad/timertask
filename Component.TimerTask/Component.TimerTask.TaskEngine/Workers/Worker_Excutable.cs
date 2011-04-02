@@ -13,10 +13,11 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+
 using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 
-namespace Component.TimerTask.TaskEngine
+namespace Component.TimerTask.TaskEngine.Workers
 {
     /// <summary>
     /// 执行者：可执行文件方式
