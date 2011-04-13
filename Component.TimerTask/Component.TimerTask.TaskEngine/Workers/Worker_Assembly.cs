@@ -95,7 +95,7 @@ namespace Component.TimerTask.TaskEngine.Workers
                         Assembly abl;
                         List<Assembly> assmlys = new List<Assembly>();
                         assmlys.AddRange(AppDomain.CurrentDomain.GetAssemblies());
-                        abl = assmlys.Find(delegate(Assembly aa) { return aa.FullName.Equals(fi.FullName); });
+                        abl = assmlys.Find(delegate(Assembly aa) { return aa.Location.Equals(fi.FullName); });
                         assmlys = null;
                         if (abl == null)
                         {
