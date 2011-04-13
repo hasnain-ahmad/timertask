@@ -83,7 +83,7 @@ namespace Component.TimerTask.TaskEngine.Workers
                 Console.WriteLine("**************************  Work Start {0} {1}", _WrkTask.Task.TaskEntity.Name, DateTime.Now);
 
                 #region 开始工作
-                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;
+                string destFile = Utility.AssemblyHelper.GetAssemblyPath() + _WrkTask.Task.TaskAssembly.AppFile;    //最好用Path.Combine
                 if (File.Exists(destFile))
                 {
                     FileInfo fi = new FileInfo(destFile);
