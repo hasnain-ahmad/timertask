@@ -1,5 +1,5 @@
 组件说明;
-	Component.TimerTask.BLL
+	Component.TimerTask.BLL.DLL
 		业务逻辑处理类，所有的逻辑接口都封装在这个库中
 		内部用接口：IBLLLogic
 		外部用接口：IBLLService
@@ -11,29 +11,39 @@
 		定时任务管理器引擎
 	Component.TimerTask.TaskManager.EXE
 		定时任务管理器程序（负责加载定时任务引擎）
-	Component.TimerTask.Monitor.DLL
+	Component.TimerTask.Monitor.EXE
 		定时任务监控器（负责监控定时任务管理器程序，并自动启动它），同时也是一个本地的定时任务维护UI，可以增加和维护定时任务。
 	Component.TimerTask.Utility.DLL
 		一些应用类库
+	
 	TimerTaskService.DLL
 		定时任务管理器外部服务接口（WebService），实现了IBLLService中的所有接口。如果外部程序通过远程访问定时任务管理器就使用该服务接口。
+	Component.TimerTask.WcfHost.dll
+		定时任务Wcf接口服务启动组件
+	Component.TimerTask.WcfService.dll
+		定时任务Wcf实现组件
 依赖组件：
 	System.Data.SQLite.dll	数据库引擎
-	timertaskdb.db3		数据库文件，如果没有噢第一次会自动生成，不是必须。
+	timertaskdb.db3			任务数据库文件，如果没有第一次会自动生成，不是必须。
+	timertaskdb_log.db3		日志数据库文件，如果没有第一次会自动生成，不是必须。在比较大的时候可以删除该文件。
 		
 		
 集成说明：
-	所有上面这些组件和程序都要部署在一个目录下，可分两种情况部署：
-		1，访问WebService方式部署，所有这些组件程序放在WebService的Bin目录下
-		2，访问组件方式部署(不需要部署WebService)，引用Compenet.TimerTask.BLL程序集，并获取外部服务接口IBLLService，通过工厂类BLlFactory获得。然后所有的维护接口在在IBLLService中包含。
+	所有上面这些组件和程序都要部署在一个目录下，可分以下情况部署集成：
+		1，WebService方式接口部署，所有这些组件程序放在WebService的Bin目录下。
+		2，DLL组件方式部署(不需要部署WebService)，引用Compenet.TimerTask.BLL程序集，并获取外部服务接口IBLLService，通过工厂类BLlFactory获得。然后所有的维护接口在在IBLLService中包含。
+		3，Wcf方式接口部署，所有组件程序放在一起。
+		4，不通过接口管理，通过任务管理器自带的UI管理，需要运行Component.TimerTask.Monitor.exe
 		
 	配置说明：
 		1，定时任务管理器程序自身需要的配置
-		    	<!--定时任务服务部署的服务器，如果部署的目标机器上只有一个网卡(包括虚拟网卡在内)，则不用配置-->
+		    <!--定时任务服务部署的服务器，如果部署的目标机器上只有一个网卡(包括虚拟网卡在内)，则不用配置-->
 			<add key="SocketIP" value="127.0.0.1"/>
 			<add key="SocketPort" value="8081"/>
 			<!--定时任务管理器空闲时间，根据任务的精确程度和执行频率来定，如果任务周期大，可以稍微大点，如20秒，60秒，如果执行频率或者精度很高，可以设为1秒，2秒-->
 			<add key="TimerTaskEngineIdelSec" value="2"/>
+			<!--是否需要启动Wcf服务（Wcf服务可以提供远程的定时任务管理） True/False，如果只需要运行在FrameWork2.0环境下，将该配置设为False-->
+			<add key="IsNeedWcf" value="False"/>
 		2，访问定时任务管理组件维护接口需要的配置
 			A：如果通过组建方式访问，则需要将配置提升到引用它的程序级别
 			B：如果通过WebService方式访问，则需要将配置写到网站配置中
@@ -43,6 +53,9 @@
 				<add key="SocketPort" value="8081"/>
 		3，外部组件适配方式配置文件
 			RegistedApps.XML
+			
+	其它说明：
+		该程序主要使用了.NET FrameWork2.0框架，如果不用Wcf接口，可以在2.0环境下运行。主要是考虑了对环境的弱依赖。
 			
 			
 
@@ -63,3 +76,6 @@
 外部组件集成注意事项:
 	1:外部组件的执行是通过线程启动,所以要在外部组件的执行方法中捕获异常,否则线程异常会影响定时任务管理器
 	2:外部组件需要是独立的可以被执行的,所依赖的程序集和配置文件必须完整,否则组件运行会有问题.
+
+ 调试说明：
+	该系统是一个比较完备的系统，最简单的调试办法就是将两个主要程序Monitor和TaskManager输出到同一个目录下，即可方便进行调试。
