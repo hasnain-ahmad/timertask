@@ -3,7 +3,7 @@
  * * 文件名称   : StaticConfig.cs
  * * 当前版本   : 1.0.0.1
  * * 作    者   : 吕金明 (lvjm@163.com)
- * * 设计日期   : 2011年2月15日
+ * * 设计日期   : 2011年11月30日
  * * 内容摘要   : 
  * * 修改记录   : 
  * * 日    期       版    本        修改人      修改摘要
@@ -56,11 +56,11 @@ namespace Component.TimerTask.Config
         /// <summary>
         /// 引擎进程名称
         /// </summary>
-        public static string STR_ENGINE_PROCESS_NAME = "Component.TimerTask.TaskManager";
+        public static readonly string STR_ENGINE_PROCESS_NAME = "Component.TimerTask.TaskManager";
 
         /// <summary>
         /// 注册应用程序的XML文件名称
         /// </summary>
-        public static string REGEST_APP_CFG_FILE = "RegistedApps.xml";
+        public static readonly string REGEST_APP_CFG_FILE = "RegistedApps.xml";
     }
 }

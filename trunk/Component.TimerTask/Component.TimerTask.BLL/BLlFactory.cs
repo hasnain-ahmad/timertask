@@ -20,11 +20,12 @@ namespace Component.TimerTask.BLL
     /// </summary>
     public static class BLLFactory
     {
-        private static BLLService _bll;
+        private static BLLService _bll = null;
         private static readonly object objlock = new object();
 
         private static IBLLEngineRescue _IbllEngineRes = null;
         private static readonly object objLockEngionRes = new object();
+
         private static IBLLAppRegistOpt _IbllRegistApp = null;
 
         /// <summary>
@@ -39,10 +40,7 @@ namespace Component.TimerTask.BLL
                 {
                     if (_IbllEngineRes == null)
                     {
-                        lock (objLockEngionRes)
-                        {
-                            _IbllEngineRes = new BLLEngineRescue_DB();
-                        }
+                        _IbllEngineRes = new BLLEngineRescue_DB();
                     }
                 }
             }
@@ -61,10 +59,7 @@ namespace Component.TimerTask.BLL
                 {
                     if (_bll == null)
                     {
-                        lock (objlock)
-                        {
-                            _bll = new BLLService();
-                        }
+                        _bll = new BLLService();
                     }
                 }
             }
@@ -83,10 +78,7 @@ namespace Component.TimerTask.BLL
                 {
                     if (_bll == null)
                     {
-                        lock (objlock)
-                        {
-                            _bll = new BLLService();
-                        }
+                        _bll = new BLLService();
                     }
                 }
             }
@@ -105,10 +97,7 @@ namespace Component.TimerTask.BLL
                 {
                     if (_IbllRegistApp == null)
                     {
-                        lock (objlock)
-                        {
-                            _IbllRegistApp = new BLLAppRegistOpt();
-                        }
+                        _IbllRegistApp = new BLLAppRegistOpt();
                     }
                 }
             }
