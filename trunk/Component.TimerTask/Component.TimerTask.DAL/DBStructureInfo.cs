@@ -70,7 +70,7 @@ namespace Component.TimerTask.DAL
             );";
 
         public static readonly string INIT_DB_SQL_CREATETABLE_CONFIG = @"CREATE TABLE [PL_TimerTask_Config] (
-            [DataKey] INTEGER  NOT NULL PRIMARY KEY,
+            [DataKey] NVARCHAR2(100)  NOT NULL PRIMARY KEY,
             [DataValue] NVARCHAR2(100)  NULL
             );"; 
 

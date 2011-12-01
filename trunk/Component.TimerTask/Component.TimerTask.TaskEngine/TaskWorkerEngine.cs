@@ -153,6 +153,7 @@ namespace Component.TimerTask.TaskEngine
                 _SocketService = new SocketService(this, _IBLLLogic);
                 IPEndPoint listenIp = _SocketService.StartListen(SocketHelper.GetIpEndPoint());
                 _IBLLLogic.SaveConfig("LISTENING_ADDRESS", listenIp.Port.ToString());
+                Console.WriteLine("监听端口: <{0}>",listenIp.Port);
                 //构建TaskList
                 _TaskList = GetWorkingTask();
 
