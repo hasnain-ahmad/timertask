@@ -65,5 +65,19 @@ namespace Component.TimerTask.BLL
         /// <param name="paraLogType">Type of the para log.</param>
         void WriteLog(Int64 paraTaskid, string paraTaskName, string paraContent, Model.Enums.LogType paraLogType);
 
+        /// <summary>
+        /// 保存配置数据
+        /// </summary>
+        /// <param name="paraConfigKey"></param>
+        /// <param name="paraConfigValue"></param>
+        void SaveConfig(string paraConfigKey, string paraConfigValue);
+
+        /// <summary>
+        /// 读取配置数据
+        /// </summary>
+        /// <param name="paraConfigKey"></param>
+        /// <returns></returns>
+        string ReadConfig(string paraConfigKey);
+
     }
 }

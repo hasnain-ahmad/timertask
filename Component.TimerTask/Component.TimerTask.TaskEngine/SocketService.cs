@@ -44,13 +44,14 @@ namespace Component.TimerTask.TaskEngine
             _IBLLLogic = paraBllLogic;
         }
 
-        public void StartListen(IPEndPoint paraPoint)
+        public IPEndPoint StartListen(IPEndPoint paraPoint)
         {
             _Socket = SocketHelper.GetSocketListen(paraPoint);
             ThreadPool.QueueUserWorkItem(new WaitCallback(this.ThreadFuncRecieve));
             //Thread thread = new Thread(new ThreadStart(ThreadFuncRecieve));
             //thread.IsBackground = true;
             //thread.Start();
+            return _Socket.LocalEndPoint as IPEndPoint;
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace Component.TimerTask.TaskEngine
                     recieveSocket.Receive(recieveByte);
                     SocketHelper.Send(recieveSocket, SocketHelper.HANDSHAKE);
                     string recieveContent = Encoding.Default.GetString(recieveByte);
-                    recieveSocket.Close();
+                    SocketHelper.CloseSocket(recieveSocket);
                     
                     //解析取到的消息
                     List<TaskEntity> addedList;

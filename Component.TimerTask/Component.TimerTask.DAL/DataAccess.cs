@@ -67,6 +67,8 @@ namespace Component.TimerTask.DAL
                 SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_LOG);
 
                 SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_HEART);
+
+                SqliteHelper.ExecuteNonQuery(DBStructureInfo.INIT_DB_SQL_CREATETABLE_CONFIG);
                 this.InitHeartTable();
             }
         }
@@ -296,6 +298,33 @@ namespace Component.TimerTask.DAL
         {
             string sql = string.Format("INSERT INTO PL_TimerTask_Heart(LogDate) VALUES('{0}')", DateTime.MinValue.ToString("yyyy-MM-dd hh:mm:ss"));
             SqliteHelper.ExecuteNonQuery(sql);
+        }
+
+        #endregion
+
+        #region IDataAccess 成员
+
+
+        public void SaveConfigValue(string configKey, string configValue)
+        {
+            string sql = string.Format("DELETE FROM PL_TimerTask_Config WHERE DataKey = '{0}'", configKey);
+            SqliteHelper.ExecuteNonQuery(sql);
+            sql = string.Format("INSERT INTO PL_TimerTask_Config(DataKey, DataValue) VALUES('{0}', '{1}')", configKey, configValue);
+            SqliteHelper.ExecuteNonQuery(sql);
+        }
+
+        public string ReadConfigValue(string configKey)
+        {
+            string sql = string.Format("SELECT DataValue FROM PL_TimerTask_Config WHERE DataKey = '{0}'", configKey);
+            DataRow dr = SqliteHelper.ExecuteDataRow(sql);
+            if (dr == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return dr[0].ToString();
+            }
         }
 
         #endregion

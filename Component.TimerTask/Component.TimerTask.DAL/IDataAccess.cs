@@ -153,5 +153,24 @@ namespace Component.TimerTask.DAL
         /// </summary>
         void InitHeartTable();
         #endregion
+
+        #region 端口配置相关
+
+        /// <summary>
+        /// 保存配置数据
+        /// <remarks>如果没有则新建数据</remarks>
+        /// </summary>
+        /// <param name="configKey"></param>
+        /// <param name="configValue"></param>
+        void SaveConfigValue(string configKey, string configValue);
+
+        /// <summary>
+        /// 读取配置数据
+        /// <remarks>如果没有返回空串</remarks>
+        /// </summary>
+        /// <param name="configKey"></param>
+        /// <returns></returns>
+        string ReadConfigValue(string configKey);
+        #endregion
     }
 }

@@ -19,6 +19,7 @@ using Component.TimerTask.Model;
 using Component.TimerTask.Model.Enums;
 using Component.TimerTask.Utility;
 using Component.TimerTask.BLL;
+using System.Net;
 
 namespace Component.TimerTask.TaskEngine
 {
@@ -150,8 +151,8 @@ namespace Component.TimerTask.TaskEngine
 
                 //开始Socket监听
                 _SocketService = new SocketService(this, _IBLLLogic);
-                _SocketService.StartListen(SocketHelper.GetIpEndPoint());
-
+                IPEndPoint listenIp = _SocketService.StartListen(SocketHelper.GetIpEndPoint());
+                _IBLLLogic.SaveConfig("LISTENING_ADDRESS", listenIp.Port.ToString());
                 //构建TaskList
                 _TaskList = GetWorkingTask();
 
