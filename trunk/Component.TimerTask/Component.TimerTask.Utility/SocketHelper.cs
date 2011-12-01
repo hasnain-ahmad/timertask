@@ -188,30 +188,32 @@ namespace Component.TimerTask.Utility
         /// <returns></returns>
         public static IPEndPoint GetIpEndPoint()
         {
-            IPAddress ipAddress;
-            String ipString = ConfigurationManager.AppSettings.Get("SocketIP");
-            if (string.IsNullOrEmpty(ipString))
-            {
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                ipAddress = ipHostInfo.AddressList[0];
-            }
-            else
-            {
-                ipAddress = IPAddress.Parse(ipString);
-            }
+            IPEndPoint ip = new System.Net.IPEndPoint(IPAddress.Parse("127.0.0.1"), 0);
+            return ip;
+            //IPAddress ipAddress;
+            //String ipString = ConfigurationManager.AppSettings.Get("SocketIP");
+            //if (string.IsNullOrEmpty(ipString))
+            //{
+            //    IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+            //    ipAddress = ipHostInfo.AddressList[0];
+            //}
+            //else
+            //{
+            //    ipAddress = IPAddress.Parse(ipString);
+            //}
 
-            int port;
-            String portString = ConfigurationManager.AppSettings.Get("SocketPort");
-            if (string.IsNullOrEmpty(portString))
-            {
-                port = 11001;
-            }
-            else
-            {
-                port = int.Parse(portString);
-            }
-            IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
-            return localEndPoint;
+            //int port;
+            //String portString = ConfigurationManager.AppSettings.Get("SocketPort");
+            //if (string.IsNullOrEmpty(portString))
+            //{
+            //    port = 11001;
+            //}
+            //else
+            //{
+            //    port = int.Parse(portString);
+            //}
+            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
+            //return localEndPoint;
         }
 
         /// <summary>
@@ -222,17 +224,19 @@ namespace Component.TimerTask.Utility
         {
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
+            socket = null;
+            GC.Collect();
         }
     }
 
-    /// <summary>
-    /// 异步传递的状态对象
-    /// </summary>
-    public class StateObject
-    {
-        public Socket workSocket = null;
-        public const int BufferSize = 1024;
-        public byte[] buffer = new byte[BufferSize];
-        public StringBuilder sb = new StringBuilder();
-    }
+    ///// <summary>
+    ///// 异步传递的状态对象
+    ///// </summary>
+    //public class StateObject
+    //{
+    //    public Socket workSocket = null;
+    //    public const int BufferSize = 1024;
+    //    public byte[] buffer = new byte[BufferSize];
+    //    public StringBuilder sb = new StringBuilder();
+    //}
 }

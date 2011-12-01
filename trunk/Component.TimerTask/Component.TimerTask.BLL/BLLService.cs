@@ -65,6 +65,7 @@ namespace Component.TimerTask.BLL
             try
             {
                 IPEndPoint ip = SocketHelper.GetIpEndPoint();
+                ip.Port = Convert.ToInt32(_DataAccess.ReadConfigValue("LISTENING_ADDRESS"));
                 socket = SocketHelper.GetSocket(ip);
 
                 string handshake = SocketHelper.SendMessageGetStr(socket, paraContent);
@@ -528,5 +529,20 @@ namespace Component.TimerTask.BLL
 
         #endregion
 
+
+        #region 配置维护接口
+
+
+        public void SaveConfig(string paraConfigKey, string paraConfigValue)
+        {
+            _DataAccess.SaveConfigValue(paraConfigKey, paraConfigValue);
+        }
+
+        public string ReadConfig(string paraConfigKey)
+        {
+            return _DataAccess.ReadConfigValue(paraConfigKey);
+        }
+
+        #endregion
     }
 }

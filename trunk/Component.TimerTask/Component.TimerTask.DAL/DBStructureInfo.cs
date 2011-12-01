@@ -69,6 +69,11 @@ namespace Component.TimerTask.DAL
             [LogDate] DATE  NULL
             );";
 
+        public static readonly string INIT_DB_SQL_CREATETABLE_CONFIG = @"CREATE TABLE [PL_TimerTask_Config] (
+            [DataKey] INTEGER  NOT NULL PRIMARY KEY,
+            [DataValue] NVARCHAR2(100)  NULL
+            );"; 
+
         public static readonly string DB_SQL_SYSTABS = @"select tbl_name from sqlite_master";
         public static readonly string DB_SQL_SYSTABS_TBCOUNT = @"select COUNT(*) from sqlite_master";
 
